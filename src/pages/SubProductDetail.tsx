@@ -31,9 +31,9 @@ const SubProductDetail = () => {
       category: 'Cages',
       image: '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
       images: [
-        'https://image2url.com/images/1756412931467-33af9eee-62be-4afe-a8ea-81c003d2e073.jpeg',
-        'https://image2url.com/images/1756719762432-0f25b2cf-5814-4b91-b2fe-5808d2a0a5bb.webp',
-        'https://image2url.com/images/1756718975836-faae6350-88e0-4f01-af22-ac0075826d92.webp'
+        '/lovable-uploads/ch1.jpeg',
+        '/lovable-uploads/ch2.webp',
+        '/lovable-uploads/chs2.webp'
       ],
       description: 'Specially designed cage systems for young chicks with optimal spacing, temperature control, and comfort features to ensure healthy growth during the critical early stages.',
       features: [
@@ -46,7 +46,7 @@ const SubProductDetail = () => {
       ],
       usage: [
         'Suitable for 0-6 week old chicks',
-        'Capacity: 30-50 chicks per tier',
+        'Capacity: 15 chicks per tier',
         'Temperature monitoring',
         'Humidity control',
         'Easy access for care',
@@ -62,9 +62,9 @@ const SubProductDetail = () => {
       ],
       specifications: {
         'Age Range': '0-6 weeks',
-        'Capacity': '30-50 chicks/tier',
+        'Capacity': '15 chicks/tier',
         'Material': 'Coated wire mesh',
-        'Warranty': '8 years',
+        'Warranty': '12 years',
         'Installation': 'Complete setup included'
       }
     },
@@ -74,9 +74,9 @@ const SubProductDetail = () => {
       category: 'Cages',
       image: '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
       images: [
-        'https://image2url.com/images/1756413215475-7cee7a07-7def-4a26-8bed-11ed135c7a3b.jpg',
-        'https://image2url.com/images/1756718854195-76abc330-bfe1-4762-bbb2-735813e2cf8e.jpg',
-        'https://image2url.com/images/1756413268975-112a83b5-8f8b-40ad-ace6-51b494881558.jpg'
+        '/lovable-uploads/l3.jpg',
+        '/lovable-uploads/l2.jpg',
+        '/lovable-uploads/l1.jpg'
       ],
       description: 'Professional layer cages designed for maximum egg production and bird welfare with advanced nest boxes, feeding systems, and easy egg collection.',
       features: [
@@ -88,7 +88,7 @@ const SubProductDetail = () => {
         'Manure management'
       ],
       usage: [
-        'Houses 4-8 layers per cage',
+        'Houses 4-6 layers per cage',
         'Maximizes egg production',
         'Easy egg collection',
         'Reduces feed wastage',
@@ -104,10 +104,10 @@ const SubProductDetail = () => {
         'Integrated poultry farms'
       ],
       specifications: {
-        'Capacity': '4-8 layers/cage',
+        'Capacity': '4-6 layers/cage',
         'Material': 'Galvanized wire',
         'Nest Boxes': 'Integrated design',
-        'Warranty': '10 years',
+        'Warranty': '12 years',
         'Egg Collection': 'Automated system'
       }
     },
@@ -118,7 +118,7 @@ const SubProductDetail = () => {
       image: '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
       images: [
         '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
-        'https://image2url.com/images/1756413398125-1ed78a63-a196-47be-b9c9-ede219203e8b.webp',
+        '/lovable-uploads/g1.webp',
         '/lovable-uploads/8ae29c95-16e1-4c4b-995b-1e6ee604111d.png'
       ],
       description: 'Robust grower cages that provide ample space for developing birds with adjustable features to accommodate growth from 6 weeks to maturity.',
@@ -131,7 +131,7 @@ const SubProductDetail = () => {
         'Space efficiency'
       ],
       usage: [
-        'Suitable for 6-20 week birds',
+        'Suitable for 6-8 week birds',
         'Adjustable cage height',
         'Growth monitoring',
         'Feed conversion tracking',
@@ -147,10 +147,10 @@ const SubProductDetail = () => {
         'Integrated operations'
       ],
       specifications: {
-        'Age Range': '6-20 weeks',
-        'Capacity': '15-25 birds/cage',
+        'Age Range': '6-8 weeks',
+        'Capacity': '6-18 birds/cage',
         'Material': 'Heavy-duty galvanized',
-        'Warranty': '12 years',
+        'Warranty': '6 years',
         'Adjustability': 'Growth-adaptive'
       }
     },
@@ -158,11 +158,10 @@ const SubProductDetail = () => {
       id: '1004',
       title: 'Water Nipples',
       category: 'Cage Accessories',
-      image: 'https://image2url.com/images/1756412000861-b97511ad-9904-4186-a473-a1c41fddfabc.webp',
+      image: '/lovable-uploads/n1.jpeg',
       images: [
-        'https://image2url.com/images/1756412000861-b97511ad-9904-4186-a473-a1c41fddfabc.webp',
-        'https://image2url.com/images/1756411779318-d7506b54-000b-4816-ab2c-2b34d21cdc49.jpeg',
-        'https://image2url.com/images/1756718175527-f6305db6-05a5-4ece-9234-c15e62e25f2f.jpg'
+        '/lovable-uploads/n2.jpg',
+        '/lovable-uploads/n3.webp'
       ],
       description: 'Our advanced water nipples feature a 360-degree swivel design, manufactured with precision laser-cut stainless steel and food-grade plastic components. The parts are assembled using high-speed automated assembly lines that ensure a leak-proof seal, capable of handling pressures up to 100 PSI. The design minimizes water waste by up to 40%, and each unit is rigorously pressure-tested to guarantee reliability, making it perfect for high-volume poultry operations.',
       features: [
@@ -201,11 +200,11 @@ const SubProductDetail = () => {
       id: '1005',
       title: 'PVC/GI-Feeders',
       category: 'Cage Accessories',
-      image: '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
+      image: '/lovable-uploads/pv1.webp',
       images: [
-        'https://image2url.com/images/1756411393949-ab90bef3-fed9-48de-b27a-2ce7b6e8bf8e.jpeg',
-        'https://image2url.com/images/1756719320272-79c48274-7236-49d9-966b-d61738edded7.avif',
-        'https://image2url.com/images/1756719411267-591d213a-ec80-4f59-b99c-95c9bb564d7a.webp'
+        '/lovable-uploads/pv1.webp',
+        '/lovable-uploads/pv2.avif',
+        '/lovable-uploads/pv3.jpeg'
       ],
       description: 'Our feeders are crafted using injection molding techniques with UV-stabilized PVC for outstanding durability, even in extreme outdoor conditions. Each feeder undergoes automated extrusion and cutting processes, ensuring precision and uniformity in every piece. The materials are anti-scratch coated and treated with anti-clogging technology. Available in sizes from 10 to 15 feet, they are customizable for various feeding systems, ensuring efficient and effective feed disbursement.',
       features: [
@@ -244,13 +243,13 @@ const SubProductDetail = () => {
       id: '1006',
       title: 'Distribution Pipes',
       category: 'Cage Accessories',
-      image: '/lovable-uploads/8afb721d-0c4b-4523-aa58-c2997a491b54.png',
+      image: '/lovable-uploads/pip1.webp',
       images: [
-        'https://image2url.com/images/1756411631696-d31ff49e-7b0d-437a-ac27-7d8f637723ea.webp',
-        'https://image2url.com/images/1756411570206-4b032d6c-c72e-4c30-8d2a-9d3979edac8a.jpg',
-        'https://image2url.com/images/1756411603207-8edcae55-41ab-4332-8e4f-119193d1c927.webp'
+        '/lovable-uploads/pip1.webp',
+        '/lovable-uploads/pip2.webp',
+        '/lovable-uploads/pip3.jpg'
       ],
-      description: 'Our PVC pipes are engineered with extrusion moulding, using a unique polymer blend for increased flexibility and durability. They are reinforced with UV-resistant additives to handle a wide temperature range from -20°C to 60°C. Each pipe undergoes ultrasonic welding for secure joints, and is tested under high-pressure environments to ensure resistance to bursts. Available in diameters from 20mm to 50mm, our pipes are built for easy integration with various coupling systems.',
+      description: 'Our PVC pipes are engineered with extrusion moulding, using a unique polymer blend for increased flexibility and durability. They are reinforced with UV-resistant additives to handle a wide temperature range from -20°C to 60°C. Each pipe undergoes ultrasonic welding for secure joints, and is tested under high-pressure environments to ensure resistance to bursts. Available in diameters from 20mm to 22mm, our pipes are built for easy integration with various coupling systems.',
       features: [
         'Corrosion resistant coating',
         'Optimal flow design',
@@ -277,7 +276,7 @@ const SubProductDetail = () => {
       ],
       specifications: {
         'Material': 'Galvanized steel/PVC',
-        'Diameter': '25mm to 150mm',
+        'Diameter': '20mm to 22mm',
         'Pressure': 'Up to 200 PSI',
         'Warranty': '15 years',
         'Standards': 'Food-grade certified'
@@ -287,10 +286,10 @@ const SubProductDetail = () => {
       id: '1007',
       title: 'Weld Mesh Panels',
       category: 'Weld Mesh',
-      image: 'https://www.cadischprecisionmeshes.co.uk/images/guides/211.jpg',
+      image: '/lovable-uploads/wmp2.jpeg',
       images: [
-        'https://www.cadischprecisionmeshes.co.uk/images/guides/211.jpg',
-        'https://image2url.com/images/1756718603006-2148b235-fcbd-417f-995d-500e6ea63c61.jpg',
+        '/lovable-uploads/nnnw.jpg',
+        '/lovable-uploads/wmp1.jpg',
         '/lovable-uploads/e1fab63a-52b7-4282-86b5-75c0b4a79b15.png'
       ],
       description: 'SVR is a leader in poultry equipment, delivering precision-engineered cage mesh made from high-grade galvanized steel with a zinc coating from 90 GSM to 275 GSM, ensuring superior corrosion resistance. Our mesh is produced using state-of-the-art automated welding techniques, providing consistent spacing and strength with a tensile strength of up to 500 N/mm². Utilizing CNC-cutting & controlled bending machines, we achieve flawless angles and shapes, ensuring easy installation and long-lasting stability in a variety of climates.',
@@ -319,22 +318,22 @@ const SubProductDetail = () => {
         'Agricultural operations'
       ],
       specifications: {
-        'Wire Gauge': '2.5-6mm',
+        'Wire Gauge': '2-6mm',
         'Mesh Size': '25x25mm to 100x100mm',
         'Material': 'Galvanized steel',
-        'Warranty': '8 years',
-        'Coating': 'Hot-dip galvanized'
+        'Warranty': '12 years',
+        'Coating': 'Tata 275 GSM'
       }
     },
     '1008': {
       id: '1008',
       title: 'Chain Link Fencing',
       category: 'Weld Mesh',
-      image: 'https://www.cadischprecisionmeshes.co.uk/images/guides/211.jpg',
+      image: '/lovable-uploads/cl1.jpg',
       images: [
-        'https://image2url.com/images/1756718674672-18b61b8a-b355-431d-b29d-a51df0ad2070.jpg',
-        'https://image2url.com/images/1756412398063-d7b892c6-b545-4cdf-bbb2-7d973198b7ce.webp',
-        'https://image2url.com/images/1756412425318-d1635325-f750-4ebe-8928-4cc8c91ecba6.webp'
+        '/lovable-uploads/cl1.jpg',
+        '/lovable-uploads/cl2.webp',
+        '/lovable-uploads/cl3.webp'
       ],
       description: 'Chain Link Fencing also popularly known as Galvanized Chain Link Fence are Rust Proof with Silver Finish, manufactured from Heavy Coated Hot Dip Galvanized GI Wires with minimum from 90 to max of 275 gsm Zinc Coating',
       features: [
@@ -374,11 +373,11 @@ const SubProductDetail = () => {
       id: '2001',
       title: 'Rooter Feed Trolley',
       category: 'Feed Trolley',
-      image: 'https://image2url.com/images/1756717371699-2be5326b-54f6-4012-b2be-81231d416a89.png',
+      image: '/lovable-uploads/rft1.jpg',
       images: [
-        'https://image2url.com/images/1756717317930-5d171128-870a-4554-9f15-3ed0877eda1f.jpg',
-        'https://image2url.com/images/1756544678430-081e341a-1b57-42c2-b4ca-163738421601.jpg',
-        'https://image2url.com/images/1756544819802-5bd1b828-8e95-4375-addb-65238519e35a.jpg'
+        '/lovable-uploads/rft1.jpg',
+        '/lovable-uploads/rtf2.jpg',
+        '/lovable-uploads/rtf3.jpg'
       ],
       description: 'The system is very accurate and maintains a uniform flow fans (Aluminum rooter) in rooters are made of hard aluminum material and can be operated electrically & manually Auger system with silos are installed outside the shed by which feed wastage can be controlled less man power ,feeding can be done within 10 minutes.',
       features: [
@@ -409,8 +408,8 @@ const SubProductDetail = () => {
         'Capacity': '500-2000 kg',
         'Mobility': 'Motorized system',
         'Control': 'Automated dispensing',
-        'Warranty': '3 years',
-        'Operation': 'Battery powered'
+        'Warranty': '8 years',
+        'Operation': 'Battery powered with 3 phase and 2 phase options'
       }
     },
     '2002': {
@@ -419,8 +418,8 @@ const SubProductDetail = () => {
       category: 'Feed Trolley',
       image: '/lovable-uploads/d7703451-5a3e-42ab-8566-1c44f16fdeca.png',
       images: [
-        'https://image2url.com/images/1756545203150-136b49aa-177d-4494-aeec-e40ab4238f29.jpg',
-        'https://image2url.com/images/1756545233797-95433c30-3911-4eea-a9d3-4b196f1a7f7d.jpg',
+        '/lovable-uploads/gt1.jpg',
+        '/lovable-uploads/gt2.jpg',
       ],
       description: 'The system is very accurate and maintains feed in uniform level from starting to ending of shed and can be operated electrically & manually ,feed saving is very high compared to rooter trolley.',
       features: [
@@ -461,9 +460,9 @@ const SubProductDetail = () => {
       category: 'Feed Plants',
       image: '/lovable-uploads/8da81a5b-ee76-447b-bcda-9e3ae3c66350.png',
       images: [
-        'https://image2url.com/images/1756727297611-60225ba7-e51b-4ef3-a961-919595537a4c.jpg',
-        '/lovable-uploads/e6c1c0a4-2f52-437f-84d7-2104e8b0cc91.png',
-        '/lovable-uploads/f2c1441c-8630-47f7-a4cc-284e064d2ee3.png'
+        '/lovable-uploads/fmp1.jpg',
+        '/lovable-uploads/fmp2.jpg',
+        '/lovable-uploads/fmp3.jpg'
       ],
       description: 'This feed plant is designed to produce feed efficiently and economically for small-scale poultry farming operations Capacity of this plant Ranges from 500 kg/hr to 2 tons/hr, suitable for small to medium poultry terms As it occupies minimal space while ensuring optimal performance. This plant uses-energy-efficient motors and equipment to reduce operational costs.\n This plant consists of full-screen grinder which is used to crush raw materials like com, wheat soybeans, and other grains into fine particles Ensures uniform particle Size for better feed digestibility.\n Weighing System uses electronic for accurate measurement of ingredients Ensures precise feed formulation for balanced poultry nutrition.',
       features: [
@@ -509,11 +508,11 @@ const SubProductDetail = () => {
       id: '2004',
       title: 'Full Screen Grinder',
       category: 'Feed Plants',
-      image: 'https://image2url.com/images/1756052616063-ef8f22ca-a041-46d5-8cc3-e1f3523bf34f.jpg',
+      image: '/lovable-uploads/fsg1.jpg',
       images: [
-        'https://image2url.com/images/1756543454084-439558c9-2955-43ff-a369-3fb9ab166487.jpg',
-        'https://image2url.com/images/1756543419745-dc9d6ab2-01bc-4bb6-a202-d78e43ecd9f5.jpg',
-        'https://image2url.com/images/1756543498678-097ad69b-9869-413e-9713-ead18083fd1a.jpg'
+        '/lovable-uploads/fsg1.jpg',
+        '/lovable-uploads/fsg2.jpg',
+        '/lovable-uploads/fsg3.jpg'
       ],
       description: 'A full-screen grinder features an 85% screening area, significantly larger than the 50% found in half-screen grinders This design effectively addresses various fine and coarse grinding challenges Additionally, it is widely used in cattle feed production. Our full-screen grinders, with capacities ranging from 1 ton hour to 12 tons/hour and beyond, come with several advanced features that make them a preferred choice in the industry',
       features: [
@@ -554,9 +553,9 @@ const SubProductDetail = () => {
       category: 'Feed Plants',
       image: '/lovable-uploads/8da81a5b-ee76-447b-bcda-9e3ae3c66350.png',
       images: [
-        'https://image2url.com/images/1756545513458-1ac748f3-a057-43b2-a83d-e9add2d3ee8b.jpg',
-        'https://image2url.com/images/1756545574764-4463bb38-613c-43e3-8ef6-e2159edf7fa8.jpg',
-        'https://image2url.com/images/1756545605169-88e0c93d-fdd0-400b-9554-e207dc5b0999.jpg'
+        '/lovable-uploads/wb1.jpg',
+        '/lovable-uploads/web2.jpg',
+        '/lovable-uploads/web3.jpg'
       ],
       description: 'Weighing bins operate either electronically or mechanically, with electronic systems being on the more modern and preferred option. Electronic Weigh Bins Featuring electronic scales suspended by load cells, these bins convert force into measurable electrical signals for accurate and reliable weight measurements They are low maintenance and highly precise Electronic weighing bins are available in various configurations, depending the type of batch plant/feed plant.',
       features: [
@@ -597,9 +596,9 @@ const SubProductDetail = () => {
       category: 'Feed Plants',
       image: '/lovable-uploads/8da81a5b-ee76-447b-bcda-9e3ae3c66350.png',
       images: [
-        'https://image2url.com/images/1756545685590-96ee8a53-cc84-4ec6-aaca-124b5663e0cf.jpg',
-        'https://image2url.com/images/1756545725732-885f8889-4759-4591-9a26-5c34f3090422.jpg',
-        'https://image2url.com/images/1756545766560-c33027f0-7cfe-4dce-8ea5-03fe4806e2bb.jpg'
+        '/lovable-uploads/fm1.jpg',
+        '/lovable-uploads/fm2.jpg',
+        '/lovable-uploads/fm3.jpg'
       ],
       description: 'Ribbon Mixers A U-shaped horizontal trough with helical ribbons on a central shaft Ribbons move materials in opposing directions to achieve a uniform mix, A uniform blend. Paddle Mixers A horizontal cylindrical shell with paddles mounted on a central shaft Paddles lift and drop materials to create a uniform mix Both mixers are available in various sizes and capacities, ranging from 500 kg/batch to 5000 kg/batch and beyond, to suit different production needs',
       features: [
@@ -677,7 +676,8 @@ const SubProductDetail = () => {
         state: { 
           selectedProduct: productData.title,
           selectedCategory: productData.category,
-          fromProductPage: true
+          fromProductPage: true,
+          product: product
         },
         replace: false
       });
@@ -708,11 +708,6 @@ const SubProductDetail = () => {
     console.log("Get Quote button clicked for product:", product?.title);
     handleNavigateToContact();
   };
-  navigate('/contact', { 
-    state: { 
-      product: product
-    },
-  });
 
   if (!product) {
     return (

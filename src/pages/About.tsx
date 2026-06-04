@@ -1,350 +1,330 @@
+import { motion, useInView } from 'framer-motion';
+import { Award, Users, Package, Headphones, Building, Target, Heart, Lightbulb, Sprout, CheckCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
-import { motion } from 'framer-motion';
-import { Award, Users, Package, Headphones, Building, Target, Heart, Lightbulb, Sprout } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { useEffect } from 'react';
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+    {children}
+  </p>
+);
+
+const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
+  <section className="bg-[#1a1a2e] py-14">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="flex items-center gap-2 text-white/40 text-xs mb-4">
+        <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
+        <span>/</span>
+        <span className="text-white/70">{title}</span>
+      </div>
+      <motion.h1
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-3xl sm:text-4xl font-black text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      <p className="text-white/50 text-[15px] max-w-xl">{subtitle}</p>
+    </div>
+  </section>
+);
 
 const About = () => {
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, []);
+
+  const statsRef  = useRef<HTMLDivElement>(null);
+  const statsVisible = useInView(statsRef, { once: true, margin: '-60px' });
+
   const stats = [
-    { icon: Award, value: '40+', label: 'Years Experience' },
-    { icon: Users, value: '5000+', label: 'Happy Customers' },
-    { icon: Package, value: '50+', label: 'Product Range' },
+    { icon: Award,      value: '40+',  label: 'Years of Experience' },
+    { icon: Users,      value: '500+', label: 'Happy Clients' },
+    { icon: Package,    value: '50+',  label: 'Product Lines' },
     { icon: Headphones, value: '24/7', label: 'Support Available' },
   ];
-    useEffect(() => {
-    window.scrollTo({top:0, behavior:'smooth'});
-  }, []);
+
   const values = [
-    { 
-      icon: Award, 
-      title: 'Quality First', 
-      description: 'We never compromise on the quality of our products and services' 
-    },
-    { 
-      icon: Lightbulb, 
-      title: 'Innovation', 
-      description: 'Constantly evolving with the latest technology and farming practices' 
-    },
-    { 
-      icon: Heart, 
-      title: 'Customer Focus', 
-      description: 'Your success is our success - we put customers at the heart of everything' 
-    },
-    { 
-      icon: Sprout, 
-      title: 'Sustainability', 
-      description: 'Committed to environmentally responsible farming solutions' 
-    },
+    { icon: Award,     title: 'Quality First',    description: 'We never compromise on the quality of our products and services.' },
+    { icon: Lightbulb, title: 'Innovation',        description: 'Constantly evolving with the latest technology and farming practices.' },
+    { icon: Heart,     title: 'Customer Focus',    description: 'Your success is our success — customers are at the heart of everything.' },
+    { icon: Sprout,    title: 'Sustainability',    description: 'Committed to environmentally responsible farming solutions.' },
+  ];
+
+  const pillars = [
+    { icon: Building, title: 'Who We Are',    content: 'SVR Poultry Equipments is a leading manufacturer and supplier of high-quality poultry equipment, serving farmers across India and internationally with innovative solutions that enhance productivity and profitability.' },
+    { icon: Target,   title: 'Our Mission',   content: 'To revolutionize poultry farming through cutting-edge technology and sustainable practices, making modern farming accessible and profitable for farmers of all scales.' },
+    { icon: Award,    title: 'Why Choose SVR', content: 'With 40+ years of experience, quality products, competitive pricing, and excellent customer service, we\'re your ideal partner for all poultry equipment needs and ongoing support.' },
+  ];
+
+  const equipment = [
+    { title: 'Laser Machine',                  description: 'High-precision fiber laser cutting with advanced control systems for superior cutting quality.',           image: '/lovable-uploads/lasermachine.jpg' },
+    { title: 'Bending Machine',                description: 'Professional hydraulic press brake with precision tooling for accurate bending and forming.',              image: '/lovable-uploads/2.jpg' },
+    { title: 'CNC Lathe Machine',              description: 'Computer-controlled lathe delivering exceptional precision in turning and machining operations.',           image: '/lovable-uploads/3.webp' },
+    { title: 'Laser Machine HSG',              description: 'Advanced laser cutting with high-speed processing capabilities for industrial-scale applications.',         image: '/lovable-uploads/4.png' },
+    { title: 'Bending Machine AccurPress',     description: 'Heavy-duty press brake designed for high-volume production with consistent accuracy.',                     image: '/lovable-uploads/5.jpg' },
+    { title: 'Automatic Weldmesh Machine',     description: 'Fully automated welding system producing high-quality mesh products with exceptional consistency.',         image: '/lovable-uploads/6.jpg' },
+    { title: 'TCM-220-WITH-TUBE-AUTOLOADING Machine',     description: 'Fully automatic wire cutting and stripping system designed for high-volume cable processing, offering precision, speed, and reduced manual handling thanks to its tube autoloading feature.',         image: '/lovable-uploads/TCM-220-WITH-TUBE-AUTOLOADING.22.png' },
   ];
 
   const team = [
-    { 
-      name: 'Mr.D. Venkateshwar Reddy', 
-      experience: '',
-      icon: Users
-    },
-    { 
-      name: 'Mr.D. Jagadeshwar Reddy', 
-      experience: '',
-      icon: Users
-    },
-    { 
-      name: 'Mr.A. Srinivas Reddy', 
-      experience: '',
-      icon: Users
-    },
+    { name: 'Mr. D. Venkateshwar Reddy'},
+    { name: 'Mr. D. Jagadeshwar Reddy'},
+    { name: 'Mr. A. Srinivas Reddy'},
+  ];
+
+  const team2 = [
+    { name: 'Mr. D. Maheshwarao Reddy'},
+    { name: 'Mr. D. Aditya Reddy'},
   ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-6 bg-gradient-to-br from-primary/10 to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl font-bold text-gray-900 mb-4"
-          >
-            About SVR Poultry Equipments
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            Your trusted partner in modern poultry farming solutions since the early '80s
-          </motion.p>
+
+      {/* ─── Page Banner ─────────────────────────────────── */}
+      <PageBanner
+        title="About Us"
+        subtitle="Your trusted partner in modern poultry farming solutions since 1984."
+      />
+
+      {/* ─── Company Story ───────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <SectionLabel>Our Story</SectionLabel>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
+                Four Decades of Poultry<br />Engineering Innovation
+              </h2>
+              <p className="text-gray-600 text-[15px] leading-relaxed mb-5">
+                Sri Venkata Ramana Engineering Works was established in the early '80s.
+                In the early 2000's, SVR Poultry Equipment Manufacturing was set up
+                separately in Hyderabad with a fully pledged manufacturing facility
+                and a modern CAD-equipped design office.
+              </p>
+              <p className="text-gray-600 text-[15px] leading-relaxed mb-5">
+                Our machine and fabrication shop, along with a complete team of
+                engineers, technocrats, and professionals, is capable of designing,
+                manufacturing, and commissioning fully automated feed milling plants
+                up to 200 tons per day capacity.
+              </p>
+              <p className="text-gray-600 text-[15px] leading-relaxed">
+                With 150+ direct and indirect employees, we have extensive product range
+                aligned with the latest technology — from Auto Feeding Machines and Auger
+                Systems to Feed Storage Bins, Silos, Auto Batching and complete Feed Plants.
+                We serve clients all over India and export to Angola, Ghana, Oman, and beyond.
+              </p>
+            </motion.div>
+
+            {/* Pillars */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="space-y-5"
+            >
+              {pillars.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="flex gap-5 p-6 border border-gray-100 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-md bg-red-50 flex items-center justify-center">
+                    <p.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-[15px] mb-2">{p.title}</h3>
+                    <p className="text-gray-500 text-[13px] leading-relaxed">{p.content}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Company Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <div className="max-w-5xl mx-auto text-left">
-              <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                Sri Venkata Ramana Engineering Works was established in the early '80s. In the early 2000's SVR Poultry Equipment Manufacturing was set up separately in Hyderabad. We have a fully pledged manufacturing facility and a modern CAD-equipped design office, a well-equipped machine and fabrication shop, and a complete team of engineers, technocrats, and professionals, capable of designing, manufacturing, and fully automated feed milling plants, up to 200 tons per day capacity. we have employees of about 150 members, directly and indirectly. Overall, we have 40+ years of experience in the field of manufacturing different machines utilized in the poultry industry. We have an extensive product range with technology in line with the latest. The product range includes R&D products, apart from a wide capacity spectrum feed, Auto Feeding Machines, Auger systems, Feed storage bins, Feed transportation, silos, Auto batching, and Feed plants. We have clients all over India and also, we export our equipment to other foreign countries like Angola, Ghana, etc.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-primary to-primary/80 rounded-3xl p-12 md:p-16 text-white text-center mb-12 relative overflow-hidden shadow-2xl ring-1 ring-primary/30"
-          >
-            <h2 className="text-4xl font-bold mb-6">Transforming Poultry Farming</h2>
-            <p className="text-xl max-w-3xl mx-auto leading-relaxed">
-              With over a  40+ years of experience, we've helped thousands of farmers 
-              achieve success through innovative equipment solutions
+      {/* ─── Stats Row ───────────────────────────────────── */}
+      <section ref={statsRef} className="py-16 bg-gray-50 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={statsVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center mx-auto mb-4">
+                  <s.icon className="w-6 h-6 text-[hsl(4,82%,42%)]" />
+                </div>
+                <p className="text-3xl font-black text-gray-900 mb-1">{s.value}</p>
+                <p className="text-xs uppercase tracking-[0.12em] text-gray-500 font-medium">{s.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Premium Equipment ────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12">
+            <SectionLabel>Our Facility</SectionLabel>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Premium Manufacturing Equipment</h2>
+            <p className="text-gray-500 text-[15px] max-w-2xl leading-relaxed">
+              State-of-the-art machinery and fabrication solutions engineered for excellence and precision.
             </p>
-            
-            {/* Background decoration */}
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(15)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-3 h-3 bg-white/10 rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.3, 0.8, 0.3],
-                  }}
-                  transition={{
-                    duration: 4 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
+          </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {stats.map((stat, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {equipment.map((eq, i) => (
               <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
+                key={eq.title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.05 }}
-                className="group"
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group rounded-lg overflow-hidden border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-250"
               >
-                <Card className="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-0 rounded-2xl overflow-hidden">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
-                      <stat.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-primary mb-2">{stat.value}</h3>
-                    <p className="text-gray-600 font-medium">{stat.label}</p>
-                  </CardContent>
-                </Card>
+                <div className="aspect-video overflow-hidden bg-gray-100">
+                  <img
+                    src={eq.image}
+                    alt={eq.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-semibold text-gray-900 text-[15px] mb-2">{eq.title}</h3>
+                  <p className="text-gray-500 text-[13px] leading-relaxed">{eq.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Company Info Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            {[
-              {
-                icon: Building,
-                title: 'Who We Are',
-                content: 'SVR Poultry Equipments is a leading manufacturer and supplier of high-quality poultry equipment, serving farmers across the region with innovative solutions that enhance productivity and profitability.'
-              },
-              {
-                icon: Target,
-                title: 'Our Mission',
-                content: 'To revolutionize poultry farming through cutting-edge technology and sustainable practices, making modern farming accessible and profitable for farmers of all scales.'
-              },
-              {
-                icon: Award,
-                title: 'Why Choose SVR',
-                content: 'With years of experience, quality products, competitive pricing, and excellent customer service, we\'re your ideal partner for all poultry equipment needs and ongoing support.'
-              }
-            ].map((item, index) => (
+      {/* ─── Core Values ─────────────────────────────────── */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <SectionLabel>What Drives Us</SectionLabel>
+            <h2 className="text-3xl font-bold text-gray-900">Our Core Values</h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((v, i) => (
               <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
+                key={v.title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="group"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-white p-7 rounded-lg border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
               >
-                <Card className="h-full bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-0 rounded-2xl">
-                  <CardContent className="p-8 text-left">
-                    <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/80 rounded-3xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <item.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{item.content}</p>
-                  </CardContent>
-                </Card>
+                <div className="w-10 h-10 rounded-md bg-red-50 flex items-center justify-center mb-5">
+                  <v.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-[15px] mb-3">{v.title}</h3>
+                <p className="text-gray-500 text-[13px] leading-relaxed">{v.description}</p>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Our Premium Equipment Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 font-bold text-black bg-white/10 px-6 py-4 max-w-xl mx-auto rounded-2xl shadow-lg border-b-4 border-primary">Our Premium Equipment</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 ">
-              State-of-the-art machinery and fabrication solutions engineered for excellence and precision
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
-            {[
-              {
-                title: "Laser Machine",
-                description: "High-precision fiber laser cutting machine with advanced control systems for superior cutting quality and efficiency.",
-                image: "https://5.imimg.com/data5/SELLER/Default/2022/1/DT/QF/YE/74914063/2.jpg"
-              },
-              {
-                title: "Bending Machine",
-                description: "Professional hydraulic press brake with precision tooling for accurate bending and forming operations.",
-                image: "https://www.hindustanhydraulics.com/images/hindustan-hydraulics_india_cnc-hydraulic-press-brake_falcon-griffon_series.jpg"
-              },
-              {
-                title: "CNC Lathe Machine",
-                description: "Computer-controlled lathe machine delivering exceptional precision in turning and machining operations.",
-                image: "https://jyoti.co.in/wp-content/uploads/2021/11/dx-200-3.webp"
-              },
-              {
-                title: "Laser Machine HSG",
-                description: "Advanced laser cutting system with high-speed processing capabilities for industrial applications.",
-                image: "https://cdn.prod.website-files.com/5fcbb3ec902179357be44b2d/660506e77e2dde4390212180_202306-G4020V%20V1.png"
-              },
-              {
-                title: "Bending Machine AccurPress",
-                description: "Heavy-duty press brake machine designed for high-volume production with consistent accuracy.",
-                image: "https://northsouthmachinery.com/wp-content/uploads/2019/01/ACCEL-U.jpg"
-              },
-              {
-                title: "Automatic Weldmesh Machine",
-                description: "Fully automated welding system for producing high-quality mesh products with exceptional consistency.",
-                image: "https://image2url.com/images/1756209660351-733a6426-e78f-4311-8d74-f0878ace72e3.jpg"
-              }
-            ].map((equipment, index) => (
-              <motion.div
-                key={equipment.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group"
-              >
-                <Card className="h-full bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-0 rounded-2xl overflow-hidden">
-                  <div className="aspect-video overflow-hidden rounded-t-2xl">
-                    <img 
-                      src={equipment.image} 
-                      alt={equipment.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{equipment.title}</h3>
-                    <p className="text-gray-600 leading-relaxed text-sm">{equipment.description}</p>
-                    <div className="mt-4 w-12 h-1 bg-gradient-to-r from-green-600 to-green-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+      {/* ─── Leadership ──────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <SectionLabel>Leadership</SectionLabel>
+            <h2 className="text-3xl font-bold text-gray-900">Meet Our Founders</h2>
           </div>
 
-          {/* Core Values */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 font-bold text-black bg-white/10 px-6 py-4 max-w-md mx-auto rounded-2xl shadow-lg border-b-4 border-primary">Our Core Values</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group"
-              >
-                <Card className="h-full bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-0 rounded-2xl">
-                  <CardContent className="p-8 text-left">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
-                      <value.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">{value.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Team Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 font-bold text-black bg-white/10 px-6 py-4 max-w-md mx-auto rounded-2xl shadow-lg border-b-4 border-primary">Meet Our Pioneers</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-8">
-            {team.map((member, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {team.map((member, i) => (
               <motion.div
                 key={member.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group"
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="text-center p-8 border border-gray-100 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200"
               >
-                <Card className="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-0 rounded-2xl">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-24 h-24 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <member.icon className="w-12 h-12 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 whitespace-nowrap">{member.name}</h3>
-                    <p className="text-gray-600 text-sm">{member.experience}</p>
-                  </CardContent>
-                </Card>
+                <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-[14px] mb-1">{member.name}</h3>
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
+
+ {/* ─── Leadership ──────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <SectionLabel>Leadership</SectionLabel>
+            <h2 className="text-3xl font-bold text-gray-900">Meet Our Next Generation</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {team2.map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="text-center p-8 border border-gray-100 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+              >
+                <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-[14px] mb-1">{member.name}</h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* ─── CTA ─────────────────────────────────────────── */}
+      <section className="py-20 bg-[#1a1a2e]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+          <p className="text-[hsl(38,92%,60%)] text-xs font-bold uppercase tracking-[0.2em] mb-4">Work With Us</p>
+          <h2 className="text-3xl font-black text-white mb-5">Ready to Modernize Your Farm?</h2>
+          <p className="text-white/60 text-[15px] max-w-lg mx-auto mb-9">
+            Contact our team for a free consultation and equipment recommendation tailored to your farm's needs.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-sm rounded-md transition-colors"
+            >
+              Get in Touch
+            </Link>
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 hover:border-white/40 text-white font-semibold text-sm rounded-md transition-colors"
+            >
+              View Products
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };

@@ -1,580 +1,459 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useLocation, Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { MapPin, Phone, Mail, Clock, X, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, ChevronDown, X, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { motion } from 'framer-motion';
 
+// ─── Shared Page Banner ──────────────────────────────────────────────────────
+const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
+  <section className="bg-[#1a1a2e] py-14">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="flex items-center gap-2 text-white/40 text-xs mb-4">
+        <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
+        <span>/</span>
+        <span className="text-white/70">{title}</span>
+      </div>
+      <motion.h1
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-3xl sm:text-4xl font-black text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      <p className="text-white/50 text-[15px] max-w-xl">{subtitle}</p>
+    </div>
+  </section>
+);
+
+// ─── Form field wrapper ──────────────────────────────────────────────────────
+const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
+  <div>
+    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">
+      {label} {required && <span className="text-[hsl(4,82%,42%)]">*</span>}
+    </label>
+    {children}
+  </div>
+);
+
+const inputClass =
+  'w-full px-3.5 py-2.5 text-[14px] text-gray-900 bg-white border border-gray-200 rounded-md outline-none transition-all duration-150 focus:border-[hsl(4,82%,42%)] focus:ring-2 focus:ring-[hsl(4,82%,42%)]/10 placeholder:text-gray-400';
+
+// ─── Main ────────────────────────────────────────────────────────────────────
 const Contact = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showConstructionPopup, setShowConstructionPopup] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSubmitting, setIsSubmitting]   = useState(false);
+  const [submitted, setSubmitted]         = useState(false);
+  const [currentSlide, setCurrentSlide]   = useState(0);
+  const [showPopup, setShowPopup]         = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedSubProduct, setSelectedSubProduct] = useState(''); 
+  const [selectedProduct, setSelectedProduct]   = useState('');
+  const [selectedSubProduct, setSelectedSubProduct] = useState('');
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: '', email: '', phone: '', message: '',
   });
 
-  // Product categories with their respective products
-  const productCategories = {
-    'Cage Systems': ['Chicks Cage Systems', 'Layers', 'Growers'],
-    'Cage Accessories': ['Water Nipples', 'PVC/GI Feeders', 'Pipes'],
-    'Weld Mesh': ['Welded Mesh', 'Chain Link'],
-    'Feed Trolley': ['Rooter Feed', 'Garata Feed'],
-    'Feed Plant': [
-      'Feed Manufacturing Plants',
-      'Full Screen Grinder',
-      'Weighing Bins',
-      'Feed Mixers',
-      'Auto Batching System'
-    ],
-    'Feed Storage': ['Flat Bottom Silos', 'Hopper Bottom Silos'],
-    'Feed Transportation': ['Tractor Tanker', 'Bulk Feed Tanker']
+  const productCategories: Record<string, string[]> = {
+    'Cage Systems':       ['Chicks Cage Systems', 'Layers', 'Growers'],
+    'Cage Accessories':   ['Water Nipples', 'PVC/GI Feeders', 'Pipes'],
+    'Weld Mesh':          ['Welded Mesh', 'Chain Link'],
+    'Feed Trolley':       ['Rooter Feed', 'Garata Feed'],
+    'Feed Plant':         ['Feed Manufacturing Plants', 'Full Screen Grinder', 'Weighing Bins', 'Feed Mixers', 'Auto Batching System'],
+    'Feed Storage':       ['Flat Bottom Silos', 'Hopper Bottom Silos'],
+    'Feed Transportation':['Tractor Tanker', 'Bulk Feed Tanker'],
   };
 
+  // Pre-fill from navigation state
   useEffect(() => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    
-    const handleNavigationState = () => {
-      if (!location.state) {
-        console.log('No navigation state found');
-        return;
-      }
-
-      console.log('Received navigation state:', location.state);
-      
-      const { selectedProduct ,product, selectedCategory } = location.state;
-
-      console.log(selectedProduct, product, selectedCategory);  
-      
-      // Handle case where product object is passed
-      if (product) {
-        console.log('Processing product from navigation state:', product);
-        const category = product.category || selectedCategory || 'General Inquiry';
-        const title = product.title || selectedProduct || 'Product';
-        setSelectedSubProduct(location?.state?.selectedProduct) ;  
-        setSelectedCategory(category);
-        setSelectedProduct(title);
-        
-        setFormData(prev => ({
-          ...prev,
-          subject: `Enquiry about ${title}`,
-          message: `I would like to know more about ${title}.`
-        }));
-      } 
-      // Handle case where only selectedProduct/selectedCategory are passed
-      else if (selectedProduct || selectedCategory) {
-        console.log('Processing selected product/category from navigation state');
-        setSelectedCategory(selectedCategory || '');
-        setSelectedProduct(selectedProduct || '');
-        
-        if (selectedProduct) {
-          setFormData(prev => ({
-            ...prev,
-            subject: `Enquiry about ${selectedProduct}`,
-            message: `I would like to know more about ${selectedProduct}.`
-          }));
-        }
-      }
-      
-      // Clear the state to prevent issues on refresh
-      window.history.replaceState({}, document.title);
-    };
-    
-    handleNavigationState();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!location.state) return;
+    const { selectedProduct: sp, product, selectedCategory: sc } = location.state as any;
+    if (product) {
+      setSelectedCategory(product.category || sc || '');
+      setSelectedProduct(product.title || sp || '');
+      setSelectedSubProduct(sp || '');
+      setFormData(prev => ({ ...prev, message: `I would like to know more about ${product.title || sp}.` }));
+    } else if (sp || sc) {
+      setSelectedCategory(sc || '');
+      setSelectedProduct(sp || '');
+      if (sp) setFormData(prev => ({ ...prev, message: `I would like to know more about ${sp}.` }));
+    }
+    window.history.replaceState({}, document.title);
   }, [location.state]);
 
-  // console.log("se",location.state.selectedProduct)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  useEffect(() => {
-    window.scrollTo({top:0, behavior:'smooth'});
-  }, []);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      alert("Message sent successfully! We'll get back to you soon.");
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
+      const { error } = await supabase.from('contact_inquiries').insert([{
+        created_at: new Date().toISOString(),
+        email: formData.email,
+        message: formData.message,
+        name: formData.name,
+        phone: formData.phone,
+        product_category: selectedCategory,
+        product_name: selectedProduct || selectedSubProduct,
+        read_status: false,
+      }]);
+      if (error) throw error;
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '' });
       setSelectedCategory('');
       setSelectedProduct('');
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      alert("Error sending message. Please try again later.");
+    } catch (err: any) {
+      alert(`Error: ${err.message || 'Please try again.'}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleCategoryChange = (e) => {
-    const category = e.target.value;
-    setSelectedCategory(category);
-    setSelectedProduct('');
-    setFormData({
-      ...formData,
-      subject: ''
-    });
-  };
-
-  const handleProductChange = (e) => {
-    const product = e.target.value;
-    setSelectedProduct(product);
-    setFormData({
-      ...formData,
-      subject: product
-    });
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % 2);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + 2) % 2);
-  };
-
   const locations = [
-    {
-      id: 1,
-      title: "Hyderabad - Head Office",
-      address: "Turkayamjal, Telangana",
-      phone: "+91 8886645122",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://ik.imagekit.io/xu7akp4g0/Screenshot%202025-07-27%20224725.png?updatedAt=1753638224876",
-      mapUrl: "https://www.google.com/maps/place/Svr+Poultry+Equipments/@17.2808662,78.5893317,15z/data=!4m6!3m5!1s0x3bcba112c855de81:0x482d54417d723ba0!8m2!3d17.2809183!4d78.5893481!16s%2Fg%2F11gbfk433d?hl=en-US&entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
-      gradient: "from-green-400 to-blue-600"
-    },
-    {
-      id: 2,
-      title: "Hyderabad - (Unit-2)",
-      address: "Maheswaram Industrial area, Telangana 501359",
-      phone: "+91 8886645122",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://ik.imagekit.io/xu7akp4g0/WhatsApp%20Image%202025-07-27%20at%2022.57.52_b3255cad.jpg?updatedAt=1753637596413",
-      mapUrl: "https://www.google.com/maps/place/SVR+Poultry+Equipments+(unit-2)/@17.1633926,78.4618567,16.5z/data=!4m6!3m5!1s0x3bcbbb003c02e303:0xa1faa9ba44030e3f!8m2!3d17.162705!4d78.4626264!16s%2Fg%2F11ww938fy2?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D",
-      gradient: "from-purple-400 to-orange-600"
-    },
-    {
-      id: 3,
-      title: "Hyderabad - (Unit-3)",
-      address: "Gudoor, Telangana",
-      phone: "+91 8886645123",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://ik.imagekit.io/xu7akp4g0/Screenshot%202025-07-27%20230857.png?updatedAt=1753638581135",
-      mapUrl: null,
-      gradient: "from-blue-400 to-purple-600"
-    },
-    {
-      id: 4,
-      title: "Bangalore",
-      address: "Bangalore, Karnataka",
-      phone: "+91 8886645122",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      mapUrl: null,
-      gradient: "from-red-400 to-pink-600"
-    },
-    {
-      id: 5,
-      title: "Andhra Pradesh",
-      address: "Andhra Pradesh, India",
-      phone: "+91 8886645122",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://image2url.com/images/1756796700667-a3ff70dd-5a6c-4e73-91d8-52ce4ec760a0.jpg",
-      mapUrl: null,
-      gradient: "from-teal-400 to-cyan-600"
-    },
-    {
-      id: 6,
-      title: "Mumbai - Maharashtra",
-      address: "Mumbai, Maharashtra",
-      phone: "+91 8886645122",
-      email: "svrpoultryequipments@gmail.com",
-      image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
-      mapUrl: null,
-      gradient: "from-indigo-400 to-purple-600"
-    }
+    { id: 1, title: 'Head Office',    subtitle: 'Hyderabad', address: 'Tukkuguda Plastic Park, Telangana 501359',                                              phone: '+91 8886645122', image: 'https://ik.imagekit.io/xu7akp4g0/WhatsApp%20Image%202025-07-27%20at%2022.57.52_b3255cad.jpg?updatedAt=1753637596413', mapUrl: 'https://www.google.com/maps/place/SVR+Poultry+Equipments+(unit-2)/@17.1633926,78.4618567' },
+    { id: 2, title: 'Fabrication 1',  subtitle: 'Hyderabad', address: 'Turkayamjal, Telangana',                                                                phone: '+91 8886645122', image: 'https://ik.imagekit.io/xu7akp4g0/Screenshot%202025-07-27%20224725.png?updatedAt=1753638224876',            mapUrl: 'https://www.google.com/maps/place/Svr+Poultry+Equipments/@17.2808662,78.5893317' },
+    { id: 3, title: 'Fabrication 2',  subtitle: 'Hyderabad', address: 'Rachloor, Telangana',                                                                   phone: '+91 8886645123', image: 'https://ik.imagekit.io/xu7akp4g0/Screenshot%202025-07-27%20230857.png?updatedAt=1753638581135',            mapUrl: null },
+    { id: 4, title: 'Branch Office 1', subtitle: 'Karimnagar', address: 'Gundapalli Village, Ganneruvaram Mandal, Karimnagar, Telangana',                      phone: '+91 8886645122', image: '/lovable-uploads/bo1.png',                                                                                    mapUrl: null },
+    { id: 5, title: 'Branch Office 2', subtitle: 'Karnataka',  address: 'Hanekal cross, Challakere TQ, Chitradurga District, Karnataka',                       phone: '+91 8886645122', image: '/lovable-uploads/bo2.png',                                                                                    mapUrl: null },
+    { id: 6, title: 'Branch Office 3', subtitle: 'Andhra Pradesh', address: 'Plot no. 35, Veerapanenigudem, Gannavaram, Krishna District, Andhra Pradesh',    phone: '+91 8886645122', image: '/lovable-uploads/bo3.png',                                                                                    mapUrl: null },
   ];
 
-  console.log(productCategories[selectedCategory])
+  const slides = [locations.slice(0, 3), locations.slice(3, 6)];
 
-  const renderLocationCard = (loc, index) => (
-    <div
-      key={loc.id}
-      className="relative bg-white/90 rounded-lg shadow-lg overflow-hidden w-full max-w-[350px] flex-shrink-0"
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
-      <div className={`relative h-48 bg-gradient-to-br ${loc.gradient}`}>
-        <img
-          src={loc.image}
-          alt={loc.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="absolute top-4 left-4 text-white">
-          <h3 className="text-lg font-bold">{loc.title}</h3>
-        </div>
-      </div>
-      <div className="p-6">
-        <div className="flex items-center mb-3">
-          <MapPin className="w-4 h-4 text-green-800 mr-2 flex-shrink-0" />
-          <span className="text-sm text-gray-600">{loc.address}</span>
-        </div>
-        <div className="flex items-center mb-3">
-          <Phone className="w-4 h-4 text-green-800 mr-2 flex-shrink-0" />
-          <span className="text-sm text-gray-600">{loc.phone}</span>
-        </div>
-        <div className="flex items-center mb-6">
-          <Mail className="w-4 h-4 text-green-800 mr-2 flex-shrink-0" />
-          <span className="text-sm text-gray-600 break-all">{loc.email}</span>
-        </div>
-        <Button
-          onClick={() => {
-            if (loc.mapUrl) {
-              window.open(loc.mapUrl, '_blank');
-            } else {
-              setShowConstructionPopup(true);
-            }
-          }}
-          className="w-full rounded-lg"
-        >
-          View on Map
-        </Button>
-      </div>
-    </div>
-  );
+  const quickContact = [
+    { icon: Phone, label: 'Call Us', value: '+91 88866 45122', href: 'tel:+918886645122' },
+    { icon: Mail,  label: 'Email Us', value: 'svrpoultryequipments@gmail.com', href: 'mailto:svrpoultryequipments@gmail.com' },
+    { icon: Clock, label: 'Business Hours', value: 'Mon – Sat: 9 AM – 6 PM', href: null },
+  ];
 
   return (
-    <div className="relative min-h-screen">
-      {/* Background */}
-      <div
-        className="fixed inset-0 -z-10"
-        style={{
-          backgroundImage: `url("https://image2url.com/images/1756743164118-8bd22ac2-a02c-46f4-8a1e-e3ef40c7fcb2.png")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      </div>
+    <div className="min-h-screen bg-white">
 
-      {/* Content Container */}
-      <div className="relative">
-        {/* Hero Section */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-5xl font-bold text-white mb-4 ">
-              Contact Us
-            </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto">
-              Get in touch with us for all your poultry equipment needs
-            </p>
-          </div>
-        </section>
+      {/* ─── Banner ──────────────────────────────────────── */}
+      <PageBanner
+        title="Contact Us"
+        subtitle="Get in touch with our team for quotes, support, or general enquiries."
+      />
 
-        {/* Contact Form Section */}
-        <section className="py-8">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-center opacity-100 transform translate-y-0 transition-all duration-800">
-              <Card className="shadow-2xl border-0 rounded-2xl overflow-hidden w-full max-w-2xl">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Get in touch</h3>
-                  <div onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="name" className="text-gray-700 font-medium">Name *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="mt-2 rounded-lg border-gray-200 focus:border-primary/90 focus:ring-primary/90"
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email" className="text-gray-700 font-medium">Email *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="mt-2 rounded-lg border-gray-200 focus:border-primary/90 focus:ring-primary/90"
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="phone" className="text-gray-700 font-medium">Phone</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="mt-2 rounded-lg border-gray-200 focus:border-primary/90 focus:ring-primary/90"
-                          placeholder="+91 XXXXX XXXXX"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="category" className="text-gray-700 font-medium">Product Category *</Label>
-                        <div className="relative">
-                          <select
-                            id="category"
-                            name="category"
-                            required
-                            aria-label="Product Category"
-                            value={selectedCategory}
-                            onChange={handleCategoryChange}
-                            className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-primary/90 focus:ring-2 focus:ring-primary/90 focus:ring-opacity-20 outline-none transition-all duration-200 appearance-none pr-8"
-                          >
-                            <option value="" disabled>Select a category</option>
-                            {Object.keys(productCategories).map((category) => (
-                              <option key={category} value={category}>{category}</option>
-                            ))}
-                          </select>
-                          <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none mt-1" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Product Selection - Only show when category is selected */}
-                    {selectedCategory && (
-                      <div className="animate-in slide-in-from-top duration-300">
-                        <Label htmlFor="product" className="text-gray-700 font-medium">Select Product *</Label>
-                        <div className="relative">
-                          <select
-                            id="product"
-                            name="product"
-                            required
-                            aria-label="Product"
-                            value={selectedSubProduct || selectedProduct || location?.state?.selectedProduct || 'Not found'}
-                            onChange={handleProductChange}
-                            className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/90 focus:ring-opacity-20 outline-none transition-all duration-200 appearance-none pr-8"
-                          >
-                            {console.log(selectedSubProduct,"satish nadipalli", location?.state?.selectedProduct)}
-                            <option value="" disabled>Select a product</option>
-                            {
-                              location?.state?.selectedProduct ? 
-                              <option key={location?.state?.selectedProduct} value={location?.state?.selectedProduct}>{location?.state?.selectedProduct}</option>
-                              :
-                              productCategories[selectedCategory]?.map(product => (
-                              <option key={product} value={product}>{product}</option>
-                            ))
-                            }
-                          </select>
-                          <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none mt-1" />
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Subject field - auto-filled when product is selected, or manual entry if pre-filled */}
-                    {(formData.subject && !selectedProduct) && (
-                      <div>
-                        <Label htmlFor="subject" className="text-gray-700 font-medium">Your product *</Label>
-                        <Input
-                          id="subject"
-                          name="subject"
-                          type="text"
-                          required
-                          value={formData.subject}
-                          onChange={handleChange}
-                          className="mt-2 rounded-lg border-gray-200 focus:border-primary/90 focus:ring-primary/90"
-                          placeholder="How can we help?"
-                        />
-                      </div>
-                    )}
-
-                    <div>
-                      <Label htmlFor="message" className="text-gray-700 font-medium">Message *</Label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg focus:border-primary/90 focus:ring-2 focus:ring-primary/90 focus:ring-opacity-20 outline-none transition-all duration-200"
-                        placeholder="Tell us about your requirements..."
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary/90 rounded-lg py-3 font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
-                    >
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Locations Carousel Section */}
-        <section className="py-12 bg-white/10 backdrop-blur-sm mx-6 my-8 rounded-2xl">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 opacity-100 transform translate-y-0 transition-all duration-800">
-              <div className="inline-block">
-                <h2 className="text-4xl font-bold text-black mb-4 bg-white px-8 py-4 rounded-2xl shadow-lg border-b-4 border-transition-colors border-primary transition-colors duration-300">
-                  Visit Our Locations
-                </h2>
-              </div>
-              <p className="text-white/80 text-lg mt-6">
-                Find us across multiple cities to serve you better
-              </p>
-            </div>
-
-            {/* Carousel Container */}
-            <div className="relative">
-              {/* Navigation Arrows */}
-              <Button
-                onClick={prevSlide}
-                className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/95 hover:bg-white shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110 border-2 border-white/20 ${
-                  currentSlide === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl'
-                }`}
-                disabled={currentSlide === 0}
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-700" />
-              </Button>
-              
-              <Button
-                onClick={nextSlide}
-                className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/95 hover:bg-white shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110 border-2 border-white/20 ${
-                  currentSlide === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl'
-                }`}
-                disabled={currentSlide === 1}
-              >
-                <ChevronRight className="w-6 h-6 text-gray-700" />
-              </Button>
-
-              {/* Cards Container */}
-              <div className="overflow-hidden mx-16">
-                <div className="relative">
-                  {/* Slide 1 - First 3 cards */}
-                  <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center transition-all duration-600 ${
-                    currentSlide === 0 ? 'opacity-100 transform translate-x-0 scale-100' : 'opacity-0 transform -translate-x-12 scale-95 absolute inset-0 pointer-events-none'
-                  }`}>
-                    {locations.slice(0, 3).map((loc, index) => renderLocationCard(loc, index))}
-                  </div>
-
-                  {/* Slide 2 - Last 3 cards */}
-                  <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center transition-all duration-600 ${
-                    currentSlide === 1 ? 'opacity-100 transform translate-x-0 scale-100' : 'opacity-0 transform translate-x-12 scale-95 absolute inset-0 pointer-events-none'
-                  }`}>
-                    {locations.slice(3, 6).map((loc, index) => renderLocationCard(loc, index))}
-                  </div>
+      {/* ─── Quick contact strip ─────────────────────────── */}
+      <section className="bg-gray-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+            {quickContact.map((item) => (
+              <div key={item.label} className="flex items-center gap-4 py-5 px-4">
+                <div className="w-9 h-9 rounded-md bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-4 h-4 text-[hsl(4,82%,42%)]" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-0.5">{item.label}</p>
+                  {item.href ? (
+                    <a href={item.href} className="text-[14px] font-medium text-gray-900 hover:text-[hsl(4,82%,42%)] transition-colors">
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className="text-[14px] font-medium text-gray-900">{item.value}</p>
+                  )}
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              {/* Slide Indicators */}
-              <div className="flex justify-center mt-8 space-x-3">
-                {[0, 1].map((slide) => (
-                  <Button
-                    key={slide}
-                    onClick={() => setCurrentSlide(slide)}
-                    className={`w-4 h-4 rounded-full p-0 transition-all duration-300 hover:scale-125 ${
-                      currentSlide === slide 
-                        ? 'bg-white shadow-lg' 
-                        : 'bg-white/40 hover:bg-white/60'
-                    }`}
-                  />
+      {/* ─── Form + Map row ──────────────────────────────── */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            {/* ── Contact Form ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Enquiry Form</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
+
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center py-16 text-center border border-gray-100 rounded-lg bg-gray-50">
+                  <CheckCircle2 className="w-12 h-12 text-[hsl(4,82%,42%)] mb-4" />
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Message Sent!</h3>
+                  <p className="text-gray-500 text-[14px] mb-6">We'll get back to you within 24 hours.</p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="text-[hsl(4,82%,42%)] text-sm font-semibold hover:underline"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <Field label="Full Name" required>
+                      <input id="name" name="name" type="text" required value={formData.name} onChange={handleChange} className={inputClass} placeholder="John Doe" />
+                    </Field>
+                    <Field label="Email Address" required>
+                      <input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} className={inputClass} placeholder="john@example.com" />
+                    </Field>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <Field label="Phone Number">
+                      <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} className={inputClass} placeholder="+91 XXXXX XXXXX" />
+                    </Field>
+                    <Field label="Product Category" required>
+                      <div className="relative">
+                        <select
+                          id="category"
+                          required
+                          value={selectedCategory}
+                          onChange={(e) => { setSelectedCategory(e.target.value); setSelectedProduct(''); }}
+                          className={`${inputClass} appearance-none pr-9`}
+                        >
+                          <option value="" disabled>Select category</option>
+                          {Object.keys(productCategories).map((c) => (
+                            <option key={c} value={c}>{c}</option>
+                          ))}
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                      </div>
+                    </Field>
+                  </div>
+
+                  {selectedCategory && (
+                    <Field label="Select Product" required>
+                      <div className="relative">
+                        <select
+                          id="product"
+                          required
+                          value={selectedSubProduct || selectedProduct}
+                          onChange={(e) => setSelectedProduct(e.target.value)}
+                          className={`${inputClass} appearance-none pr-9`}
+                        >
+                          <option value="" disabled>Select a product</option>
+                          {productCategories[selectedCategory]?.map((p) => (
+                            <option key={p} value={p}>{p}</option>
+                          ))}
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                      </div>
+                    </Field>
+                  )}
+
+                  <Field label="Message" required>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={`${inputClass} resize-none`}
+                      placeholder="Describe your requirements..."
+                    />
+                  </Field>
+
+                  <button
+                    type="submit"
+                    id="contact-submit-btn"
+                    disabled={isSubmitting}
+                    className="w-full py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] disabled:opacity-60 text-white font-semibold text-[14px] rounded-md transition-colors duration-150 shadow-sm"
+                  >
+                    {isSubmitting ? 'Sending…' : 'Send Message'}
+                  </button>
+                </form>
+              )}
+            </motion.div>
+
+            {/* ── Info panel ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="space-y-6"
+            >
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Head Office</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Main Location</h2>
+              </div>
+
+              {/* Map embed */}
+              <div className="rounded-lg overflow-hidden border border-gray-200 aspect-video shadow-sm">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3812.1541677307946!2d78.46004610987043!3d17.16271010917248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbbb003c02e303%3A0xa1faa9ba44030e3f!2sSVR%20Poultry%20Equipments%20(unit-2)!5e0!3m2!1sen!2sin!4v1780564866710!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="SVR Poultry Equipments Location"
+                />
+              </div>
+
+              {/* Contact details */}
+              <div className="grid grid-cols-1 gap-4">
+                {[
+                  { icon: MapPin, title: 'Address', text: 'Turkayamjal Municipality, Hyderabad, Telangana 501510, India' },
+                  { icon: Phone,  title: 'Phone',   text: '+91 88866 45122', href: 'tel:+918886645122' },
+                  { icon: Mail,   title: 'Email',   text: 'svrpoultryequipments@gmail.com', href: 'mailto:svrpoultryequipments@gmail.com' },
+                  { icon: Clock,  title: 'Hours',   text: 'Monday – Saturday: 9:00 AM – 6:00 PM' },
+                ].map((d) => (
+                  <div key={d.title} className="flex gap-3.5 p-4 border border-gray-100 rounded-lg">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-red-50 flex items-center justify-center mt-0.5">
+                      <d.icon className="w-4 h-4 text-[hsl(4,82%,42%)]" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400 mb-1">{d.title}</p>
+                      {(d as any).href ? (
+                        <a href={(d as any).href} className="text-[14px] text-gray-700 hover:text-[hsl(4,82%,42%)] transition-colors font-medium">
+                          {d.text}
+                        </a>
+                      ) : (
+                        <p className="text-[14px] text-gray-700 leading-snug">{d.text}</p>
+                      )}
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-            {/* Contact Information Summary */}
-            <div className="mt-12 text-center opacity-100 transform translate-y-0 transition-all duration-800 delay-400">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-                <div className="inline-block mb-6">
-                  <h3 className="text-2xl font-bold text-black bg-white/90 px-6 py-3 rounded-2xl shadow-lg border-b-4 border-transition-colors border-primary transition-colors duration-300">
-                    Quick Contact
-                  </h3>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <a 
-                    href="tel:+918886645122" 
-                    className="flex flex-col items-center group hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  >
-                    <Phone className="w-8 h-8 text-white mb-3 group-hover:text-primary/90 transition-colors duration-300" />
-                    <h4 className="text-white font-semibold mb-2 group-hover:text-primary/90 transition-colors duration-300">Call Us</h4>
-                    <p className="text-white/80 group-hover:text-white transition-colors duration-300 hover:underline">+91 8886645122</p>
-                  </a>
-                  <a 
-                    href="mailto:svrpoultryequipments@gmail.com" 
-                    className="flex flex-col items-center group hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  >
-                    <Mail className="w-8 h-8 text-white mb-3 group-hover:text-red-500 transition-colors duration-300" />
-                    <h4 className="text-white font-semibold mb-2 group-hover:text-red-500 transition-colors duration-300">Email Us</h4>
-                    <p className="text-white/80 group-hover:text-white transition-colors duration-300 hover:underline break-all">svrpoultryequipments@gmail.com</p>
-                  </a>
-                  <div className="flex flex-col items-center">
-                    <Clock className="w-8 h-8 text-white mb-3" />
-                    <h4 className="text-white font-semibold mb-2">Business Hours</h4>
-                    <p className="text-white/80">Mon - Sat: 9AM - 6PM</p>
-                  </div>
-                </div>
-              </div>
+      {/* ─── Locations Section ────────────────────────────── */}
+      <section className="py-16 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-2">Our Offices</p>
+              <h2 className="text-2xl font-bold text-gray-900">Visit Our Locations</h2>
+            </div>
+            {/* Prev/Next */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentSlide((p) => Math.max(p - 1, 0))}
+                disabled={currentSlide === 0}
+                className="w-9 h-9 rounded-md border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setCurrentSlide((p) => Math.min(p + 1, slides.length - 1))}
+                disabled={currentSlide === slides.length - 1}
+                className="w-9 h-9 rounded-md border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
-        </section>
-      </div>
 
-      {/* Under Construction Popup */}
-      {showConstructionPopup && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-100 transition-opacity duration-300"
-          onClick={() => setShowConstructionPopup(false)}
+          {/* Cards */}
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-400 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {slides.map((slide, si) => (
+                <div key={si} className="min-w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {slide.map((loc, i) => (
+                    <motion.div
+                      key={loc.id}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.45, delay: i * 0.08 }}
+                      className="bg-white rounded-lg border border-gray-100 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all duration-200 group"
+                    >
+                      {/* Image */}
+                      <div className="aspect-video overflow-hidden bg-gray-100">
+                        <img
+                          src={loc.image}
+                          alt={loc.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
+                          loading="lazy"
+                        />
+                      </div>
+                      {/* Content */}
+                      <div className="p-5">
+                        <div className="mb-3">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[hsl(4,82%,42%)] mb-0.5">{loc.subtitle}</p>
+                          <h3 className="font-semibold text-gray-900 text-[15px]">{loc.title}</h3>
+                        </div>
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-start gap-2 text-[13px] text-gray-500">
+                            <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-gray-400" />
+                            {loc.address}
+                          </div>
+                          <div className="flex items-center gap-2 text-[13px] text-gray-500">
+                            <Phone className="w-3.5 h-3.5 flex-shrink-0 text-gray-400" />
+                            {loc.phone}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => loc.mapUrl ? window.open(loc.mapUrl, '_blank') : setShowPopup(true)}
+                          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[hsl(4,82%,42%)] hover:gap-2 transition-all duration-150"
+                        >
+                          {loc.mapUrl ? (
+                            <><ExternalLink className="w-3.5 h-3.5" /> View on Map</>
+                          ) : (
+                            <><MapPin className="w-3.5 h-3.5" /> Get Directions</>
+                          )}
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Slide dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                className={`h-1.5 rounded-full transition-all duration-200 ${
+                  currentSlide === i ? 'w-6 bg-[hsl(4,82%,42%)]' : 'w-1.5 bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Under Construction Modal ────────────────────── */}
+      {showPopup && (
+        <div
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowPopup(false)}
         >
-          <div className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl transform scale-100 transition-all duration-500"
+          <div
+            className="bg-white rounded-lg p-8 max-w-sm w-full text-center shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="text-6xl mb-4">🚧</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Under Construction</h3>
-            <p className="text-gray-600 mb-6">
-              This location is currently under development. We'll be operational here soon!
+            <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-4">
+              <span className="text-xl">🚧</span>
+            </div>
+            <h3 className="font-bold text-gray-900 text-lg mb-2">Coming Soon</h3>
+            <p className="text-gray-500 text-[14px] mb-6 leading-relaxed">
+              This location's map is under development. Please call us for directions.
             </p>
-            <Button
-              onClick={() => setShowConstructionPopup(false)}
-              className="bg-primary hover:bg-primary/90"
+            <button
+              onClick={() => setShowPopup(false)}
+              className="px-6 py-2.5 bg-[hsl(4,82%,42%)] text-white text-sm font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors"
             >
-              <X className="w-4 h-4 mr-2" />
               Close
-            </Button>
+            </button>
           </div>
         </div>
       )}

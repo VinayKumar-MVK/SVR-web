@@ -1,621 +1,214 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 
-interface TimelineEvent {
-  year: number;
-  era: string;
-  title: string;
-  description: string;
-  eraNumber: number;
-}
+// ─── Timeline data ─────────────────────────────────────────────────────────
+const events = [
+  { year: 1984, title: 'Founded', subtitle: 'Sri Venkata Ramana Engineering Works', description: 'Started as a general engineering firm in Hyderabad, building the foundational expertise that would define four decades of excellence.', phase: 'Origins' },
+  { year: 1990, title: 'First Steps in Poultry', subtitle: 'Entering the Industry', description: 'Manufactured our first poultry-specific equipment — small-scale feeders and drinkers — marking a decisive pivot into agri-equipment.', phase: 'Origins' },
+  { year: 1995, title: 'Manufacturing Scale-Up', subtitle: 'Expanded Capabilities', description: 'Introduced semi-automated feeding systems and significantly expanded fabrication capacity to meet growing demand.', phase: 'Origins' },
+  { year: 2000, title: 'SVR Poultry Emerged', subtitle: 'New Identity, New Focus', description: 'Incorporated as SVR Poultry Equipment Manufacturing — a dedicated brand focused entirely on poultry automation solutions.', phase: 'Growth' },
+  { year: 2005, title: 'Full Automation', subtitle: 'Industry Transformation', description: 'Launched fully automated feeding and watering systems that transformed how poultry farms across India operate.', phase: 'Growth' },
+  { year: 2010, title: 'Auger Systems', subtitle: 'Innovation in Feed Tech', description: 'Pioneered auger-based feeding systems for broiler and layer farms, setting new efficiency benchmarks for the industry.', phase: 'Growth' },
+  { year: 2015, title: 'Official Incorporation', subtitle: 'January 24th', description: 'SVR Poultry Equipments officially incorporated, establishing a formal corporate structure to support rapid expansion.', phase: 'Leadership' },
+  { year: 2020, title: 'Full Product Portfolio', subtitle: 'End-to-End Solutions', description: 'Completed our product ecosystem: Auto Feeders, Auger Systems, Bulk Feeders, Silos, and complete Feed Mill Plants.', phase: 'Leadership' },
+  { year: 2025, title: 'Pan-India & Global', subtitle: '500+ Clients, 20+ Countries', description: 'Serving 500+ clients across India and exporting to Africa, the Middle East, and South Asia — a true global manufacturer.', phase: 'Leadership' },
+];
 
-const SVRTimelineInnovation = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCard, setShowCard] = useState(false);
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, color: string}>>([]);
-  const timelineRef = useRef<HTMLDivElement>(null);
+const phaseColors: Record<string, string> = {
+  Origins:    'hsl(4,82%,42%)',
+  Growth:     'hsl(218,60%,52%)',
+  Leadership: 'hsl(38,85%,50%)',
+};
 
-  const timelineData: TimelineEvent[] = [
-    {
-      year: 1984,
-      era: 'Foundations & Early Innovation',
-      title: 'Established as Sri Venkata Ramana Engineering Works',
-      description: 'Focused on general engineering solutions, laying the foundation for future poultry innovations.',
-      eraNumber: 1,
-    },
-    {
-      year: 1990,
-      era: 'Foundations & Early Innovation',
-      title: 'Entered Poultry Equipment Industry',
-      description: "Began manufacturing small-scale feeders and drinkers, marking the company's first step into poultry.",
-      eraNumber: 1,
-    },
-    {
-      year: 1995,
-      era: 'Foundations & Early Innovation',
-      title: 'Expanded Manufacturing Capabilities',
-      description: 'Introduced manual and semi-automated feeding systems, moving closer to poultry automation.',
-      eraNumber: 1,
-    },
-    {
-      year: 2000,
-      era: 'Foundations & Early Innovation',
-      title: 'Transitioned to SVR Poultry Equipment Manufacturing',
-      description: 'Specialized fully in poultry automation under the new identity.',
-      eraNumber: 1,
-    },
-    {
-      year: 2005,
-      era: 'Foundations & Early Innovation',
-      title: 'Launched Fully Automated Systems',
-      description: 'Introduced fully automated feeding and watering systems, transforming poultry farm operations.',
-      eraNumber: 1,
-    },
-    {
-      year: 2010,
-      era: 'Foundations & Early Innovation',
-      title: 'Developed Auger-Based Feeding Systems',
-      description: 'Boosted efficiency for poultry farmers with automatic auger-based feeding technology.',
-      eraNumber: 1,
-    },
-    {
-      year: 2015,
-      era: 'Expansion & Market Leadership',
-      title: 'Official Incorporation',
-      description: 'SVR Poultry Equipments officially incorporated on January 24th.',
-      eraNumber: 2,
-    },
-    {
-      year: 2020,
-      era: 'Expansion & Market Leadership',
-      title: 'Expanded Product Line',
-      description: 'Added Auto Feeding Machines, Auger Systems, and Bulk Feeders to the portfolio.',
-      eraNumber: 2,
-    },
-    {
-      year: 2025,
-      era: 'Expansion & Market Leadership',
-      title: 'Nationwide Client Base',
-      description: 'Achieved the milestone of serving clients across India, solidifying market presence.',
-      eraNumber: 2,
-    },
-  ];
-
-  const getEraColors = (eraNumber: number) => {
-    switch (eraNumber) {
-      case 1:
-        return {
-          gradient: 'from-emerald-500 via-teal-400 to-blue-600',
-          glow: 'shadow-xl shadow-emerald-500/25',
-          dot: 'bg-emerald-500',
-          particle: '#10b981',
-        };
-      case 2:
-        return {
-          gradient: 'from-orange-500 via-red-400 to-pink-600',
-          glow: 'shadow-xl shadow-orange-500/25',
-          dot: 'bg-orange-500',
-          particle: '#f97316',
-        };
-      case 3:
-        return {
-          gradient: 'from-purple-500 via-violet-400 to-blue-600',
-          glow: 'shadow-xl shadow-purple-500/25',
-          dot: 'bg-purple-500',
-          particle: '#9333ea',
-        };
-      default:
-        return {
-          gradient: 'from-primary to-secondary',
-          glow: 'shadow-xl shadow-primary/25',
-          dot: 'bg-primary',
-          particle: '#6366f1',
-        };
-    }
-  };
-
-  // Generate floating particles
-  const generateParticles = (centerX: number, centerY: number, color: string) => {
-    const newParticles = [];
-    for (let i = 0; i < 8; i++) {
-      newParticles.push({
-        id: Date.now() + i,
-        x: centerX + (Math.random() - 0.5) * 200,
-        y: centerY + (Math.random() - 0.5) * 100,
-        color: color
-      });
-    }
-    setParticles(newParticles);
-    setTimeout(() => setParticles([]), 3000);
-  };
-
-  // Get the visible dots (5 dots centered around current index)
-  const getVisibleDots = () => {
-    const visibleDots = [];
-    const totalDots = timelineData.length;
-    
-    // Show 5 dots centered around current index
-    for (let i = -2; i <= 2; i++) {
-      const index = (currentIndex + i + totalDots) % totalDots;
-      visibleDots.push({
-        ...timelineData[index],
-        originalIndex: index,
-        relativePosition: i, // -2, -1, 0, 1, 2
-        isCenter: i === 0
-      });
-    }
-    
-    return visibleDots;
-  };
-
-  useEffect(() => {
-    let cardTimeout: NodeJS.Timeout;
-
-    const showNextCard = () => {
-      setShowCard(true);
-      
-      // Generate particles when card appears
-      const colors = getEraColors(timelineData[currentIndex].eraNumber);
-      generateParticles(window.innerWidth * 0.4, 150, colors.particle);
-      
-      cardTimeout = setTimeout(() => {
-        setShowCard(false);
-        setTimeout(() => {
-          setCurrentIndex((prev) => (prev + 1) % timelineData.length);
-        }, 400);
-      }, 3500);
-    };
-
-    const initialTimeout = setTimeout(showNextCard, 800);
-    const interval = setInterval(showNextCard, 4500);
-
-    return () => {
-      clearTimeout(initialTimeout);
-      clearTimeout(cardTimeout);
-      clearInterval(interval);
-    };
-  }, [timelineData.length, currentIndex]);
-
-  const currentEvent = timelineData[currentIndex];
-  const colors = getEraColors(currentEvent.eraNumber);
-  const visibleDots = getVisibleDots();
+// ─── Event column ──────────────────────────────────────────────────────────────
+const EventColumn = ({
+  event,
+  index,
+  isCardActive,
+  onCardClick,
+}: {
+  event: typeof events[0];
+  index: number;
+  isCardActive: boolean;
+  onCardClick: (i: number) => void;
+}) => {
+  const color = phaseColors[event.phase];
 
   return (
-    <section className="py-12 bg-white overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-emerald-200/30 to-blue-200/30 rounded-full blur-xl"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              scale: [1, 1.5, 1],
-              rotate: [0, 180, 360]
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+    <div 
+      className="flex flex-col items-center w-[340px] shrink-0 relative snap-center cursor-pointer group px-4 pb-8 pt-2"
+      onClick={() => onCardClick(index)}
+    >
+      {/* Dot aligned on the line */}
+      <div className="h-12 flex items-center justify-center z-10 mb-6 w-full relative">
+        {/* Outer white circle to cut the line */}
+        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100 z-10 transition-transform duration-300"
+             style={{ transform: isCardActive ? 'scale(1.1)' : 'scale(1)' }}>
+          {/* Inner dot */}
+          <div 
+            className="w-3.5 h-3.5 rounded-full transition-colors duration-300"
+            style={{ backgroundColor: isCardActive ? color : '#d1d5db' }}
           />
-          <motion.div
-            className="absolute top-40 right-10 w-24 h-24 bg-gradient-to-r from-orange-200/30 to-pink-200/30 rounded-full blur-xl"
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 60, 0],
-              scale: [1, 0.8, 1.2, 1],
-              rotate: [0, -180, -360]
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 5
-            }}
-          />
-        </div>
-
-        {/* Floating Particles */}
-        <AnimatePresence>
-          {particles.map((particle) => (
-            <motion.div
-              key={particle.id}
-              className="absolute w-2 h-2 rounded-full pointer-events-none z-10"
-              style={{
-                backgroundColor: particle.color,
-                left: particle.x,
-                top: particle.y,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0],
-                y: [0, -100],
-                x: [0, (Math.random() - 0.5) * 100],
-                rotate: [0, 360]
-              }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{
-                duration: 3,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-        </AnimatePresence>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 relative z-10"
-        >
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 text-black bg-white/10 px-4 py-2 max-w-md mx-auto rounded-2xl shadow-lg border-b-4 border-primary backdrop-blur-sm"
-            animate={{
-              textShadow: [
-                "0 0 10px rgba(99, 102, 241, 0.3)",
-                "0 0 20px rgba(99, 102, 241, 0.5)",
-                "0 0 10px rgba(99, 102, 241, 0.3)"
-              ]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: 'reverse'
-            }}
-          >
-            SVR Timeline <motion.span 
-              className="text-primary"
-              animate={{
-                scale: [1, 1.05, 1],
-                rotate: [0, 2, -2, 0]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              Innovation
-            </motion.span>
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-            animate={{
-              opacity: [0.8, 1, 0.8]
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            Four decades of pioneering excellence in poultry automation
-          </motion.p>
-        </motion.div>
-
-        <div className="relative h-80 overflow-hidden" ref={timelineRef}>
-          <AnimatePresence>
-            {showCard && (
-              <motion.div
-                initial={{ opacity: 0, y: 60, scale: 0.8, rotateX: -15 }}
-                animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                exit={{ opacity: 0, y: -40, scale: 0.9, rotateX: 10 }}
-                transition={{ 
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 25,
-                  mass: 0.8
-                }}
-                className="absolute top-3 z-30"
-                style={{
-                  left: '40%',
-                  transform: 'translateX(-80%)',
-                  perspective: '1000px'
-                }}
-                aria-label={`Timeline event: ${currentEvent.title} in ${currentEvent.year}`}
-              >
-                <motion.div
-                  className={`bg-gradient-to-br ${colors.gradient} p-3 rounded-xl ${colors.glow} max-w-[280px] text-white relative backdrop-blur-sm border border-white/20`}
-                  animate={{
-                    boxShadow: [
-                      `0 8px 32px ${colors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.3)' : colors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.3)' : 'rgba(147, 51, 234, 0.3)'}`,
-                      `0 20px 60px ${colors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.5)' : colors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.5)' : 'rgba(147, 51, 234, 0.5)'}`,
-                      `0 8px 32px ${colors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.3)' : colors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.3)' : 'rgba(147, 51, 234, 0.3)'}`
-                    ],
-                    y: [0, -2, 0]
-                  }}
-                  transition={{
-                    boxShadow: { 
-                      duration: 3, 
-                      repeat: Infinity, 
-                      repeatType: 'reverse',
-                      ease: 'easeInOut'
-                    },
-                    y: {
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: 'reverse',
-                      ease: 'easeInOut'
-                    }
-                  }}
-                  whileHover={{
-                    scale: 1.05,
-                    rotateY: 5,
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5, rotateZ: -10 }}
-                    animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
-                    transition={{ 
-                      delay: 0.1, 
-                      duration: 0.5,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                    className="inline-block bg-white/20 backdrop-blur-sm rounded-full px-2 py-0.5 text-xs font-semibold mb-1.5"
-                  >
-                    {currentEvent.era}
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ 
-                      delay: 0.2, 
-                      duration: 0.5,
-                      type: "spring",
-                      stiffness: 300
-                    }}
-                    className="text-xl font-bold mb-1.5"
-                  >
-                    {currentEvent.year}
-                  </motion.div>
-                  <motion.h3
-                    initial={{ opacity: 0, x: -20, scale: 0.9 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    transition={{ 
-                      delay: 0.3, 
-                      duration: 0.5,
-                      type: "spring",
-                      stiffness: 250
-                    }}
-                    className="text-sm font-bold mb-1.5 leading-tight"
-                  >
-                    {currentEvent.title}
-                  </motion.h3>
-                  <motion.p
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      delay: 0.4, 
-                      duration: 0.6,
-                      ease: "easeOut"
-                    }}
-                    className="text-white/90 text-xs leading-snug"
-                  >
-                    {currentEvent.description}
-                  </motion.p>
-                </motion.div>
-                
-                <motion.div
-                >
-                  <div className={`w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-l-transparent border-r-transparent ${colors.dot.replace('bg-', 'border-t-')} drop-shadow-lg`}></div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Enhanced Timeline line with animated gradient */}
-          <motion.div 
-            className="absolute top-2/3 left-0 w-full h-1 bg-gradient-to-r from-emerald-300 via-orange-300 to-purple-300 transform -translate-y-1/3 rounded-full"
-            animate={{
-              background: [
-                'linear-gradient(to right, rgb(110, 231, 183), rgb(251, 146, 60), rgb(196, 181, 253))',
-                'linear-gradient(to right, rgb(52, 211, 153), rgb(249, 115, 22), rgb(147, 51, 234))',
-                'linear-gradient(to right, rgb(110, 231, 183), rgb(251, 146, 60), rgb(196, 181, 253))'
-              ]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              ease: 'easeInOut'
-            }}
-          >
-            <motion.div
-              className="absolute inset-0 rounded-full blur-sm"
-              style={{
-                background: 'linear-gradient(to right, rgba(52, 211, 153, 0.5), rgba(249, 115, 22, 0.5), rgba(147, 51, 234, 0.5))'
-              }}
-              animate={{
-                opacity: [0.3, 0.7, 0.3]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: 'reverse'
-              }}
-            />
-          </motion.div>
-
-          {/* Timeline dots */}
-          <div className="absolute top-2/3 left-1/2 transform -translate-y-1/3 -translate-x-1/2">
-            <AnimatePresence mode="popLayout">
-              <motion.div 
-                className="flex items-center justify-center space-x-48"
-                key={currentIndex}
-                initial={{ x: 100, opacity: 0, rotateY: 20 }}
-                animate={{ x: 0, opacity: 1, rotateY: 0 }}
-                exit={{ x: -100, opacity: 0, rotateY: -20 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 25,
-                  mass: 0.8
-                }}
-                style={{ perspective: '1000px' }}
-              >
-                {visibleDots.map((event, index) => {
-                  const eventColors = getEraColors(event.eraNumber);
-                  const isCenter = event.isCenter;
-
-                  return (
-                    <motion.div
-                      key={`${event.year}-${event.originalIndex}`}
-                      className="relative flex flex-col items-center min-w-0"
-                      initial={{ 
-                        opacity: 0, 
-                        scale: 0.3,
-                        y: 30,
-                        rotateY: event.relativePosition > 0 ? 60 : event.relativePosition < 0 ? -60 : 0,
-                        rotateX: 15
-                      }}
-                      animate={{ 
-                        opacity: isCenter ? 1 : 0.6,
-                        scale: isCenter ? 1.1 : 1,
-                        y: isCenter ? -5 : 0,
-                        rotateY: 0,
-                        rotateX: 0
-                      }}
-                      exit={{ 
-                        opacity: 0, 
-                        scale: 0.3,
-                        y: -30,
-                        rotateY: event.relativePosition > 0 ? -60 : event.relativePosition < 0 ? 60 : 0,
-                        rotateX: -15
-                      }}
-                      transition={{ 
-                        duration: 0.8,
-                        delay: Math.abs(event.relativePosition) * 0.1,
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 20
-                      }}
-                      whileHover={{ 
-                        scale: isCenter ? 1.15 : 1.08,
-                        y: isCenter ? -8 : -3,
-                        transition: { duration: 0.3, type: "spring", stiffness: 300 }
-                      }}
-                      style={{ perspective: '1000px' }}
-                    >
-                      <motion.div
-                        className={`w-5 h-5 rounded-full border-4 border-white shadow-lg ${eventColors.dot} relative z-30`}
-                        animate={
-                          isCenter
-                            ? { 
-                                scale: 1.8, 
-                                boxShadow: [
-                                  `0 0 25px ${eventColors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.6)' : eventColors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.6)' : 'rgba(147, 51, 234, 0.6)'}`,
-                                  `0 0 40px ${eventColors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.8)' : eventColors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.8)' : 'rgba(147, 51, 234, 0.8)'}`,
-                                  `0 0 25px ${eventColors.dot.includes('emerald') ? 'rgba(16, 185, 129, 0.6)' : eventColors.dot.includes('orange') ? 'rgba(249, 115, 22, 0.6)' : 'rgba(147, 51, 234, 0.6)'}`
-                                ],
-                                y: -3,
-                                rotate: [0, 360]
-                              }
-                            : { 
-                                scale: 1, 
-                                boxShadow: 'rgba(0, 0, 0, 0.1) 0px 2px 4px',
-                                y: 0,
-                                rotate: 0
-                              }
-                        }
-                        transition={{ 
-                          duration: 0.8, 
-                          ease: "easeOut",
-                          boxShadow: {
-                            duration: 2,
-                            repeat: isCenter ? Infinity : 0,
-                            repeatType: 'reverse',
-                            ease: 'easeInOut'
-                          },
-                          rotate: {
-                            duration: 8,
-                            repeat: isCenter ? Infinity : 0,
-                            ease: 'linear'
-                          }
-                        }}
-                        whileHover={{
-                          scale: isCenter ? 2.0 : 1.2,
-                          rotate: 180,
-                          transition: { duration: 0.3 }
-                        }}
-                      />
-                      <motion.div
-                        className="mt-4 text-center"
-                        animate={
-                          isCenter 
-                            ? { y: -2, scale: 1.15 } 
-                            : { y: 0, scale: 0.9 }
-                        }
-                        transition={{ 
-                          duration: 0.5, 
-                          ease: "easeOut",
-                          type: "spring",
-                          stiffness: 400, 
-                          damping: 15 
-                        }}
-                      >
-                        <motion.p
-                          className={`font-bold transition-all duration-500 ${
-                            isCenter 
-                              ? 'text-gray-900 text-xl' 
-                              : 'text-gray-500 text-base'
-                          }`}
-                          animate={isCenter ? { 
-                            textShadow: "0 2px 4px rgba(0,0,0,0.1)" 
-                          } : {
-                            textShadow: "none"
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {event.year}
-                        </motion.p>
-                        <motion.div
-                          className={`h-0.5 mt-1 rounded mx-auto transition-all duration-500 ${
-                            isCenter ? `w-12 ${eventColors.dot}` : 'w-0 bg-transparent'
-                          }`}
-                          animate={isCenter ? { 
-                            width: 48, 
-                            opacity: 1,
-                            scaleX: [1, 1.1, 1]
-                          } : { 
-                            width: 0, 
-                            opacity: 0,
-                            scaleX: 1
-                          }}
-                          transition={{ 
-                            duration: 0.4,
-                            delay: 0.2,
-                            scaleX: {
-                              duration: 1,
-                              repeat: isCenter ? Infinity : 0,
-                              repeatType: 'reverse',
-                              ease: 'easeInOut'
-                            }
-                          }}
-                        />
-                      </motion.div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            </AnimatePresence>
-          </div>
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 640px) {
-          .space-x-28 > :not([hidden]) ~ :not([hidden]) {
-            --tw-space-x-reverse: 0;
-            margin-right: calc(3rem * var(--tw-space-x-reverse));
-            margin-left: calc(3rem * (1 - var(--tw-space-x-reverse)));
-          }
-        }
-      `}</style>
+      {/* Card below the dot */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full"
+      >
+        <div
+          className={`p-6 rounded-2xl bg-white transition-all duration-300 ${
+            isCardActive
+              ? 'shadow-xl shadow-gray-200/50 border border-gray-200 scale-[1.02]'
+              : 'shadow-sm border border-gray-100 opacity-80 hover:opacity-100 hover:shadow-md'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <p
+              className="text-4xl font-black tabular-nums leading-none transition-colors duration-300"
+              style={{ color: isCardActive ? color : '#9ca3af' }}
+            >
+              {event.year}
+            </p>
+            <span
+              className="text-[9px] font-extrabold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full transition-colors duration-300"
+              style={{ 
+                background: isCardActive ? `${color}18` : '#f3f4f6',
+                color: isCardActive ? color : '#9ca3af'
+              }}
+            >
+              {event.phase}
+            </span>
+          </div>
+
+          <h3 className="text-[17px] font-bold text-gray-900 mb-1.5 leading-snug">
+            {event.title}
+          </h3>
+          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-4">
+            {event.subtitle}
+          </p>
+
+          <p className="text-[14px] text-gray-500 leading-relaxed">
+            {event.description}
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// ─── Main component ──────────────────────────────────────────────────────────
+const SVRTimelineInnovation = () => {
+  const [activeCard, setActiveCard] = useState<number>(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const innerContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-advance timeline
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveCard((prev) => (prev + 1) % events.length);
+    }, 2000); // Changes every 4 seconds
+    return () => clearInterval(timer);
+  }, []);
+
+  // Scroll to active card when it changes
+  useEffect(() => {
+    if (innerContainerRef.current && scrollContainerRef.current) {
+      // +1 to account for the absolute line div being the first child
+      const activeChild = innerContainerRef.current.children[activeCard + 1] as HTMLElement;
+      if (activeChild) {
+        // Because the scroll container has exact padding of calc(50% - 170px),
+        // scrolling exactly to the child's offsetLeft perfectly centers it on screen.
+        scrollContainerRef.current.scrollTo({ 
+          left: activeChild.offsetLeft, 
+          behavior: 'smooth' 
+        });
+      }
+    }
+  }, [activeCard]);
+
+  const handleCardClick = (i: number) => {
+    setActiveCard(i);
+  };
+
+  return (
+    <section className="py-10 bg-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        {/* ── Section header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[hsl(4,82%,42%)] mb-3">
+            Our Journey
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 leading-tight">
+            Four Decades of<br className="hidden sm:block" /> Engineering Excellence
+          </h2>
+          <p className="text-gray-500 text-[15px] max-w-xl mx-auto leading-relaxed">
+            From a small engineering workshop in 1984 to a global poultry equipment manufacturer — this is our story.
+          </p>
+        </motion.div>
+
+        {/* ── Horizontal Timeline ── */}
+        <div className="relative w-full mt-10">
+          {/* Scrollable Container */}
+          <div 
+            ref={scrollContainerRef}
+            className="overflow-x-auto snap-x snap-mandatory pb-12 pt-4 px-[calc(50%-170px)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {/* Inner Container to hold full width so line stretches properly */}
+            <div ref={innerContainerRef} className="flex items-start relative w-max min-w-full">
+              {/* Continuous Background Line - positioned exactly in middle of the 48px (h-12) dots */}
+              {/* pt-2 on EventColumn is 8px. Half of h-12 is 24px. Total top = 32px */}
+              <div className="absolute left-[-100vw] right-[-100vw] top-[32px] h-[2px] bg-gray-200 z-0" />
+              
+              {events.map((event, i) => (
+                <EventColumn
+                  key={event.year}
+                  event={event}
+                  index={i}
+                  isCardActive={activeCard === i}
+                  onCardClick={handleCardClick}
+                />
+              ))}
+            </div>
+          </div>
+          
+          <div className="text-center text-[10px] text-gray-400 uppercase tracking-widest sm:hidden -mt-4 mb-4">
+            Swipe to explore
+          </div>
+        </div>
+
+        {/* ── Bottom milestone strip ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 rounded-xl overflow-hidden border border-gray-200 max-w-4xl mx-auto"
+        >
+          {[
+            { label: 'Year Founded',     value: '1984' },
+            { label: 'Years of Legacy',  value: '40+'  },
+            { label: 'Major Milestones', value: String(events.length) },
+          ].map((item) => (
+            <div key={item.label} className="bg-white py-7 text-center">
+              <p className="text-2xl font-black text-[hsl(4,82%,42%)]">{item.value}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400 mt-1">{item.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
+      </div>
     </section>
   );
 };

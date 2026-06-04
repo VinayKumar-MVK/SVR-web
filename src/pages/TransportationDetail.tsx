@@ -23,9 +23,9 @@ const TransportationDetail = () => {
       title: 'Tractor Tanker',
       description: 'Mobile feed cleaning and processing unit for on-site feed quality enhancement. Advanced mobile solution for efficient feed transportation and processing.',
       images: [
-        'https://image2url.com/images/1756392517733-6990c7d4-40ef-41cf-ae0c-4dc4bfefc704.jpg',
-        'https://image2url.com/images/1756372043359-130b0bf0-a134-4aef-9340-b6d2247ea83c.jpg',
-        'https://image2url.com/images/1756386082198-4b6e77b4-9cd3-44a4-81ae-41c9373ea239.jpg'
+        '/lovable-uploads/tractor1.jpg',
+        '/lovable-uploads/t2.jpg',
+        '/lovable-uploads/t3.jpg'
       ],
       videoUrl: 'https://www.youtube.com/embed/DzID-eR5BPU',
       keyFeatures: [
@@ -49,9 +49,9 @@ const TransportationDetail = () => {
       title: 'Bulk Feeding Tanker',
       description: 'Industrial bulk feeding system with automated delivery for large-scale operations. Designed for efficient bulk feed transportation and automated dispensing.',
       images: [
-        'https://svrpoultryequipments.com/static/images/Bulk%20feed%20Tanker.jpg',
-        'https://image2url.com/images/1756374234782-0d91870a-62c3-4ffb-84d6-712aaa102b90.jpg',
-        'https://image2url.com/images/1756375575878-8492194f-9801-40c4-9085-801dbd0b60c6.jpg'
+        '/lovable-uploads/b1.jpg',
+        '/lovable-uploads/b2.jpg',
+        '/lovable-uploads/b3.jpg'
       ],
       videoUrl: 'https://www.youtube.com/embed/m4ajzBub4mQ',
       keyFeatures: [

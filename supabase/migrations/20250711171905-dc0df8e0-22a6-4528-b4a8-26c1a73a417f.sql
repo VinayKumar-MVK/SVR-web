@@ -1,6 +1,5 @@
-
 -- Create a table to store contact form submissions
-CREATE TABLE public.contact_messages (
+CREATE TABLE public.contact_inquiries (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -11,36 +10,44 @@ CREATE TABLE public.contact_messages (
   read_status BOOLEAN NOT NULL DEFAULT false
 );
 
--- Add Row Level Security (RLS) to the contact_messages table
-ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+-- Add indexes for better performance
+CREATE INDEX idx_contact_inquiries_created_at ON public.contact_inquiries (created_at DESC);
+CREATE INDEX idx_contact_inquiries_read_status ON public.contact_inquiries (read_status);
 
--- Create policy that allows anyone to INSERT contact messages (for the contact form)
-CREATE POLICY "Anyone can submit contact messages" 
-  ON public.contact_messages 
-  FOR INSERT 
+------------------------------------------------------------------
+-- ROW LEVEL SECURITY POLICIES (FIXED & SECURED)
+------------------------------------------------------------------
+
+-- 1. Enable Row Level Security on the table
+ALTER TABLE public.contact_inquiries ENABLE ROW LEVEL SECURITY;
+
+-- 2. POLICY: Allow anyone to submit a message via the contact form
+-- This policy applies to the 'public' role, which covers anonymous visitors.
+CREATE POLICY "Allow public insert access to contact messages"
+  ON public.contact_inquiries
+  FOR INSERT
+  TO public
   WITH CHECK (true);
 
--- Create policy that allows SELECT for admin access (no user authentication required)
--- This is a simple approach since you mentioned no authentication setup
-CREATE POLICY "Allow read access to contact messages" 
-  ON public.contact_messages 
-  FOR SELECT 
+-- 3. POLICY: Allow ONLY authenticated users to read messages
+-- This protects your data from being viewed by the public.
+-- Assumes you have a role like 'authenticated'.
+CREATE POLICY "Allow authenticated read access to contact messages"
+  ON public.contact_inquiries
+  FOR SELECT
+  TO authenticated
   USING (true);
 
--- Create policy that allows UPDATE for marking messages as read
-CREATE POLICY "Allow update of contact messages" 
-  ON public.contact_messages 
-  FOR UPDATE 
+-- 4. POLICY: Allow ONLY authenticated users to update messages (e.g., mark as read)
+CREATE POLICY "Allow authenticated update access to contact messages"
+  ON public.contact_inquiries
+  FOR UPDATE
+  TO authenticated
   USING (true);
 
--- Create policy that allows DELETE for admin to remove messages
-CREATE POLICY "Allow delete of contact messages" 
-  ON public.contact_messages 
-  FOR DELETE 
+-- 5. POLICY: Allow ONLY authenticated users to delete messages
+CREATE POLICY "Allow authenticated delete access to contact messages"
+  ON public.contact_inquiries
+  FOR DELETE
+  TO authenticated
   USING (true);
-
--- Create an index on created_at for better query performance
-CREATE INDEX idx_contact_messages_created_at ON public.contact_messages (created_at DESC);
-
--- Create an index on read_status for filtering unread messages
-CREATE INDEX idx_contact_messages_read_status ON public.contact_messages (read_status);

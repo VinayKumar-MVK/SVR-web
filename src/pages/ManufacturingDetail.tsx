@@ -21,9 +21,9 @@ const ManufacturingDetail = () => {
       title: 'Auto Batching Systems',
       description: 'Auto batching system can give the best results in production for its accuracy in feed formula. Batching is suitable for 50,000 and above birds. Batching bin available in 2, 4, 5, 6, 7, 8, 10 bins.',
       images: [
-        'https://image2url.com/images/1756530978711-59e7f08f-4dd1-48f5-85ec-440b619ff120.jpg',
-        'https://image2url.com/images/1756529796915-f987f0c0-2d17-4383-acf5-b00e9e7279a6.jpg',
-        'https://image2url.com/images/1756529372288-1a000ffa-8fb1-482b-95b0-4a08d3ad7247.jpg'
+        '/lovable-uploads/abs1.jpg',
+        '/lovable-uploads/abs2.jpg',
+        '/lovable-uploads/abs3.jpg'
       ],
       videoUrl: 'https://www.youtube.com/embed/XEUWLSMzFRw',
       keyFeatures: [
@@ -51,37 +51,29 @@ const ManufacturingDetail = () => {
     
     if (!product) {
       console.error("No product found for navigation");
+      navigate('/contact');
       return;
     }
 
     const productData = {
       id: id,
       title: product.title,
-      category: 'Feed Storage',
+      category: 'Feed Plant',
       fromProductPage: true,
       image: product.images?.[0] || '',
       description: product.description,
       features: product.keyFeatures || []
     };
 
-    try {
-      // First try programmatic navigation with state
-      navigate('/contact', { 
-        state: { 
-          product: productData,
-          selectedProduct: productData.title,
-          selectedCategory: 'Auto Batching System'
-        },
-        replace: false
-      });
-      
-      // Force a page reload to ensure the contact page loads correctly
-      // window.location.href = '/contact';
-    } catch (error) {
-      console.error("Navigation error:", error);
-      // Fallback navigation without state
-      // window.location.href = '/contact';
-    }
+    navigate('/contact', { 
+      state: { 
+        product: productData,
+        selectedProduct: product.title,
+        selectedCategory: 'Feed Plant',
+        fromProductPage: true
+      },
+      replace: false
+    });
   };
    useEffect(() => {
     window.scrollTo({top:0, behavior:'smooth'});
@@ -336,20 +328,19 @@ const ManufacturingDetail = () => {
             <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
               Get in touch with our experts to discuss your specific requirements and receive a customized solution.
             </p>
-            <Link to="/contact">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button 
+                size="lg"
+                onClick={handleNavigateToContact}
+                className="bg-primary hover:bg-primary/90 px-12 py-4 text-lg rounded-full shadow-2xl hover:shadow-3xl transform transition-all duration-300"
               >
-                <Button 
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 px-12 py-4 text-lg rounded-full shadow-2xl hover:shadow-3xl transform transition-all duration-300"
-                >
-                  Contact Us
-                  <ArrowRight className="ml-3 w-6 h-6" />
-                </Button>
-              </motion.div>
-            </Link>
+                Contact Us
+                <ArrowRight className="ml-3 w-6 h-6" />
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </section>

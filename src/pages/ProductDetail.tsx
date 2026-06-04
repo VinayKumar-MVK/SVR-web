@@ -643,10 +643,8 @@ const ProductDetail = () => {
     </div>
   </CardContent>
 </Card>
-
-
             </motion.div>
-
+{/*Product Description headings section start*/}
             {/* Product Description */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}

@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -15,26 +15,32 @@ import {
   LogOut, 
   Trash2,
   CheckCircle,
-  Circle
+  Circle,
+  Eye
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 
 interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  phone: string | null;
-  subject: string;
-  message: string;
   created_at: string;
+  email: string;
+  id: string;
+  message: string;
+  name: string;
+  phone: string | null;
+  product_category: string | null;
+  product_name: string | null;
   read_status: boolean;
 }
 
 const AdminDashboard = () => {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [filteredMessages, setFilteredMessages] = useState<ContactMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [filterCategory, setFilterCategory] = useState<string>('all');
   const [stats, setStats] = useState({
     total: 0,
     unread: 0,
@@ -57,13 +63,14 @@ const AdminDashboard = () => {
   const fetchMessages = async () => {
     try {
       const { data, error } = await supabase
-        .from('contact_messages')
+        .from('contact_inquiries')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
 
       setMessages(data || []);
+      setFilteredMessages(data || []);
       
       // Calculate stats
       const today = new Date().toDateString();
@@ -93,7 +100,7 @@ const AdminDashboard = () => {
   const toggleReadStatus = async (id: string, currentStatus: boolean) => {
     try {
       const { error } = await supabase
-        .from('contact_messages')
+        .from('contact_inquiries')
         .update({ read_status: !currentStatus })
         .eq('id', id);
 
@@ -127,7 +134,7 @@ const AdminDashboard = () => {
   const deleteMessage = async (id: string) => {
     try {
       const { error } = await supabase
-        .from('contact_messages')
+        .from('contact_inquiries')
         .delete()
         .eq('id', id);
 
@@ -161,8 +168,139 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuthenticated');
-    navigate('/admin/login');
+    navigate('/svr-admin');
   };
+
+  const filterMessages = (category: string) => {
+    setFilterCategory(category);
+    if (category === 'all') {
+      setFilteredMessages(messages);
+    } else if (category === 'general') {
+      setFilteredMessages(messages.filter(msg => !msg.product_category || msg.product_category === 'General Inquiry'));
+    } else {
+      setFilteredMessages(messages.filter(msg => msg.product_category === category));
+    }
+  };
+
+  const getUniqueCategories = () => {
+    const categories = messages
+      .map(msg => msg.product_category)
+      .filter((category, index, arr) => category && arr.indexOf(category) === index)
+      .sort();
+    return ['all', 'general', ...categories];
+  };
+
+  const viewMessageDetails = (message: ContactMessage) => {
+    setSelectedMessage(message);
+    setShowMessageModal(true);
+    
+    // Mark as read if it's unread
+    if (!message.read_status) {
+      toggleReadStatus(message.id, message.read_status);
+    }
+  };
+
+  const MessageModal = ({ message, onClose }: { message: ContactMessage; onClose: () => void }) => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-4">
+            <h2 className="text-2xl font-bold text-gray-900">Message Details</h2>
+            <Button variant="ghost" onClick={onClose} className="p-2">
+              ×
+            </Button>
+          </div>
+          
+                      <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
+                <p className="text-gray-900 font-medium">{message.name}</p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                <p className="text-gray-900">{message.email}</p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Phone</label>
+                <p className="text-gray-900">{message.phone || 'Not provided'}</p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
+                <p className="text-gray-900">{format(new Date(message.created_at), 'PPP')}</p>
+              </div>
+            </div>
+
+            {/* Product Information Section */}
+            <div className="border-t pt-4 mt-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Product Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Product Category</label>
+                  <div className="bg-blue-50 px-3 py-2 rounded-lg border">
+                    <p className="text-gray-900 font-medium">
+                      {message.product_category || 'General Inquiry'}
+                    </p>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">Product Name</label>
+                  <div className="bg-green-50 px-3 py-2 rounded-lg border">
+                    <p className="text-gray-900 font-medium">
+                      {message.product_name || 'Not specified'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Show inquiry type if it's a general inquiry */}
+              {(!message.product_category || message.product_category === 'General Inquiry') && (
+                <div className="mt-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Note:</strong> This is a general inquiry not related to a specific product.
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-2">Customer Message</label>
+              <div className="bg-gray-50 p-4 rounded-lg border">
+                <p className="text-gray-900 whitespace-pre-wrap leading-relaxed">{message.message}</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <Badge variant={message.read_status ? "secondary" : "destructive"}>
+                {message.read_status ? "Read" : "Unread"}
+              </Badge>
+            </div>
+          </div>
+          
+          <div className="flex justify-end gap-2 mt-6">
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (confirm('Are you sure you want to delete this message?')) {
+                  deleteMessage(message.id);
+                  onClose();
+                }
+              }}
+              className="text-red-600 hover:text-red-700"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete
+            </Button>
+            <Button onClick={onClose}>Close</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   if (isLoading) {
     return (
@@ -268,16 +406,36 @@ const AdminDashboard = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageSquare className="h-5 w-5" />
-                Contact Messages
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5" />
+                  Contact Messages
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600">Filter by Category:</label>
+                  <select
+                    value={filterCategory}
+                    onChange={(e) => filterMessages(e.target.value)}
+                    className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+                  >
+                    {getUniqueCategories().map(category => (
+                      <option key={category} value={category}>
+                        {category === 'all' ? 'All Messages' : 
+                         category === 'general' ? 'General Inquiries' : 
+                         category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {messages.length === 0 ? (
+              {filteredMessages.length === 0 ? (
                 <div className="text-center py-8">
                   <MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">No messages found</p>
+                  <p className="text-gray-500">
+                    {filterCategory === 'all' ? 'No messages found' : `No messages found for ${filterCategory}`}
+                  </p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
@@ -287,13 +445,14 @@ const AdminDashboard = () => {
                         <TableHead>Status</TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>Email</TableHead>
-                        <TableHead>Subject</TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Product</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {messages.map((message) => (
+                      {filteredMessages.map((message) => (
                         <TableRow key={message.id} className={!message.read_status ? 'bg-blue-50' : ''}>
                           <TableCell>
                             <Button
@@ -311,28 +470,33 @@ const AdminDashboard = () => {
                           </TableCell>
                           <TableCell className="font-medium">{message.name}</TableCell>
                           <TableCell>{message.email}</TableCell>
-                          <TableCell className="max-w-xs truncate">{message.subject}</TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            <span 
+                              title={message.product_category || 'General Inquiry'}
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                message.product_category 
+                                  ? 'bg-blue-100 text-blue-800' 
+                                  : 'bg-gray-100 text-gray-800'
+                              }`}
+                            >
+                              {message.product_category || 'General Inquiry'}
+                            </span>
+                          </TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            <span title={message.product_name || 'Not specified'}>
+                              {message.product_name || 'Not specified'}
+                            </span>
+                          </TableCell>
                           <TableCell>{format(new Date(message.created_at), 'MMM dd, yyyy')}</TableCell>
                           <TableCell>
                             <div className="flex items-center gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => {
-                                  // Show message details in a modal or expanded view
-                                  const messageDetails = `
-Name: ${message.name}
-Email: ${message.email}
-Phone: ${message.phone || 'N/A'}
-Subject: ${message.subject}
-Date: ${format(new Date(message.created_at), 'PPP')}
-
-Message:
-${message.message}
-                                  `;
-                                  alert(messageDetails); // Simple approach - in production, use a proper modal
-                                }}
+                                onClick={() => viewMessageDetails(message)}
+                                className="flex items-center gap-1"
                               >
+                                <Eye className="h-4 w-4" />
                                 View
                               </Button>
                               <Button
@@ -359,6 +523,17 @@ ${message.message}
           </Card>
         </motion.div>
       </div>
+
+      {/* Message Details Modal */}
+      {showMessageModal && selectedMessage && (
+        <MessageModal 
+          message={selectedMessage} 
+          onClose={() => {
+            setShowMessageModal(false);
+            setSelectedMessage(null);
+          }} 
+        />
+      )}
     </div>
   );
 };

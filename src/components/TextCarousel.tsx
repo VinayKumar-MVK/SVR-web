@@ -1,35 +1,34 @@
 import { motion } from 'framer-motion';
 
+const items = [
+  '40+ Years of Engineering Excellence',
+  'Serving 500+ Clients Pan-India',
+  'Exporting to 20+ Countries',
+  'ISO-Certified Manufacturing Processes',
+  'Complete Turnkey Poultry Solutions',
+  'End-to-End Installation & Support',
+];
+
 const TextCarousel = () => {
-  const texts = [
-    "Welcome to SVR Poultry Equipment – Engineering Excellence for a Healthier Tomorrow",
-    "From innovation to installation, we deliver world-class poultry automation solutions designed to improve efficiency, productivity, and bird well-being."
-  ];
+  const doubled = [...items, ...items];
 
   return (
-    <div className="bg-gradient-to-r from-primary/10 via-blue-50 to-primary/10 py-4 overflow-hidden">
-      <div className="relative">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{
-            x: [0, -2000]
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          {[...texts, ...texts, ...texts].map((text, index) => (
-            <span
-              key={index}
-              className="text-gray-800 text-lg font-medium px-16 flex-shrink-0"
-            >
-              {text}
-            </span>
-          ))}
-        </motion.div>
-      </div>
+    <div className="bg-[hsl(4,82%,42%)] py-2.5 overflow-hidden">
+      <motion.div
+        className="flex whitespace-nowrap"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+      >
+        {doubled.map((item, i) => (
+          <span
+            key={i}
+            className="inline-flex items-center gap-0 text-white text-[12px] font-semibold uppercase tracking-[0.12em] px-10 flex-shrink-0"
+          >
+            {item}
+            <span className="ml-10 w-1 h-1 rounded-full bg-white/40 inline-block" />
+          </span>
+        ))}
+      </motion.div>
     </div>
   );
 };

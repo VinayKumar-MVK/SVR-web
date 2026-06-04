@@ -1,6 +1,5 @@
-
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -8,149 +7,91 @@ interface SplashScreenProps {
 
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 500);
+          setTimeout(() => {
+            setIsVisible(false);
+            setTimeout(onComplete, 600); // Wait for fade out animation
+          }, 400); // Brief pause at 100%
           return 100;
         }
-        return prev + 2;
+        // Ease-out increment logic for a natural loading feel
+        const increment = Math.max(0.5, (100 - prev) * 0.1); 
+        return prev + increment;
       });
-    }, 50);
+    }, 30);
 
     return () => clearInterval(timer);
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center z-50">
-      <div className="text-center">
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8"
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          className="fixed inset-0 bg-[#f8fafc] flex flex-col items-center justify-center z-50"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6">
-            <img 
-              src="https://image2url.com/images/1755429269509-6d219173-f524-4ed4-a2cf-ce85cf2b17e3.png" 
-              alt="SVR Poultry Equipments Logo"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-4xl font-bold text-white mb-2"
-          >
-            <span className="text-yellow-300 font-extrabold">SVR</span> Poultry Equipments
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-green-100 text-lg"
-          >
-            Leading provider of innovative poultry equipment solutions
-          </motion.p>
-        </motion.div>
+          <div className="flex flex-col items-center justify-center w-full max-w-sm px-6">
+            
+            {/* Elegant Logo Reveal */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 flex items-center justify-center"
+            >
+              <img 
+                src="/logo.png" 
+                alt="SVR Poultry Equipments"
+                className="h-16 w-auto object-contain drop-shadow-sm"
+                onError={(e) => {
+                  e.currentTarget.src = "/lovable-uploads/253837d0-59ba-46d9-8132-54cd4616acf9.png";
+                }}
+              />
+            </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="mx-auto flex justify-center"
-        >
-          <div className="folding-cube">
-            <div className="cube1 cube"></div>
-            <div className="cube2 cube"></div>
-            <div className="cube4 cube"></div>
-            <div className="cube3 cube"></div>
+            {/* Minimalist Progress Line */}
+            <div className="w-full max-w-[220px]">
+              <motion.div 
+                initial={{ opacity: 0, scaleX: 0.8 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="h-[2px] w-full bg-gray-200 rounded-full overflow-hidden"
+              >
+                <motion.div 
+                  className="h-full bg-[hsl(4,82%,42%)] rounded-full"
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ ease: "linear", duration: 0.1 }}
+                />
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                className="flex justify-between items-center mt-4"
+              >
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.25em]">
+                  Loading
+                </span>
+                <span className="text-[10px] font-bold text-gray-400 tabular-nums">
+                  {Math.round(progress)}%
+                </span>
+              </motion.div>
+            </div>
+
           </div>
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="text-white/80 mt-8"
-        >
-          Loading...
-        </motion.p>
-        
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            .folding-cube {
-              width: 40px;
-              height: 40px;
-              position: relative;
-              transform: rotateZ(45deg);
-            }
-            
-            .folding-cube .cube {
-              float: left;
-              width: 50%;
-              height: 50%;
-              position: relative;
-              transform: scale(1.1);
-            }
-            
-            .folding-cube .cube:before {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-color: white;
-              animation: sk-foldCubeAngle 2.4s infinite linear both;
-              transform-origin: 100% 100%;
-            }
-            
-            .folding-cube .cube2 {
-              transform: scale(1.1) rotateZ(90deg);
-            }
-            
-            .folding-cube .cube3 {
-              transform: scale(1.1) rotateZ(180deg);
-            }
-            
-            .folding-cube .cube4 {
-              transform: scale(1.1) rotateZ(270deg);
-            }
-            
-            .folding-cube .cube2:before {
-              animation-delay: 0.3s;
-            }
-            
-            .folding-cube .cube3:before {
-              animation-delay: 0.6s;
-            }
-            
-            .folding-cube .cube4:before {
-              animation-delay: 0.9s;
-            }
-            
-            @keyframes sk-foldCubeAngle {
-              0%, 10% {
-                transform: perspective(140px) rotateX(-180deg);
-                opacity: 0;
-              }
-              25%, 75% {
-                transform: perspective(140px) rotateX(0deg);
-                opacity: 1;
-              }
-              90%, 100% {
-                transform: perspective(140px) rotateY(180deg);
-                opacity: 0;
-              }
-            }
-          `
-        }} />
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -1,12 +1,20 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => setIsOpen(false), [location.pathname]);
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -15,80 +23,134 @@ const Navigation = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-0">
-        <div className="flex justify-between h-20">
-          <div className="flex items-center gap-3">
-  <img
-    src="/lovable-uploads/253837d0-59ba-46d9-8132-54cd4616acf9.png"
-    alt="side"
-    className="w-auto h-12 object-contain"
-  />
-  <span className="text-lg font-bold text-gray-800 flex items-center translate-y-2">
-    POULTRY EQUIPMENTS
-  </span>
-</div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path)
-                    ? 'text-primary border-b-2 border-primary'
-                    : 'text-gray-700 hover:text-primary'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-            >
-              {isOpen ? (
-                <X className="block h-6 w-6" />
-              ) : (
-                <Menu className="block h-6 w-6" />
-              )}
-            </button>
+    <>
+      {/* Top info bar */}
+      <div className="hidden md:block bg-[#1a1a2e] text-white/70 text-xs py-2">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+          <span>📍 Turkayamjal, Hyderabad, Telangana 501510</span>
+          <div className="flex items-center gap-6">
+            <span>📞 +91 88866 45122</span>
+            <span>✉️ svrpoultryequipments@gmail.com</span>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-            {navItems.map((item) => (
+      {/* Main navbar */}
+      <nav
+        className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${scrolled ? 'shadow-md border-b border-gray-200' : 'border-b border-gray-200'
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-[72px]">
+
+            {/* Logo + wordmark */}
+            <Link to="/" className="flex items-end gap-3 flex-shrink-0 pb-1.5">
+              <img
+                src="/logo.png"
+                alt="SVR Logo"
+                className="h-10 w-auto object-contain"
+                onError={(e) => {
+                  // Fallback to previous logo if logo.png doesn't exist
+                  e.currentTarget.src = "/lovable-uploads/253837d0-59ba-46d9-8132-54cd4616acf9.png";
+                }}
+              />
+              <div className="hidden sm:block">
+                <span className="text-[18px] font-black text-[#1e293b] uppercase leading-none">
+                  Poultry Equipments
+                </span>
+              </div>
+            </Link>
+
+            {/* Right side Nav & CTA */}
+            <div className="hidden md:flex items-center gap-8">
+              {/* Desktop nav */}
+              <div className="flex items-center gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    className={`relative px-4 py-2 text-[14px] font-medium transition-colors duration-150 ${isActive(item.path)
+                      ? 'text-[hsl(4,82%,42%)]'
+                      : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                  >
+                    {item.name}
+                    {isActive(item.path) && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-[hsl(4,82%,42%)]"
+                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </div>
+
+              {/* CTA */}
               <Link
-                key={item.name}
-                to={item.path}
-                className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                  isActive(item.path)
-                    ? 'text-primary bg-primary/10'
-                    : 'text-gray-700 hover:text-primary hover:bg-gray-100'
-                }`}
-                onClick={() => setIsOpen(false)}
+                to="/contact"
+                id="nav-get-quote-btn"
+                className="px-5 py-2.5 bg-[hsl(4,82%,42%)] text-white text-[13px] font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors duration-150 shadow-sm"
               >
-                {item.name}
+                Get a Quote
               </Link>
-            ))}
+            </div>
+
+            {/* Mobile toggle */}
+            <button
+              id="mobile-menu-toggle"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              className="md:hidden p-2 -mr-2 text-gray-600 hover:text-gray-900"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              id="mobile-menu"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden border-t border-gray-100 bg-white"
+            >
+              <div className="px-4 py-3 space-y-0.5">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-3 py-2.5 text-[14px] font-medium rounded-md transition-colors ${isActive(item.path)
+                      ? 'text-[hsl(4,82%,42%)] bg-red-50'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <div className="pt-3 pb-1">
+                  <Link
+                    to="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="block w-full text-center px-4 py-2.5 bg-[hsl(4,82%,42%)] text-white text-[14px] font-semibold rounded-md"
+                  >
+                    Get a Quote
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
 

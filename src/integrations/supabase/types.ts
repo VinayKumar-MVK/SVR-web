@@ -14,7 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      contact_messages: {
+      contact_inquiries: {
         Row: {
           created_at: string
           email: string
@@ -22,8 +22,9 @@ export type Database = {
           message: string
           name: string
           phone: string | null
+          product_category: string | null
+          product_name: string | null
           read_status: boolean
-          subject: string
         }
         Insert: {
           created_at?: string
@@ -32,8 +33,9 @@ export type Database = {
           message: string
           name: string
           phone?: string | null
+          product_category: string | null
+          product_name: string | null
           read_status?: boolean
-          subject: string
         }
         Update: {
           created_at?: string
@@ -42,8 +44,9 @@ export type Database = {
           message?: string
           name?: string
           phone?: string | null
+          product_category?: string | null
+          product_name?: string | null
           read_status?: boolean
-          subject?: string
         }
         Relationships: []
       }
@@ -63,6 +66,7 @@ export type Database = {
   }
 }
 
+// The rest of the boilerplate code remains the same
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]

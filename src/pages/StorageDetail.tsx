@@ -22,9 +22,9 @@ const StorageDetail = () => {
       title: 'Flat Bottom Silos',
       description: 'Flat bottom silos are manufactured in range of 350 son up to 5000 ton. The bottom of the silo is flat concrete base. These silos are used for storage of grains for longer period. These silos are cheaper than the hopper bottom type of silos, Silo are equipped with accessories like level switches, aeration system, temperature monitoring device and sweeping auger etc.The silo is designed considering various conditions at site like heavy rain falling area, humidity, cold, hot & heavy winds etc i.e. for all seismic zone.',
       images: [
-        'https://image2url.com/images/1756383898937-bbf2b3a3-5c90-41fe-939b-b5189ab8a1c7.jpg',
-        'https://image2url.com/images/1756384105240-e99df46a-afa0-49b1-83b1-24b9db638041.jpg',
-        '/lovable-uploads/201fd9a0-96d4-4739-8e9b-0258a6ce4dc8.png'
+        '/lovable-uploads/f1.jpg',
+        '/lovable-uploads/f2.jpg',
+        '/lovable-uploads/f3.png'
       ],
       videoUrl: 'https://www.youtube.com/embed/W5MG7cb4a6s', // Placeholder - replace with actual video
       keyFeatures: [
@@ -50,9 +50,9 @@ const StorageDetail = () => {
       'Efficient feed storage with hopper bottom design for easy discharge. Ideal for automated feeding systems with gravity flow and complete material discharge.',
   
       images: [
-        '/lovable-uploads/71326db0-42f7-42d8-9c50-165c3f17b739.png',
-        'https://image2url.com/images/1756385650821-5f6ec3ff-26ba-4594-9443-ca4a56094261.jpg',
-        'https://image2url.com/images/1756385823844-52bc62c8-c4dd-49ad-96f8-536b6ed2f5d0.jpg'
+        '/lovable-uploads/h1.png',
+        '/lovable-uploads/h2.jpg',
+        '/lovable-uploads/h3.jpg'
       ],
       videoUrl: 'https://www.youtube.com/embed/DzID-eR5BPU', // Placeholder - replace with actual video
       keyFeatures: [

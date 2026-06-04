@@ -135,13 +135,6 @@ const Timeline = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: false, amount: 0.3 }}
                 >
-                  {/* Era Label (Above) */}
-                  <div className="absolute -top-20 text-center w-32">
-                    <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap">
-                      {event.era}
-                    </span>
-                  </div>
-
                   {/* Timeline Dot */}
                   <motion.div
                     className="w-6 h-6 bg-white border-4 border-primary rounded-full cursor-pointer shadow-lg z-10"
