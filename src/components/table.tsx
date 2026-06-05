@@ -21,7 +21,7 @@ const Table: React.FC<TableProps> = ({
     <div className={`mt-8 ${className}`}>
       {title && <h3 className="text-xl font-semibold mb-4">{title}</h3>}
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-left text-sm">
+        <table className="min-w-full border border-gray-300 text-left text-base">
           <thead className="bg-gray-100 text-gray-700">
             <tr>
               <th className="px-4 py-2 border border-gray-300">Model</th>

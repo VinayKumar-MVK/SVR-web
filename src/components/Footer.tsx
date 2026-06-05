@@ -46,7 +46,7 @@ const Footer = () => {
                 <span className="font-black text-[18px] text-white leading-[1.1] tracking-wide">Equipments</span>
               </div>
             </Link>
-            <p className="text-white/50 text-[13px] leading-relaxed mb-6">
+            <p className="text-white/50 text-base leading-relaxed mb-6">
               India's most trusted poultry equipment manufacturer since 1984.
               Serving 500+ clients across India and 20+ countries worldwide.
             </p>
@@ -76,7 +76,7 @@ const Footer = () => {
                 <li key={l.label}>
                   <Link
                     to={l.path}
-                    className="text-white/55 hover:text-white text-[13px] transition-colors duration-150"
+                    className="text-white/55 hover:text-white text-base transition-colors duration-150"
                   >
                     {l.label}
                   </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
                 <li key={l.label}>
                   <Link
                     to={l.path}
-                    className="text-white/55 hover:text-white text-[13px] transition-colors duration-150"
+                    className="text-white/55 hover:text-white text-base transition-colors duration-150"
                   >
                     {l.label}
                   </Link>
@@ -108,7 +108,7 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0 mt-0.5" />
-                <p className="text-white/55 text-[13px] leading-relaxed">
+                <p className="text-white/55 text-base leading-relaxed">
                   Turkayamjal Municipality<br />
                   Hyderabad, Telangana 501510<br />
                   India
@@ -116,13 +116,13 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0" />
-                <a href="tel:+918886645122" className="text-white/55 hover:text-white text-[13px] transition-colors">
+                <a href="tel:+918886645122" className="text-white/55 hover:text-white text-base transition-colors">
                   +91 88866 45122
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0" />
-                <a href="mailto:svrpoultryequipments@gmail.com" className="text-white/55 hover:text-white text-[13px] break-all transition-colors">
+                <a href="mailto:svrpoultryequipments@gmail.com" className="text-white/55 hover:text-white text-base break-all transition-colors">
                   svrpoultryequipments@gmail.com
                 </a>
               </div>

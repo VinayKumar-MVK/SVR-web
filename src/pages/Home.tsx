@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+﻿import { motion, useInView } from 'framer-motion';
 import { ArrowRight, CheckCircle, Phone, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TextCarousel from '@/components/TextCarousel';
@@ -7,7 +7,7 @@ import YouTubeShowcase from '@/components/YouTubeShowcase';
 import WorldMap from '@/components/WorldMap';
 import { useEffect, useRef, useState } from 'react';
 
-// ─── Count-up hook ────────────────────────────────────────────────────────────
+//  Count-up hook 
 function useCountUp(target: number, duration = 1800, active = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -26,7 +26,7 @@ function useCountUp(target: number, duration = 1800, active = false) {
   return count;
 }
 
-// ─── Stat item ───────────────────────────────────────────────────────────────
+//  Stat item 
 const Stat = ({ value, suffix, label, active, delay }: {
   value: number; suffix: string; label: string; active: boolean; delay: number;
 }) => {
@@ -41,19 +41,19 @@ const Stat = ({ value, suffix, label, active, delay }: {
       <span className="text-4xl font-black text-[hsl(4,82%,42%)] tabular-nums">
         {count}{suffix}
       </span>
-      <span className="text-xs uppercase tracking-[0.15em] text-gray-500 mt-2 font-medium">{label}</span>
+      <span className="text-base uppercase tracking-[0.15em] text-gray-500 mt-2 font-medium">{label}</span>
     </motion.div>
   );
 };
 
-// ─── Section label ────────────────────────────────────────────────────────────
+//  Section label 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
     {children}
   </p>
 );
 
-// ─── Component ───────────────────────────────────────────────────────────────
+//  Component 
 const Home = () => {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, []);
 
@@ -97,9 +97,9 @@ const Home = () => {
   return (
     <div className="min-h-screen">
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           HERO
-      ══════════════════════════════════════════════ */}
+       */}
       <section className="relative h-[88vh] min-h-[560px] flex items-end overflow-hidden">
         {/* Video */}
         <div className="absolute inset-0">
@@ -125,7 +125,7 @@ const Home = () => {
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-5">
               <div className="w-8 h-[2px] bg-[hsl(4,82%,42%)]" />
-              <span className="text-white/80 text-xs font-semibold uppercase tracking-[0.2em]">
+              <span className="text-white/80 text-base font-semibold uppercase tracking-[0.2em]">
                 Since 1984 · Hyderabad, India
               </span>
             </div>
@@ -144,7 +144,7 @@ const Home = () => {
               <Link
                 to="/products"
                 id="hero-products-btn"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-sm rounded-md transition-colors duration-150 shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-lg"
               >
                 Browse Products
                 <ArrowRight className="w-4 h-4" />
@@ -152,7 +152,7 @@ const Home = () => {
               <Link
                 to="/contact"
                 id="hero-contact-btn"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold text-sm rounded-md transition-colors duration-150"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white font-semibold text-base rounded-md transition-colors duration-150"
               >
                 <Phone className="w-4 h-4" />
                 Get in Touch
@@ -171,14 +171,14 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           TICKER
-      ══════════════════════════════════════════════ */}
+       */}
       <TextCarousel />
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           STATS STRIP
-      ══════════════════════════════════════════════ */}
+       */}
       <section ref={statsRef} className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-200">
@@ -189,9 +189,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           ABOUT STRIP
-      ══════════════════════════════════════════════ */}
+       */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -207,20 +207,20 @@ const Home = () => {
                 40 Years of Poultry<br />
                 Engineering Excellence
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6 text-[15px]">
+              <p className="text-gray-600 leading-relaxed mb-6 text-lg">
                 Established in 1984 as Sri Venkata Ramana Engineering Works, SVR has grown
                 into India's leading manufacturer of fully automated poultry equipment —
                 from cage systems and feeders to complete feed milling plants up to
                 200 tons/day capacity.
               </p>
-              <p className="text-gray-600 leading-relaxed text-[15px] mb-8">
+              <p className="text-gray-600 leading-relaxed text-lg mb-8">
                 With 150+ team members, a CAD-equipped design office, and a fully
                 equipped fabrication shop, we serve clients across India and export
                 to Africa, the Middle East, and beyond.
               </p>
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 text-[hsl(4,82%,42%)] font-semibold text-sm hover:gap-3 transition-all duration-200"
+                className="inline-flex items-center gap-2 text-[hsl(4,82%,42%)] font-semibold text-base hover:gap-3 transition-all duration-200"
               >
                 Learn Our Story
                 <ArrowRight className="w-4 h-4" />
@@ -253,8 +253,8 @@ const Home = () => {
                     <CheckCircle className="w-5 h-5 text-[hsl(4,82%,42%)]" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-[14px] mb-1">{item.title}</p>
-                    <p className="text-gray-500 text-[13px] leading-relaxed">{item.desc}</p>
+                    <p className="font-semibold text-gray-900 text-lg mb-1">{item.title}</p>
+                    <p className="text-gray-500 text-base leading-relaxed">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -263,9 +263,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           MARKET PRESENCE
-      ══════════════════════════════════════════════ */}
+       */}
       <section ref={marketRef} className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
@@ -290,14 +290,14 @@ const Home = () => {
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-6">
                 Our Market Presence
               </h2>
-              <p className="text-gray-500 text-[15px] leading-relaxed mb-8">
+              <p className="text-gray-500 text-lg leading-relaxed mb-8">
                 SVR Poultry Equipments has built a strong international footprint,
                 delivering cutting-edge solutions to farms across multiple continents
                 with a relentless focus on quality and reliability.
               </p>
               <ul className="space-y-3">
                 {marketPoints.map((pt, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[14px] text-gray-700">
+                  <li key={i} className="flex items-start gap-3 text-base text-gray-700">
                     <span className="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[hsl(4,82%,42%)]" />
                     {pt}
                   </li>
@@ -306,7 +306,7 @@ const Home = () => {
               <div className="mt-8">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-sm rounded-md transition-colors duration-150"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors duration-150"
                 >
                   Partner With Us
                   <ArrowRight className="w-4 h-4" />
@@ -317,21 +317,21 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           TIMELINE
-      ══════════════════════════════════════════════ */}
+       */}
       <section className="bg-gray-50 py-4">
         <SVRTimelineInnovation />
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           YOUTUBE VIDEOS
-      ══════════════════════════════════════════════ */}
+       */}
       <YouTubeShowcase />
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           CLIENTS
-      ══════════════════════════════════════════════ */}
+       */}
       <section ref={clientRef} className="py-20 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
@@ -372,9 +372,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════
+      {/* 
           CTA BANNER
-      ══════════════════════════════════════════════ */}
+       */}
       <section className="py-20 bg-[#1a1a2e]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
@@ -383,13 +383,13 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-[hsl(38,92%,60%)] text-xs font-bold uppercase tracking-[0.2em] mb-4">
+            <p className="text-[hsl(38,92%,60%)] text-base font-bold uppercase tracking-[0.2em] mb-4">
               Ready to Get Started?
             </p>
             <h2 className="text-3xl sm:text-4xl font-black text-white mb-5 leading-tight">
               Let's Build Your Modern Poultry Farm
             </h2>
-            <p className="text-white/60 text-[15px] max-w-xl mx-auto mb-9 leading-relaxed">
+            <p className="text-white/60 text-lg max-w-xl mx-auto mb-9 leading-relaxed">
               Talk to our engineering team today. We'll help you select the right
               equipment, plan your setup, and ensure smooth installation.
             </p>
@@ -397,7 +397,7 @@ const Home = () => {
               <Link
                 to="/contact"
                 id="cta-contact-btn"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-sm rounded-md transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 Contact Our Team
@@ -405,7 +405,7 @@ const Home = () => {
               <Link
                 to="/products"
                 id="cta-products-btn"
-                className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 hover:border-white/40 text-white font-semibold text-sm rounded-md transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 hover:border-white/40 text-white font-semibold text-base rounded-md transition-colors"
               >
                 View All Products
                 <ArrowRight className="w-4 h-4" />

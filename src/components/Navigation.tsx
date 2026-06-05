@@ -28,7 +28,7 @@ const Navigation = () => {
   return (
     <>
       {/* Top info bar */}
-      <div className="hidden md:block bg-[#1a1a2e] text-white/70 text-xs py-2">
+      <div className="hidden md:block bg-[#1a1a2e] text-white/70 text-base py-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
           <span>📍 Turkayamjal, Hyderabad, Telangana 501510</span>
           <div className="flex items-center gap-6">
@@ -72,7 +72,7 @@ const Navigation = () => {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`relative px-4 py-2 text-[14px] font-medium transition-colors duration-150 ${isActive(item.path)
+                    className={`relative px-4 py-2 text-base font-medium transition-colors duration-150 ${isActive(item.path)
                       ? 'text-[hsl(4,82%,42%)]'
                       : 'text-gray-600 hover:text-gray-900'
                       }`}
@@ -93,7 +93,7 @@ const Navigation = () => {
               <Link
                 to="/contact"
                 id="nav-get-quote-btn"
-                className="px-5 py-2.5 bg-[hsl(4,82%,42%)] text-white text-[13px] font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors duration-150 shadow-sm"
+                className="px-5 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors duration-150 shadow-sm"
               >
                 Get a Quote
               </Link>
@@ -128,7 +128,7 @@ const Navigation = () => {
                     key={item.name}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block px-3 py-2.5 text-[14px] font-medium rounded-md transition-colors ${isActive(item.path)
+                    className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${isActive(item.path)
                       ? 'text-[hsl(4,82%,42%)] bg-red-50'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       }`}
@@ -140,7 +140,7 @@ const Navigation = () => {
                   <Link
                     to="/contact"
                     onClick={() => setIsOpen(false)}
-                    className="block w-full text-center px-4 py-2.5 bg-[hsl(4,82%,42%)] text-white text-[14px] font-semibold rounded-md"
+                    className="block w-full text-center px-4 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md"
                   >
                     Get a Quote
                   </Link>

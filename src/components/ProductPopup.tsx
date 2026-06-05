@@ -93,7 +93,7 @@ const ProductPopup = ({ isOpen, onClose, title, subProducts }: ProductPopupProps
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{product.title}</h3>
-                      <p className="text-gray-600 mb-4 text-sm leading-relaxed">{product.description}</p>
+                      <p className="text-gray-600 mb-4 text-base leading-relaxed">{product.description}</p>
                         <Button className="w-full bg-primary hover:bg-primary/90 rounded-full group-hover:shadow-lg transition-all duration-300 transform group-hover:scale-105"
                           onClick={()=>handleRouter(product)}
                         >

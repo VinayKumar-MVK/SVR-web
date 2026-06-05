@@ -802,7 +802,7 @@ const SubProductDetail = () => {
             className="space-y-6"
           >
             <div>
-              <Badge variant="secondary" className="mb-3 text-sm">
+              <Badge variant="secondary" className="mb-3 text-base">
                 {product.category}
               </Badge>
               <h1 className="text-4xl font-bold mb-4 text-foreground">

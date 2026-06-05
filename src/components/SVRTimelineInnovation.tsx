@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
-// ─── Timeline data ─────────────────────────────────────────────────────────
+//  Timeline data 
 const events = [
   { year: 1984, title: 'Founded', subtitle: 'Sri Venkata Ramana Engineering Works', description: 'Started as a general engineering firm in Hyderabad, building the foundational expertise that would define four decades of excellence.', phase: 'Origins' },
   { year: 1990, title: 'First Steps in Poultry', subtitle: 'Entering the Industry', description: 'Manufactured our first poultry-specific equipment — small-scale feeders and drinkers — marking a decisive pivot into agri-equipment.', phase: 'Origins' },
@@ -20,7 +20,7 @@ const phaseColors: Record<string, string> = {
   Leadership: 'hsl(38,85%,50%)',
 };
 
-// ─── Event column ──────────────────────────────────────────────────────────────
+//  Event column 
 const EventColumn = ({
   event,
   index,
@@ -92,7 +92,7 @@ const EventColumn = ({
             {event.subtitle}
           </p>
 
-          <p className="text-[14px] text-gray-500 leading-relaxed">
+          <p className="text-base text-gray-500 leading-relaxed">
             {event.description}
           </p>
         </div>
@@ -101,7 +101,7 @@ const EventColumn = ({
   );
 };
 
-// ─── Main component ──────────────────────────────────────────────────────────
+//  Main component 
 const SVRTimelineInnovation = () => {
   const [activeCard, setActiveCard] = useState<number>(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -147,13 +147,13 @@ const SVRTimelineInnovation = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[hsl(4,82%,42%)] mb-3">
+          <p className="text-base font-bold uppercase tracking-[0.22em] text-[hsl(4,82%,42%)] mb-3">
             Our Journey
           </p>
           <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 leading-tight">
             Four Decades of<br className="hidden sm:block" /> Engineering Excellence
           </h2>
-          <p className="text-gray-500 text-[15px] max-w-xl mx-auto leading-relaxed">
+          <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
             From a small engineering workshop in 1984 to a global poultry equipment manufacturer — this is our story.
           </p>
         </motion.div>

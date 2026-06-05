@@ -1,10 +1,10 @@
-import { motion, useInView } from 'framer-motion';
+﻿import { motion, useInView } from 'framer-motion';
 import { Award, Users, Package, Headphones, Building, Target, Heart, Lightbulb, Sprout, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
     {children}
   </p>
 );
@@ -12,7 +12,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#1a1a2e] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex items-center gap-2 text-white/40 text-xs mb-4">
+      <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
         <span className="text-white/70">{title}</span>
@@ -25,7 +25,7 @@ const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) =>
       >
         {title}
       </motion.h1>
-      <p className="text-white/50 text-[15px] max-w-xl">{subtitle}</p>
+      <p className="text-white/50 text-lg max-w-xl">{subtitle}</p>
     </div>
   </section>
 );
@@ -80,13 +80,13 @@ const About = () => {
   return (
     <div className="min-h-screen">
 
-      {/* ─── Page Banner ─────────────────────────────────── */}
+      {/*  Page Banner  */}
       <PageBanner
         title="About Us"
         subtitle="Your trusted partner in modern poultry farming solutions since 1984."
       />
 
-      {/* ─── Company Story ───────────────────────────────── */}
+      {/*  Company Story  */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -100,19 +100,19 @@ const About = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
                 Four Decades of Poultry<br />Engineering Innovation
               </h2>
-              <p className="text-gray-600 text-[15px] leading-relaxed mb-5">
+              <p className="text-gray-600 text-lg leading-relaxed mb-5">
                 Sri Venkata Ramana Engineering Works was established in the early '80s.
                 In the early 2000's, SVR Poultry Equipment Manufacturing was set up
                 separately in Hyderabad with a fully pledged manufacturing facility
                 and a modern CAD-equipped design office.
               </p>
-              <p className="text-gray-600 text-[15px] leading-relaxed mb-5">
+              <p className="text-gray-600 text-lg leading-relaxed mb-5">
                 Our machine and fabrication shop, along with a complete team of
                 engineers, technocrats, and professionals, is capable of designing,
                 manufacturing, and commissioning fully automated feed milling plants
                 up to 200 tons per day capacity.
               </p>
-              <p className="text-gray-600 text-[15px] leading-relaxed">
+              <p className="text-gray-600 text-lg leading-relaxed">
                 With 150+ direct and indirect employees, we have extensive product range
                 aligned with the latest technology — from Auto Feeding Machines and Auger
                 Systems to Feed Storage Bins, Silos, Auto Batching and complete Feed Plants.
@@ -141,8 +141,8 @@ const About = () => {
                     <p.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 text-[15px] mb-2">{p.title}</h3>
-                    <p className="text-gray-500 text-[13px] leading-relaxed">{p.content}</p>
+                    <h3 className="font-semibold text-gray-900 text-lg mb-2">{p.title}</h3>
+                    <p className="text-gray-500 text-base leading-relaxed">{p.content}</p>
                   </div>
                 </motion.div>
               ))}
@@ -151,7 +151,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ─── Stats Row ───────────────────────────────────── */}
+      {/*  Stats Row  */}
       <section ref={statsRef} className="py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -167,20 +167,20 @@ const About = () => {
                   <s.icon className="w-6 h-6 text-[hsl(4,82%,42%)]" />
                 </div>
                 <p className="text-3xl font-black text-gray-900 mb-1">{s.value}</p>
-                <p className="text-xs uppercase tracking-[0.12em] text-gray-500 font-medium">{s.label}</p>
+                <p className="text-base uppercase tracking-[0.12em] text-gray-500 font-medium">{s.label}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Premium Equipment ────────────────────────────── */}
+      {/*  Premium Equipment  */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <SectionLabel>Our Facility</SectionLabel>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Premium Manufacturing Equipment</h2>
-            <p className="text-gray-500 text-[15px] max-w-2xl leading-relaxed">
+            <p className="text-gray-500 text-lg max-w-2xl leading-relaxed">
               State-of-the-art machinery and fabrication solutions engineered for excellence and precision.
             </p>
           </div>
@@ -204,8 +204,8 @@ const About = () => {
                   />
                 </div>
                 <div className="p-5">
-                  <h3 className="font-semibold text-gray-900 text-[15px] mb-2">{eq.title}</h3>
-                  <p className="text-gray-500 text-[13px] leading-relaxed">{eq.description}</p>
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2">{eq.title}</h3>
+                  <p className="text-gray-500 text-base leading-relaxed">{eq.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -213,7 +213,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ─── Core Values ─────────────────────────────────── */}
+      {/*  Core Values  */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -234,15 +234,15 @@ const About = () => {
                 <div className="w-10 h-10 rounded-md bg-red-50 flex items-center justify-center mb-5">
                   <v.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 text-[15px] mb-3">{v.title}</h3>
-                <p className="text-gray-500 text-[13px] leading-relaxed">{v.description}</p>
+                <h3 className="font-semibold text-gray-900 text-lg mb-3">{v.title}</h3>
+                <p className="text-gray-500 text-base leading-relaxed">{v.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Leadership ──────────────────────────────────── */}
+      {/*  Leadership  */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -263,14 +263,14 @@ const About = () => {
                 <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-gray-400" />
                 </div>
-                <h3 className="font-semibold text-gray-900 text-[14px] mb-1">{member.name}</h3>
+                <h3 className="font-semibold text-gray-900 text-base mb-1">{member.name}</h3>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
- {/* ─── Leadership ──────────────────────────────────── */}
+ {/*  Leadership  */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -291,7 +291,7 @@ const About = () => {
                 <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-gray-400" />
                 </div>
-                <h3 className="font-semibold text-gray-900 text-[14px] mb-1">{member.name}</h3>
+                <h3 className="font-semibold text-gray-900 text-base mb-1">{member.name}</h3>
               </motion.div>
             ))}
           </div>
@@ -299,24 +299,24 @@ const About = () => {
       </section>
 
 
-      {/* ─── CTA ─────────────────────────────────────────── */}
+      {/*  CTA  */}
       <section className="py-20 bg-[#1a1a2e]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <p className="text-[hsl(38,92%,60%)] text-xs font-bold uppercase tracking-[0.2em] mb-4">Work With Us</p>
+          <p className="text-[hsl(38,92%,60%)] text-base font-bold uppercase tracking-[0.2em] mb-4">Work With Us</p>
           <h2 className="text-3xl font-black text-white mb-5">Ready to Modernize Your Farm?</h2>
-          <p className="text-white/60 text-[15px] max-w-lg mx-auto mb-9">
+          <p className="text-white/60 text-lg max-w-lg mx-auto mb-9">
             Contact our team for a free consultation and equipment recommendation tailored to your farm's needs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-sm rounded-md transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors"
             >
               Get in Touch
             </Link>
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 hover:border-white/40 text-white font-semibold text-sm rounded-md transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 hover:border-white/40 text-white font-semibold text-base rounded-md transition-colors"
             >
               View Products
               <ArrowRight className="w-4 h-4" />

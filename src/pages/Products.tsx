@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Youtube } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
@@ -22,11 +22,11 @@ interface Product {
   category: string;
 }
 
-// ─── Shared Page Banner ──────────────────────────────────────────────────────
+//  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#1a1a2e] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex items-center gap-2 text-white/40 text-xs mb-4">
+      <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
         <span className="text-white/70">{title}</span>
@@ -39,27 +39,27 @@ const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) =>
       >
         {title}
       </motion.h1>
-      <p className="text-white/50 text-[15px] max-w-xl">{subtitle}</p>
+      <p className="text-white/50 text-lg max-w-xl">{subtitle}</p>
     </div>
   </section>
 );
 
-// ─── Section heading ─────────────────────────────────────────────────────────
+//  Section heading 
 const CategoryHeading = ({ id, label, count }: { id: string; label: string; count: number }) => (
   <div id={id} className="scroll-mt-24 flex items-end justify-between mb-8 pb-4 border-b border-gray-200">
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-1">
+      <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-1">
         Product Category
       </p>
       <h2 className="text-2xl font-bold text-gray-900">{label}</h2>
     </div>
-    <span className="text-xs font-medium text-gray-400 border border-gray-200 rounded-full px-3 py-1">
+    <span className="text-base font-medium text-gray-400 border border-gray-200 rounded-full px-3 py-1">
       {count} Products
     </span>
   </div>
 );
 
-// ─── Product Card ─────────────────────────────────────────────────────────────
+//  Product Card 
 const ProductCard = ({
   product,
   onClick,
@@ -89,10 +89,10 @@ const ProductCard = ({
 
     {/* Content */}
     <div className="p-5">
-      <h3 className="font-semibold text-gray-900 text-[15px] mb-2 group-hover:text-[hsl(4,82%,42%)] transition-colors">
+      <h3 className="font-semibold text-gray-900 text-lg mb-2 group-hover:text-[hsl(4,82%,42%)] transition-colors">
         {product.title}
       </h3>
-      <p className="text-gray-500 text-[13px] leading-relaxed mb-4 line-clamp-2">
+      <p className="text-gray-500 text-base leading-relaxed mb-4 line-clamp-2">
         {product.description}
       </p>
 
@@ -108,7 +108,7 @@ const ProductCard = ({
         </ul>
       )}
 
-      <div className="flex items-center gap-1.5 text-[hsl(4,82%,42%)] text-[13px] font-semibold group-hover:gap-2.5 transition-all duration-150">
+      <div className="flex items-center gap-1.5 text-[hsl(4,82%,42%)] text-base font-semibold group-hover:gap-2.5 transition-all duration-150">
         View Details
         <ArrowRight className="w-3.5 h-3.5" />
       </div>
@@ -116,7 +116,7 @@ const ProductCard = ({
   </motion.div>
 );
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+//  Main Component 
 const Products = () => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -247,13 +247,13 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ─── Page Banner ─────────────────────────────────── */}
+      {/*  Page Banner  */}
       <PageBanner
         title="Our Products"
         subtitle="Comprehensive poultry equipment for every stage of modern farm operations."
       />
 
-      {/* ─── Project Showcase ─────────────────────────────── */}
+      {/*  Project Showcase  */}
       <section className="py-14 bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="rounded-xl overflow-hidden border border-gray-200 bg-white grid grid-cols-1 lg:grid-cols-2 shadow-sm">
@@ -264,14 +264,14 @@ const Products = () => {
               viewport={{ once: true }}
               className="p-10 lg:p-14 flex flex-col justify-center"
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
                 Featured Project
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                 50 Acre Poultry Farm<br />
                 <span className="text-[hsl(4,82%,42%)]">at Chinthpally</span>
               </h2>
-              <p className="text-gray-500 text-[14px] leading-relaxed mb-6">
+              <p className="text-gray-500 text-base leading-relaxed mb-6">
                 A landmark project — entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
@@ -314,14 +314,14 @@ const Products = () => {
               viewport={{ once: true }}
               className="p-10 lg:p-14 flex flex-col justify-center"
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
                 Featured Project
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                 50 Acre Poultry Farm<br />
                 <span className="text-[hsl(4,82%,42%)]">at Chinthpally</span>
               </h2>
-              <p className="text-gray-500 text-[14px] leading-relaxed mb-6">
+              <p className="text-gray-500 text-base leading-relaxed mb-6">
                 A landmark project — entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
@@ -353,7 +353,7 @@ const Products = () => {
       </section>
 
 
-      {/* ─── Quick-nav tabs ───────────────────────────────── */}
+      {/*  Quick-nav tabs  */}
       <section className="sticky top-[72px] z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex gap-0 overflow-x-auto">
@@ -376,7 +376,7 @@ const Products = () => {
         </div>
       </section>
 
-      {/* ─── Product Categories ───────────────────────────── */}
+      {/*  Product Categories  */}
       <section className="py-14">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-20">
 
@@ -423,10 +423,10 @@ const Products = () => {
         </div>
       </section>
 
-      {/* ─── Clients strip ────────────────────────────────── */}
+      {/*  Clients strip  */}
       <section className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-10">
+          <p className="text-center text-base font-bold uppercase tracking-[0.2em] text-gray-400 mb-10">
             Trusted by Industry Leaders
           </p>
           <div className="relative overflow-hidden">
@@ -447,7 +447,7 @@ const Products = () => {
         </div>
       </section>
 
-      {/* ─── Popups ───────────────────────────────────────── */}
+      {/*  Popups  */}
       {['Cage Systems', 'Cage Accessories', 'Weld Mesh', 'Feed Trolley', 'Feed Plants'].map((title) => (
         <ProductPopup
           key={title}
