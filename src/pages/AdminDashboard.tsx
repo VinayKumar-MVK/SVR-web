@@ -214,22 +214,22 @@ const AdminDashboard = () => {
                       <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Name</label>
+                <label className="block text-base font-medium text-gray-600 mb-1">Name</label>
                 <p className="text-gray-900 font-medium">{message.name}</p>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Email</label>
+                <label className="block text-base font-medium text-gray-600 mb-1">Email</label>
                 <p className="text-gray-900">{message.email}</p>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Phone</label>
+                <label className="block text-base font-medium text-gray-600 mb-1">Phone</label>
                 <p className="text-gray-900">{message.phone || 'Not provided'}</p>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Date</label>
+                <label className="block text-base font-medium text-gray-600 mb-1">Date</label>
                 <p className="text-gray-900">{format(new Date(message.created_at), 'PPP')}</p>
               </div>
             </div>
@@ -239,7 +239,7 @@ const AdminDashboard = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Product Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Product Category</label>
+                  <label className="block text-base font-medium text-gray-600 mb-1">Product Category</label>
                   <div className="bg-blue-50 px-3 py-2 rounded-lg border">
                     <p className="text-gray-900 font-medium">
                       {message.product_category || 'General Inquiry'}
@@ -248,7 +248,7 @@ const AdminDashboard = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Product Name</label>
+                  <label className="block text-base font-medium text-gray-600 mb-1">Product Name</label>
                   <div className="bg-green-50 px-3 py-2 rounded-lg border">
                     <p className="text-gray-900 font-medium">
                       {message.product_name || 'Not specified'}
@@ -260,7 +260,7 @@ const AdminDashboard = () => {
               {/* Show inquiry type if it's a general inquiry */}
               {(!message.product_category || message.product_category === 'General Inquiry') && (
                 <div className="mt-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <p className="text-sm text-yellow-800">
+                  <p className="text-base text-yellow-800">
                     <strong>Note:</strong> This is a general inquiry not related to a specific product.
                   </p>
                 </div>
@@ -268,7 +268,7 @@ const AdminDashboard = () => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-2">Customer Message</label>
+              <label className="block text-base font-medium text-gray-600 mb-2">Customer Message</label>
               <div className="bg-gray-50 p-4 rounded-lg border">
                 <p className="text-gray-900 whitespace-pre-wrap leading-relaxed">{message.message}</p>
               </div>
@@ -349,7 +349,7 @@ const AdminDashboard = () => {
                     <MessageSquare className="h-6 w-6 text-blue-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Messages</p>
+                    <p className="text-base font-medium text-gray-600">Total Messages</p>
                     <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
                   </div>
                 </div>
@@ -369,7 +369,7 @@ const AdminDashboard = () => {
                     <Mail className="h-6 w-6 text-orange-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Unread Messages</p>
+                    <p className="text-base font-medium text-gray-600">Unread Messages</p>
                     <p className="text-2xl font-bold text-gray-900">{stats.unread}</p>
                   </div>
                 </div>
@@ -389,7 +389,7 @@ const AdminDashboard = () => {
                     <Calendar className="h-6 w-6 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Today's Messages</p>
+                    <p className="text-base font-medium text-gray-600">Today's Messages</p>
                     <p className="text-2xl font-bold text-gray-900">{stats.today}</p>
                   </div>
                 </div>
@@ -412,11 +412,11 @@ const AdminDashboard = () => {
                   Contact Messages
                 </div>
                 <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium text-gray-600">Filter by Category:</label>
+                  <label className="text-base font-medium text-gray-600">Filter by Category:</label>
                   <select
                     value={filterCategory}
                     onChange={(e) => filterMessages(e.target.value)}
-                    className="px-3 py-1 border border-gray-300 rounded-md text-sm"
+                    className="px-3 py-1 border border-gray-300 rounded-md text-base"
                   >
                     {getUniqueCategories().map(category => (
                       <option key={category} value={category}>
@@ -473,7 +473,7 @@ const AdminDashboard = () => {
                           <TableCell className="max-w-xs truncate">
                             <span 
                               title={message.product_category || 'General Inquiry'}
-                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-base font-medium ${
                                 message.product_category 
                                   ? 'bg-blue-100 text-blue-800' 
                                   : 'bg-gray-100 text-gray-800'

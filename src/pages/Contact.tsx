@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,11 +6,11 @@ import { MapPin, Phone, Mail, Clock, ChevronDown, X, ExternalLink, ChevronLeft, 
 import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
 
-// ─── Shared Page Banner ──────────────────────────────────────────────────────
+//  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#1a1a2e] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex items-center gap-2 text-white/40 text-xs mb-4">
+      <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
         <span className="text-white/70">{title}</span>
@@ -23,15 +23,15 @@ const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) =>
       >
         {title}
       </motion.h1>
-      <p className="text-white/50 text-[15px] max-w-xl">{subtitle}</p>
+      <p className="text-white/50 text-lg max-w-xl">{subtitle}</p>
     </div>
   </section>
 );
 
-// ─── Form field wrapper ──────────────────────────────────────────────────────
+//  Form field wrapper 
 const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
   <div>
-    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">
+    <label className="block text-base font-semibold text-gray-700 mb-1.5">
       {label} {required && <span className="text-[hsl(4,82%,42%)]">*</span>}
     </label>
     {children}
@@ -39,9 +39,9 @@ const Field = ({ label, required, children }: { label: string; required?: boolea
 );
 
 const inputClass =
-  'w-full px-3.5 py-2.5 text-[14px] text-gray-900 bg-white border border-gray-200 rounded-md outline-none transition-all duration-150 focus:border-[hsl(4,82%,42%)] focus:ring-2 focus:ring-[hsl(4,82%,42%)]/10 placeholder:text-gray-400';
+  'w-full px-3.5 py-2.5 text-base text-gray-900 bg-white border border-gray-200 rounded-md outline-none transition-all duration-150 focus:border-[hsl(4,82%,42%)] focus:ring-2 focus:ring-[hsl(4,82%,42%)]/10 placeholder:text-gray-400';
 
-// ─── Main ────────────────────────────────────────────────────────────────────
+//  Main 
 const Contact = () => {
   const location = useLocation();
   const [isSubmitting, setIsSubmitting]   = useState(false);
@@ -134,13 +134,13 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ─── Banner ──────────────────────────────────────── */}
+      {/*  Banner  */}
       <PageBanner
         title="Contact Us"
         subtitle="Get in touch with our team for quotes, support, or general enquiries."
       />
 
-      {/* ─── Quick contact strip ─────────────────────────── */}
+      {/*  Quick contact strip  */}
       <section className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
@@ -152,11 +152,11 @@ const Contact = () => {
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-0.5">{item.label}</p>
                   {item.href ? (
-                    <a href={item.href} className="text-[14px] font-medium text-gray-900 hover:text-[hsl(4,82%,42%)] transition-colors">
+                    <a href={item.href} className="text-base font-medium text-gray-900 hover:text-[hsl(4,82%,42%)] transition-colors">
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-[14px] font-medium text-gray-900">{item.value}</p>
+                    <p className="text-base font-medium text-gray-900">{item.value}</p>
                   )}
                 </div>
               </div>
@@ -165,7 +165,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* ─── Form + Map row ──────────────────────────────── */}
+      {/*  Form + Map row  */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -177,17 +177,17 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Enquiry Form</p>
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Enquiry Form</p>
               <h2 className="text-2xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
 
               {submitted ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center border border-gray-100 rounded-lg bg-gray-50">
                   <CheckCircle2 className="w-12 h-12 text-[hsl(4,82%,42%)] mb-4" />
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Message Sent!</h3>
-                  <p className="text-gray-500 text-[14px] mb-6">We'll get back to you within 24 hours.</p>
+                  <p className="text-gray-500 text-base mb-6">We'll get back to you within 24 hours.</p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-[hsl(4,82%,42%)] text-sm font-semibold hover:underline"
+                    className="text-[hsl(4,82%,42%)] text-base font-semibold hover:underline"
                   >
                     Send another message
                   </button>
@@ -263,7 +263,7 @@ const Contact = () => {
                     type="submit"
                     id="contact-submit-btn"
                     disabled={isSubmitting}
-                    className="w-full py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] disabled:opacity-60 text-white font-semibold text-[14px] rounded-md transition-colors duration-150 shadow-sm"
+                    className="w-full py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] disabled:opacity-60 text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-sm"
                   >
                     {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
@@ -280,7 +280,7 @@ const Contact = () => {
               className="space-y-6"
             >
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Head Office</p>
+                <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Head Office</p>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Main Location</h2>
               </div>
 
@@ -313,11 +313,11 @@ const Contact = () => {
                     <div>
                       <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400 mb-1">{d.title}</p>
                       {(d as any).href ? (
-                        <a href={(d as any).href} className="text-[14px] text-gray-700 hover:text-[hsl(4,82%,42%)] transition-colors font-medium">
+                        <a href={(d as any).href} className="text-base text-gray-700 hover:text-[hsl(4,82%,42%)] transition-colors font-medium">
                           {d.text}
                         </a>
                       ) : (
-                        <p className="text-[14px] text-gray-700 leading-snug">{d.text}</p>
+                        <p className="text-base text-gray-700 leading-snug">{d.text}</p>
                       )}
                     </div>
                   </div>
@@ -328,13 +328,13 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* ─── Locations Section ────────────────────────────── */}
+      {/*  Locations Section  */}
       <section className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-2">Our Offices</p>
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-2">Our Offices</p>
               <h2 className="text-2xl font-bold text-gray-900">Visit Our Locations</h2>
             </div>
             {/* Prev/Next */}
@@ -386,21 +386,21 @@ const Contact = () => {
                       <div className="p-5">
                         <div className="mb-3">
                           <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[hsl(4,82%,42%)] mb-0.5">{loc.subtitle}</p>
-                          <h3 className="font-semibold text-gray-900 text-[15px]">{loc.title}</h3>
+                          <h3 className="font-semibold text-gray-900 text-lg">{loc.title}</h3>
                         </div>
                         <div className="space-y-2 mb-4">
-                          <div className="flex items-start gap-2 text-[13px] text-gray-500">
+                          <div className="flex items-start gap-2 text-base text-gray-500">
                             <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-gray-400" />
                             {loc.address}
                           </div>
-                          <div className="flex items-center gap-2 text-[13px] text-gray-500">
+                          <div className="flex items-center gap-2 text-base text-gray-500">
                             <Phone className="w-3.5 h-3.5 flex-shrink-0 text-gray-400" />
                             {loc.phone}
                           </div>
                         </div>
                         <button
                           onClick={() => loc.mapUrl ? window.open(loc.mapUrl, '_blank') : setShowPopup(true)}
-                          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[hsl(4,82%,42%)] hover:gap-2 transition-all duration-150"
+                          className="inline-flex items-center gap-1.5 text-base font-semibold text-[hsl(4,82%,42%)] hover:gap-2 transition-all duration-150"
                         >
                           {loc.mapUrl ? (
                             <><ExternalLink className="w-3.5 h-3.5" /> View on Map</>
@@ -431,7 +431,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* ─── Under Construction Modal ────────────────────── */}
+      {/*  Under Construction Modal  */}
       {showPopup && (
         <div
           className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
@@ -445,12 +445,12 @@ const Contact = () => {
               <span className="text-xl">🚧</span>
             </div>
             <h3 className="font-bold text-gray-900 text-lg mb-2">Coming Soon</h3>
-            <p className="text-gray-500 text-[14px] mb-6 leading-relaxed">
+            <p className="text-gray-500 text-base mb-6 leading-relaxed">
               This location's map is under development. Please call us for directions.
             </p>
             <button
               onClick={() => setShowPopup(false)}
-              className="px-6 py-2.5 bg-[hsl(4,82%,42%)] text-white text-sm font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors"
+              className="px-6 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors"
             >
               Close
             </button>

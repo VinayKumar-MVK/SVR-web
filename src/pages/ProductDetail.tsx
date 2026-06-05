@@ -749,7 +749,7 @@ const ProductDetail = () => {
                     {product.usage.map((item, index) => (
                       <div key={index} className="flex items-start space-x-3">
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <p className="text-gray-700 text-sm leading-relaxed">{item}</p>
+                        <p className="text-gray-700 text-base leading-relaxed">{item}</p>
                       </div>
                     ))}
                   </div>
@@ -774,7 +774,7 @@ const ProductDetail = () => {
                     {product.applications.map((item, index) => (
                       <div key={index} className="flex items-start space-x-3">
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <p className="text-gray-700 text-sm leading-relaxed">{item}</p>
+                        <p className="text-gray-700 text-base leading-relaxed">{item}</p>
                       </div>
                     ))}
                   </div>
@@ -799,8 +799,8 @@ const ProductDetail = () => {
                     {Object.entries(product.specifications).map(([key, value], index) => (
                       <div key={index} className="border-b border-gray-100 pb-3">
                         <div className="flex justify-between items-start">
-                          <span className="font-medium text-gray-900 text-sm">{key}</span>
-                          <span className="text-gray-700 text-sm text-right ml-4">{value}</span>
+                          <span className="font-medium text-gray-900 text-base">{key}</span>
+                          <span className="text-gray-700 text-base text-right ml-4">{value}</span>
                         </div>
                       </div>
                     ))}

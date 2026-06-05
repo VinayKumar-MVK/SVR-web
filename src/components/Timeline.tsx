@@ -148,7 +148,7 @@ const Timeline = () => {
 
                   {/* Year Label (Below) */}
                   <div className="absolute top-6 text-center">
-                    <span className="text-sm font-bold text-gray-800">{event.year}</span>
+                    <span className="text-base font-bold text-gray-800">{event.year}</span>
                   </div>
 
                   {/* Click Popup - Positioned above the dot */}
@@ -171,13 +171,13 @@ const Timeline = () => {
                             >
                               <X className="w-4 h-4" />
                             </button>
-                            <span className="inline-block bg-white/20 text-sm font-medium px-3 py-1 rounded-full mb-3">
+                            <span className="inline-block bg-white/20 text-base font-medium px-3 py-1 rounded-full mb-3">
                               {event.era}
                             </span>
                             <h3 className="text-xl font-bold mb-2">{event.title}</h3>
                             <p className="text-lg mb-3 font-semibold">{event.year}</p>
                             <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex-1">
-                              <p className="text-sm leading-relaxed">{event.description}</p>
+                              <p className="text-base leading-relaxed">{event.description}</p>
                             </div>
                           </div>
                         </div>
