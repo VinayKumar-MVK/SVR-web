@@ -86,18 +86,12 @@ const navItems = [
   { 
     name: 'Home', 
     path: '/', 
-    hasDropdown: true, 
-    dropdownType: 'simple',
-    description: 'Welcome to SVR Poultry Equipments. Discover our premium range of products and solutions.',
-    actionText: 'Go to Home'
+    hasDropdown: false, 
   },
   { 
     name: 'About', 
     path: '/about', 
-    hasDropdown: true, 
-    dropdownType: 'simple',
-    description: 'Learn more about our history, our mission, and the dedicated team behind SVR Poultry.',
-    actionText: 'Read More'
+    hasDropdown: false, 
   },
   { 
     name: 'Products', 
@@ -108,10 +102,7 @@ const navItems = [
   { 
     name: 'Contact', 
     path: '/contact', 
-    hasDropdown: true, 
-    dropdownType: 'simple',
-    description: 'Get in touch with us for product inquiries, tailored quotes, or support.',
-    actionText: 'Contact Us'
+    hasDropdown: false, 
   },
 ];
 
@@ -192,8 +183,8 @@ const Navigation = () => {
                   <div
                     key={item.name}
                     className="relative flex items-center h-full"
-                    onMouseEnter={() => handleMouseEnter(item.name)}
-                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={item.hasDropdown ? () => handleMouseEnter(item.name) : undefined}
+                    onMouseLeave={item.hasDropdown ? handleMouseLeave : undefined}
                   >
                     <Link
                       to={item.path}
@@ -280,30 +271,7 @@ const Navigation = () => {
                       </div>
                     )}
 
-                    {/* Simple Dropdown for other links */}
-                    {item.dropdownType === 'simple' && activeDropdown === item.name && (
-                      <div className="absolute top-[72px] left-1/2 -translate-x-1/2 pt-2 z-50 w-[300px]">
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.2 }}
-                          className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden p-6 flex flex-col gap-4 relative"
-                        >
-                          <h4 className="font-semibold text-gray-900 text-lg">{item.name}</h4>
-                          <p className="text-gray-600 text-sm leading-relaxed">
-                            {item.description}
-                          </p>
-                          <Link
-                            to={item.path}
-                            onClick={() => setActiveDropdown(null)}
-                            className="inline-flex justify-center items-center px-4 py-2 mt-2 bg-[hsl(190,65%,35%)]/10 text-[hsl(190,65%,35%)] text-sm font-semibold rounded-md hover:bg-[hsl(190,65%,35%)] hover:text-white transition-colors"
-                          >
-                            {item.actionText}
-                          </Link>
-                        </motion.div>
-                      </div>
-                    )}
+
                   </div>
                 ))}
               </div>
