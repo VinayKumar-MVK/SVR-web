@@ -62,7 +62,7 @@ const YouTubeShowcase = () => {
   if (loading || !activeVideo) {
     return (
       <section className="py-20 bg-white border-t border-gray-100 flex justify-center items-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[hsl(4,82%,42%)]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[hsl(190,65%,35%)]" />
       </section>
     );
   }
@@ -90,7 +90,7 @@ const YouTubeShowcase = () => {
         >
           <div className="flex items-center justify-center gap-2 mb-3">
             <Youtube className="w-5 h-5 text-red-600" />
-            <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)]">
+            <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)]">
               Latest from our Channel
             </p>
           </div>
@@ -141,12 +141,12 @@ const YouTubeShowcase = () => {
                         className={`flex flex-col gap-3 group cursor-pointer transition-all duration-300 ${isActive ? '' : 'hover:-translate-y-1'}`}
                         onClick={() => setActiveVideo(video)}
                       >
-                        <div className={`w-full aspect-video rounded-xl overflow-hidden shadow-md bg-gray-100 relative transition-shadow duration-300 ${isActive ? 'border-2 border-[hsl(4,82%,42%)]' : 'border border-gray-200 hover:shadow-lg'}`}>
+                        <div className={`w-full aspect-video rounded-xl overflow-hidden shadow-md bg-gray-100 relative transition-shadow duration-300 ${isActive ? 'border-2 border-[hsl(190,65%,35%)]' : 'border border-gray-200 hover:shadow-lg'}`}>
                           {/* Overlay for state and interaction */}
                           <div className={`absolute inset-0 z-10 flex flex-col items-center justify-center transition-colors ${isActive ? 'bg-black/70' : 'bg-black/10 group-hover:bg-black/30'}`}>
                             {isActive ? (
                               <>
-                                <PlayCircle className="w-8 h-8 text-[hsl(4,82%,42%)] mb-1" />
+                                <PlayCircle className="w-8 h-8 text-[hsl(190,65%,35%)] mb-1" />
                                 <span className="text-white text-base font-bold tracking-widest uppercase">Playing</span>
                               </>
                             ) : (
@@ -160,7 +160,7 @@ const YouTubeShowcase = () => {
                             className="w-full h-full object-cover absolute inset-0 z-0"
                           />
                         </div>
-                        <h3 className={`font-semibold text-base line-clamp-2 transition-colors ${isActive ? 'text-[hsl(4,82%,42%)]' : 'text-gray-800 group-hover:text-[hsl(4,82%,42%)]'}`}>
+                        <h3 className={`font-semibold text-base line-clamp-2 transition-colors ${isActive ? 'text-[hsl(190,65%,35%)]' : 'text-gray-800 group-hover:text-[hsl(190,65%,35%)]'}`}>
                           {video.title}
                         </h3>
                       </div>

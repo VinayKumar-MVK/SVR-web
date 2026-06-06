@@ -23,9 +23,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#1a1a2e] text-white">
+    <footer className="bg-[#0B1B21] text-white">
       {/* Red top accent */}
-      <div className="h-[3px] bg-[hsl(4,82%,42%)]" />
+      <div className="h-[3px] bg-[hsl(190,65%,35%)]" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
@@ -59,7 +59,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="w-8 h-8 rounded-md bg-white/8 hover:bg-[hsl(4,82%,42%)] flex items-center justify-center text-white/50 hover:text-white transition-all duration-150"
+                  className="w-8 h-8 rounded-md bg-white/8 hover:bg-[hsl(190,65%,35%)] flex items-center justify-center text-white/50 hover:text-white transition-all duration-150"
                   style={{ background: 'rgba(255,255,255,0.07)' }}
                 >
                   <s.icon className="w-4 h-4" />
@@ -107,7 +107,7 @@ const Footer = () => {
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/40 mb-5">Contact</p>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[hsl(190,65%,45%)] flex-shrink-0 mt-0.5" />
                 <p className="text-white/55 text-base leading-relaxed">
                   Turkayamjal Municipality<br />
                   Hyderabad, Telangana 501510<br />
@@ -115,13 +115,13 @@ const Footer = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0" />
+                <Phone className="w-4 h-4 text-[hsl(190,65%,45%)] flex-shrink-0" />
                 <a href="tel:+918886645122" className="text-white/55 hover:text-white text-base transition-colors">
                   +91 88866 45122
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[hsl(4,82%,55%)] flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[hsl(190,65%,45%)] flex-shrink-0" />
                 <a href="mailto:svrpoultryequipments@gmail.com" className="text-white/55 hover:text-white text-base break-all transition-colors">
                   svrpoultryequipments@gmail.com
                 </a>
