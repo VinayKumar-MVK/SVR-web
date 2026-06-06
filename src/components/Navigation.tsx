@@ -3,9 +3,122 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type MegaMenuType = {
+  title: string;
+  items: { name: string; path?: string; subItems?: { name: string; path: string }[] }[];
+}[][];
+
+const megaMenuData: MegaMenuType = [
+  // Column 1
+  [
+    {
+      title: 'Cage Systems',
+      items: [
+        { name: 'Chicks Cages', path: '/products/sub/1001' },
+        { name: 'Layer Cages', path: '/products/sub/1002' },
+        { name: 'Grower Cages', path: '/products/sub/1003' },
+      ],
+    },
+    {
+      title: 'Cage Accessories',
+      items: [
+        { name: 'Water Nipples', path: '/products/sub/1004' },
+        { name: 'PVC/GI-Feeders', path: '/products/sub/1005' },
+        { name: 'Distribution Pipes', path: '/products/sub/1006' },
+      ],
+    },
+    {
+      title: 'Weld Mesh',
+      items: [
+        { name: 'Weld Mesh Panels', path: '/products/sub/1007' },
+        { name: 'Chain Link Fencing', path: '/products/sub/1008' },
+      ],
+    },
+  ],
+  // Column 2
+  [
+    {
+      title: 'Feed Trolley',
+      items: [
+        { name: 'Rooter Feed Trolley', path: '/products/sub/2001' },
+        { name: 'Garata Feed Trolley', path: '/products/sub/2002' },
+      ],
+    },
+    {
+      title: 'Feed Plants',
+      items: [
+        { name: 'Feed Manufacturing Plants', path: '/products/sub/2003' },
+        { name: 'Full Screen Grinder', path: '/products/sub/2004' },
+        { name: 'Precision Weighing Bins', path: '/products/sub/2005' },
+        { name: 'Feed Mixers', path: '/products/sub/2006' },
+      ],
+    },
+    {
+      title: 'Auto Batching',
+      items: [
+        { name: 'Auto Batching Systems', path: '/products/manufacturing/203' },
+      ],
+    },
+  ],
+  // Column 3
+  [
+    {
+      title: 'Feed Storage',
+      items: [
+        { name: 'Flat Bottom Silos', path: '/products/storage/301' },
+        { name: 'Hopper Bottom Silos', path: '/products/storage/302' },
+      ],
+    },
+  ],
+  // Column 4
+  [
+    {
+      title: 'Feed Transportation',
+      items: [
+        { name: 'Tractor Tanker', path: '/products/transportation/401' },
+        { name: 'Bulk Feeding Tanker', path: '/products/transportation/402' },
+      ],
+    },
+  ],
+];
+
+const navItems = [
+  { 
+    name: 'Home', 
+    path: '/', 
+    hasDropdown: true, 
+    dropdownType: 'simple',
+    description: 'Welcome to SVR Poultry Equipments. Discover our premium range of products and solutions.',
+    actionText: 'Go to Home'
+  },
+  { 
+    name: 'About', 
+    path: '/about', 
+    hasDropdown: true, 
+    dropdownType: 'simple',
+    description: 'Learn more about our history, our mission, and the dedicated team behind SVR Poultry.',
+    actionText: 'Read More'
+  },
+  { 
+    name: 'Products', 
+    path: '/products', 
+    hasDropdown: true, 
+    dropdownType: 'mega' 
+  },
+  { 
+    name: 'Contact', 
+    path: '/contact', 
+    hasDropdown: true, 
+    dropdownType: 'simple',
+    description: 'Get in touch with us for product inquiries, tailored quotes, or support.',
+    actionText: 'Contact Us'
+  },
+];
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -14,21 +127,30 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => setIsOpen(false), [location.pathname]);
+  useEffect(() => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Products', path: '/products' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  const isActive = (path: string) => location.pathname === path || (path === '/products' && location.pathname.startsWith('/products'));
 
-  const isActive = (path: string) => location.pathname === path;
+  let dropdownTimeout: NodeJS.Timeout;
+
+  const handleMouseEnter = (name: string) => {
+    clearTimeout(dropdownTimeout);
+    setActiveDropdown(name);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeout = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150);
+  };
 
   return (
     <>
       {/* Top info bar */}
-      <div className="hidden md:block bg-[#1a1a2e] text-white/70 text-base py-2">
+      <div className="hidden md:block bg-[#0B1B21] text-white/70 text-base py-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
           <span>📍 Turkayamjal, Hyderabad, Telangana 501510</span>
           <div className="flex items-center gap-6">
@@ -45,7 +167,6 @@ const Navigation = () => {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-[72px]">
-
             {/* Logo + wordmark */}
             <Link to="/" className="flex items-end gap-3 flex-shrink-0 pb-1.5">
               <img
@@ -53,7 +174,6 @@ const Navigation = () => {
                 alt="SVR Logo"
                 className="h-10 w-auto object-contain"
                 onError={(e) => {
-                  // Fallback to previous logo if logo.png doesn't exist
                   e.currentTarget.src = "/lovable-uploads/253837d0-59ba-46d9-8132-54cd4616acf9.png";
                 }}
               />
@@ -65,27 +185,126 @@ const Navigation = () => {
             </Link>
 
             {/* Right side Nav & CTA */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8 h-full">
               {/* Desktop nav */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 h-full">
                 {navItems.map((item) => (
-                  <Link
+                  <div
                     key={item.name}
-                    to={item.path}
-                    className={`relative px-4 py-2 text-base font-medium transition-colors duration-150 ${isActive(item.path)
-                      ? 'text-[hsl(4,82%,42%)]'
-                      : 'text-gray-600 hover:text-gray-900'
-                      }`}
+                    className="relative flex items-center h-full"
+                    onMouseEnter={() => handleMouseEnter(item.name)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    {item.name}
-                    {isActive(item.path) && (
-                      <motion.div
-                        layoutId="nav-indicator"
-                        className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-[hsl(4,82%,42%)]"
-                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                      />
+                    <Link
+                      to={item.path}
+                      className={`relative px-4 py-2 text-base font-medium transition-colors duration-150 flex items-center gap-1 ${isActive(item.path)
+                        ? 'text-[hsl(190,65%,35%)]'
+                        : 'text-gray-600 hover:text-gray-900'
+                        }`}
+                    >
+                      {item.name}
+                      {item.hasDropdown && (
+                        <ChevronDown className="w-4 h-4 ml-0.5" />
+                      )}
+                      {isActive(item.path) && (
+                        <motion.div
+                          layoutId="nav-indicator"
+                          className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-[hsl(190,65%,35%)]"
+                          transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                        />
+                      )}
+                    </Link>
+
+                    {/* Mega Menu Dropdown */}
+                    {item.dropdownType === 'mega' && activeDropdown === item.name && (
+                      <div className="absolute top-[72px] left-1/2 -translate-x-1/2 w-max pt-2 z-50">
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.2 }}
+                          className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden flex gap-8 p-8"
+                          style={{ minWidth: '1000px' }}
+                        >
+                          {megaMenuData.map((column, colIdx) => (
+                            <div key={colIdx} className="flex-1 flex flex-col gap-8">
+                              {column.map((section, secIdx) => (
+                                <div key={secIdx} className="flex flex-col relative">
+                                  {secIdx > 0 && (
+                                    <div className="absolute -top-4 left-0 w-full h-[1px] bg-gray-100" />
+                                  )}
+                                  <h3 className="text-[hsl(190,65%,35%)] font-semibold mb-3 text-base">
+                                    {section.title}
+                                  </h3>
+                                  <ul className="space-y-1">
+                                    {section.items.map((listItem, itemIdx) => (
+                                      <li key={itemIdx} className="text-sm">
+                                        {listItem.path ? (
+                                          <Link
+                                            to={listItem.path}
+                                            className="text-gray-600 hover:text-[hsl(190,65%,35%)] hover:bg-[#1F8093]/10 rounded-md px-2 py-1.5 -ml-2 transition-colors flex items-start"
+                                          >
+                                            <span className="mr-2 text-gray-400 mt-[2px] text-[10px]">○</span>
+                                            <span className="flex-1">{listItem.name}</span>
+                                          </Link>
+                                        ) : (
+                                          <div className="text-gray-600 px-2 py-1.5 -ml-2 flex items-start">
+                                            <span className="mr-2 text-gray-400 mt-[2px] text-[10px]">○</span>
+                                            <span className="flex-1">{listItem.name}</span>
+                                          </div>
+                                        )}
+
+                                        {listItem.subItems && (
+                                          <ul className="ml-4 mt-1 space-y-1 mb-2">
+                                            {listItem.subItems.map((subItem, subIdx) => (
+                                              <li key={subIdx}>
+                                                <Link
+                                                  to={subItem.path || '#'}
+                                                  className="text-gray-500 hover:text-[hsl(190,65%,35%)] hover:bg-[#1F8093]/10 rounded-md px-2 py-1.5 -ml-2 transition-colors flex items-start text-sm"
+                                                >
+                                                  <span className="mr-2 text-gray-400 mt-[2px] text-[10px]">○</span>
+                                                  <span className="flex-1">{subItem.name}</span>
+                                                </Link>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        )}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </motion.div>
+                      </div>
                     )}
-                  </Link>
+
+                    {/* Simple Dropdown for other links */}
+                    {item.dropdownType === 'simple' && activeDropdown === item.name && (
+                      <div className="absolute top-[72px] left-1/2 -translate-x-1/2 pt-2 z-50 w-[300px]">
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.2 }}
+                          className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden p-6 flex flex-col gap-4 relative"
+                        >
+                          <h4 className="font-semibold text-gray-900 text-lg">{item.name}</h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {item.description}
+                          </p>
+                          <Link
+                            to={item.path}
+                            onClick={() => setActiveDropdown(null)}
+                            className="inline-flex justify-center items-center px-4 py-2 mt-2 bg-[hsl(190,65%,35%)]/10 text-[hsl(190,65%,35%)] text-sm font-semibold rounded-md hover:bg-[hsl(190,65%,35%)] hover:text-white transition-colors"
+                          >
+                            {item.actionText}
+                          </Link>
+                        </motion.div>
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
 
@@ -93,7 +312,7 @@ const Navigation = () => {
               <Link
                 to="/contact"
                 id="nav-get-quote-btn"
-                className="px-5 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors duration-150 shadow-sm"
+                className="px-5 py-2.5 bg-[hsl(190,65%,35%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(190,65%,30%)] transition-colors duration-150 shadow-sm"
               >
                 Get a Quote
               </Link>
@@ -120,27 +339,78 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.18 }}
-              className="md:hidden border-t border-gray-100 bg-white"
+              className="md:hidden border-t border-gray-100 bg-white shadow-lg absolute w-full left-0"
             >
-              <div className="px-4 py-3 space-y-0.5">
+              <div className="px-4 py-3 space-y-0.5 max-h-[80vh] overflow-y-auto">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${isActive(item.path)
-                      ? 'text-[hsl(4,82%,42%)] bg-red-50'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                      }`}
-                  >
-                    {item.name}
-                  </Link>
+                  <div key={item.name}>
+                    <Link
+                      to={item.path}
+                      onClick={() => !item.hasDropdown && setIsOpen(false)}
+                      className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${isActive(item.path)
+                        ? 'text-[hsl(190,65%,35%)] bg-[#1F8093]/10'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        {item.name}
+                        {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                      </div>
+                    </Link>
+                    {item.dropdownType === 'mega' && (
+                      <div className="pl-6 pr-3 py-2 space-y-4 bg-gray-50 rounded-md mt-1 mb-2">
+                        {megaMenuData.map((column, colIdx) => (
+                          <div key={colIdx} className="space-y-4">
+                            {column.map((section, secIdx) => (
+                              <div key={secIdx}>
+                                <h4 className="text-[hsl(190,65%,35%)] font-semibold text-sm mb-2">{section.title}</h4>
+                                <ul className="space-y-2">
+                                  {section.items.map((listItem, itemIdx) => (
+                                    <li key={itemIdx} className="text-sm">
+                                      {listItem.path ? (
+                                        <Link
+                                          to={listItem.path}
+                                          onClick={() => setIsOpen(false)}
+                                          className="text-gray-600 hover:text-[hsl(190,65%,35%)] block py-1"
+                                        >
+                                          • {listItem.name}
+                                        </Link>
+                                      ) : (
+                                        <span className="text-gray-800 font-medium py-1 block">
+                                          • {listItem.name}
+                                        </span>
+                                      )}
+                                      {listItem.subItems && (
+                                        <ul className="pl-4 mt-2 space-y-2 border-l border-gray-200 ml-1">
+                                          {listItem.subItems.map((subItem, subIdx) => (
+                                            <li key={subIdx}>
+                                              <Link
+                                                to={subItem.path || '#'}
+                                                onClick={() => setIsOpen(false)}
+                                                className="text-gray-500 hover:text-[hsl(190,65%,35%)] block py-1 text-sm"
+                                              >
+                                                - {subItem.name}
+                                              </Link>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
-                <div className="pt-3 pb-1">
+                <div className="pt-3 pb-1 mt-4 border-t border-gray-100">
                   <Link
                     to="/contact"
                     onClick={() => setIsOpen(false)}
-                    className="block w-full text-center px-4 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md"
+                    className="block w-full text-center px-4 py-3 bg-[hsl(190,65%,35%)] text-white text-base font-semibold rounded-md shadow-sm"
                   >
                     Get a Quote
                   </Link>

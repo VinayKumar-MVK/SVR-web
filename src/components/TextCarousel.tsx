@@ -13,7 +13,7 @@ const TextCarousel = () => {
   const doubled = [...items, ...items];
 
   return (
-    <div className="bg-[hsl(4,82%,42%)] py-2.5 overflow-hidden">
+    <div className="bg-[hsl(190,65%,35%)] py-2.5 overflow-hidden">
       <motion.div
         className="flex whitespace-nowrap"
         animate={{ x: ['0%', '-50%'] }}

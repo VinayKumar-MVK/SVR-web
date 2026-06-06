@@ -15,7 +15,7 @@ const events = [
 ];
 
 const phaseColors: Record<string, string> = {
-  Origins:    'hsl(4,82%,42%)',
+  Origins:    'hsl(190, 65%, 35%)',
   Growth:     'hsl(218,60%,52%)',
   Leadership: 'hsl(38,85%,50%)',
 };
@@ -147,7 +147,7 @@ const SVRTimelineInnovation = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <p className="text-base font-bold uppercase tracking-[0.22em] text-[hsl(4,82%,42%)] mb-3">
+          <p className="text-base font-bold uppercase tracking-[0.22em] text-[hsl(190,65%,35%)] mb-3">
             Our Journey
           </p>
           <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 leading-tight">
@@ -202,7 +202,7 @@ const SVRTimelineInnovation = () => {
             { label: 'Major Milestones', value: String(events.length) },
           ].map((item) => (
             <div key={item.label} className="bg-white py-7 text-center">
-              <p className="text-2xl font-black text-[hsl(4,82%,42%)]">{item.value}</p>
+              <p className="text-2xl font-black text-[hsl(190,65%,35%)]">{item.value}</p>
               <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400 mt-1">{item.label}</p>
             </div>
           ))}

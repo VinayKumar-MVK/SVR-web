@@ -7,7 +7,7 @@
 /* ============================================================
    SVR Poultry – Design System
    Color palette extracted from SVR logo:
-     Primary  : Deep Crimson Red   hsl(4, 82%, 42%)
+     Primary  : Deep Crimson Red   hsl(190, 65%, 35%)
      Gold     : Warm Amber/Gold    hsl(38, 92%, 50%)
      Dark bg  : Charcoal navy      hsl(218, 28%, 10%)
    ============================================================ */
@@ -24,13 +24,13 @@
     --popover-foreground: 220 25% 10%;
 
     /* PRIMARY = SVR logo red */
-    --primary: 4 82% 42%;
+    --primary: 190 65% 35%;
     --primary-foreground: 0 0% 100%;
 
     /* GOLD accent from logo */
     --svr-gold: 38 92% 50%;
-    --svr-dark: 218 28% 10%;
-    --svr-dark-card: 218 25% 15%;
+    --svr-dark: 194 40% 9%;
+    --svr-dark-card: 194 30% 14%;
 
     --secondary: 210 15% 96%;
     --secondary-foreground: 220 25% 15%;
@@ -46,7 +46,7 @@
 
     --border: 214 20% 88%;
     --input: 214 20% 88%;
-    --ring: 4 82% 42%;
+    --ring: 190 65% 35%;
 
     --radius: 0.625rem;
 
@@ -61,25 +61,25 @@
   }
 
   .dark {
-    --background: 218 28% 10%;
+    --background: 194 40% 9%;
     --foreground: 0 0% 96%;
-    --card: 218 25% 14%;
+    --card: 194 30% 13%;
     --card-foreground: 0 0% 96%;
-    --popover: 218 25% 14%;
+    --popover: 194 30% 13%;
     --popover-foreground: 0 0% 96%;
-    --primary: 4 82% 50%;
+    --primary: 190 65% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 218 20% 20%;
+    --secondary: 194 25% 18%;
     --secondary-foreground: 0 0% 96%;
-    --muted: 218 20% 20%;
+    --muted: 194 25% 18%;
     --muted-foreground: 215 20% 65%;
     --accent: 38 92% 50%;
     --accent-foreground: 220 25% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 218 20% 22%;
-    --input: 218 20% 22%;
-    --ring: 4 82% 50%;
+    --border: 194 25% 20%;
+    --input: 194 25% 20%;
+    --ring: 190 65% 45%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -139,9 +139,9 @@
 .shimmer-text {
   background: linear-gradient(
     90deg,
-    hsl(4, 82%, 42%) 0%,
+    hsl(190, 65%, 35%) 0%,
     hsl(38, 92%, 55%) 40%,
-    hsl(4, 82%, 42%) 80%
+    hsl(190, 65%, 35%) 80%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -160,7 +160,7 @@
 
 /* SVR brand gradient */
 .svr-gradient {
-  background: linear-gradient(135deg, hsl(4, 82%, 42%) 0%, hsl(4, 70%, 30%) 100%);
+  background: linear-gradient(135deg, hsl(190, 65%, 35%) 0%, hsl(190, 65%, 25%) 100%);
 }
 
 .svr-gold-gradient {

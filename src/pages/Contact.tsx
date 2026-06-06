@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 //  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <section className="bg-[#1a1a2e] py-14">
+  <section className="bg-[#0B1B21] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
@@ -32,14 +32,14 @@ const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) =>
 const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
   <div>
     <label className="block text-base font-semibold text-gray-700 mb-1.5">
-      {label} {required && <span className="text-[hsl(4,82%,42%)]">*</span>}
+      {label} {required && <span className="text-[hsl(190,65%,35%)]">*</span>}
     </label>
     {children}
   </div>
 );
 
 const inputClass =
-  'w-full px-3.5 py-2.5 text-base text-gray-900 bg-white border border-gray-200 rounded-md outline-none transition-all duration-150 focus:border-[hsl(4,82%,42%)] focus:ring-2 focus:ring-[hsl(4,82%,42%)]/10 placeholder:text-gray-400';
+  'w-full px-3.5 py-2.5 text-base text-gray-900 bg-white border border-gray-200 rounded-md outline-none transition-all duration-150 focus:border-[hsl(190,65%,35%)] focus:ring-2 focus:ring-[hsl(190,65%,35%)]/10 placeholder:text-gray-400';
 
 //  Main 
 const Contact = () => {
@@ -146,13 +146,13 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
             {quickContact.map((item) => (
               <div key={item.label} className="flex items-center gap-4 py-5 px-4">
-                <div className="w-9 h-9 rounded-md bg-red-50 flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-4 h-4 text-[hsl(4,82%,42%)]" />
+                <div className="w-9 h-9 rounded-md bg-[#1F8093]/10 flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-4 h-4 text-[hsl(190,65%,35%)]" />
                 </div>
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-0.5">{item.label}</p>
                   {item.href ? (
-                    <a href={item.href} className="text-base font-medium text-gray-900 hover:text-[hsl(4,82%,42%)] transition-colors">
+                    <a href={item.href} className="text-base font-medium text-gray-900 hover:text-[hsl(190,65%,35%)] transition-colors">
                       {item.value}
                     </a>
                   ) : (
@@ -177,17 +177,17 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Enquiry Form</p>
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">Enquiry Form</p>
               <h2 className="text-2xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
 
               {submitted ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center border border-gray-100 rounded-lg bg-gray-50">
-                  <CheckCircle2 className="w-12 h-12 text-[hsl(4,82%,42%)] mb-4" />
+                  <CheckCircle2 className="w-12 h-12 text-[hsl(190,65%,35%)] mb-4" />
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Message Sent!</h3>
                   <p className="text-gray-500 text-base mb-6">We'll get back to you within 24 hours.</p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-[hsl(4,82%,42%)] text-base font-semibold hover:underline"
+                    className="text-[hsl(190,65%,35%)] text-base font-semibold hover:underline"
                   >
                     Send another message
                   </button>
@@ -263,7 +263,7 @@ const Contact = () => {
                     type="submit"
                     id="contact-submit-btn"
                     disabled={isSubmitting}
-                    className="w-full py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] disabled:opacity-60 text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-sm"
+                    className="w-full py-3 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] disabled:opacity-60 text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-sm"
                   >
                     {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
@@ -280,7 +280,7 @@ const Contact = () => {
               className="space-y-6"
             >
               <div>
-                <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">Head Office</p>
+                <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">Head Office</p>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Main Location</h2>
               </div>
 
@@ -307,13 +307,13 @@ const Contact = () => {
                   { icon: Clock,  title: 'Hours',   text: 'Monday – Saturday: 9:00 AM – 6:00 PM' },
                 ].map((d) => (
                   <div key={d.title} className="flex gap-3.5 p-4 border border-gray-100 rounded-lg">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-red-50 flex items-center justify-center mt-0.5">
-                      <d.icon className="w-4 h-4 text-[hsl(4,82%,42%)]" />
+                    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-[#1F8093]/10 flex items-center justify-center mt-0.5">
+                      <d.icon className="w-4 h-4 text-[hsl(190,65%,35%)]" />
                     </div>
                     <div>
                       <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400 mb-1">{d.title}</p>
                       {(d as any).href ? (
-                        <a href={(d as any).href} className="text-base text-gray-700 hover:text-[hsl(4,82%,42%)] transition-colors font-medium">
+                        <a href={(d as any).href} className="text-base text-gray-700 hover:text-[hsl(190,65%,35%)] transition-colors font-medium">
                           {d.text}
                         </a>
                       ) : (
@@ -334,7 +334,7 @@ const Contact = () => {
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-2">Our Offices</p>
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-2">Our Offices</p>
               <h2 className="text-2xl font-bold text-gray-900">Visit Our Locations</h2>
             </div>
             {/* Prev/Next */}
@@ -385,7 +385,7 @@ const Contact = () => {
                       {/* Content */}
                       <div className="p-5">
                         <div className="mb-3">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[hsl(4,82%,42%)] mb-0.5">{loc.subtitle}</p>
+                          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[hsl(190,65%,35%)] mb-0.5">{loc.subtitle}</p>
                           <h3 className="font-semibold text-gray-900 text-lg">{loc.title}</h3>
                         </div>
                         <div className="space-y-2 mb-4">
@@ -400,7 +400,7 @@ const Contact = () => {
                         </div>
                         <button
                           onClick={() => loc.mapUrl ? window.open(loc.mapUrl, '_blank') : setShowPopup(true)}
-                          className="inline-flex items-center gap-1.5 text-base font-semibold text-[hsl(4,82%,42%)] hover:gap-2 transition-all duration-150"
+                          className="inline-flex items-center gap-1.5 text-base font-semibold text-[hsl(190,65%,35%)] hover:gap-2 transition-all duration-150"
                         >
                           {loc.mapUrl ? (
                             <><ExternalLink className="w-3.5 h-3.5" /> View on Map</>
@@ -423,7 +423,7 @@ const Contact = () => {
                 key={i}
                 onClick={() => setCurrentSlide(i)}
                 className={`h-1.5 rounded-full transition-all duration-200 ${
-                  currentSlide === i ? 'w-6 bg-[hsl(4,82%,42%)]' : 'w-1.5 bg-gray-300 hover:bg-gray-400'
+                  currentSlide === i ? 'w-6 bg-[hsl(190,65%,35%)]' : 'w-1.5 bg-gray-300 hover:bg-gray-400'
                 }`}
               />
             ))}
@@ -450,7 +450,7 @@ const Contact = () => {
             </p>
             <button
               onClick={() => setShowPopup(false)}
-              className="px-6 py-2.5 bg-[hsl(4,82%,42%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(4,82%,36%)] transition-colors"
+              className="px-6 py-2.5 bg-[hsl(190,65%,35%)] text-white text-base font-semibold rounded-md hover:bg-[hsl(190,65%,30%)] transition-colors"
             >
               Close
             </button>

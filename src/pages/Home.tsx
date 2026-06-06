@@ -38,7 +38,7 @@ const Stat = ({ value, suffix, label, active, delay }: {
       transition={{ duration: 0.5, delay }}
       className="flex flex-col items-center text-center py-8 px-6 border-r border-gray-200 last:border-r-0"
     >
-      <span className="text-4xl font-black text-[hsl(4,82%,42%)] tabular-nums">
+      <span className="text-4xl font-black text-[hsl(190,65%,35%)] tabular-nums">
         {count}{suffix}
       </span>
       <span className="text-base uppercase tracking-[0.15em] text-gray-500 mt-2 font-medium">{label}</span>
@@ -48,7 +48,7 @@ const Stat = ({ value, suffix, label, active, delay }: {
 
 //  Section label 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">
     {children}
   </p>
 );
@@ -124,7 +124,7 @@ const Home = () => {
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-8 h-[2px] bg-[hsl(4,82%,42%)]" />
+              <div className="w-8 h-[2px] bg-[hsl(190,65%,35%)]" />
               <span className="text-white/80 text-base font-semibold uppercase tracking-[0.2em]">
                 Since 1984 · Hyderabad, India
               </span>
@@ -144,7 +144,7 @@ const Home = () => {
               <Link
                 to="/products"
                 id="hero-products-btn"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-lg"
               >
                 Browse Products
                 <ArrowRight className="w-4 h-4" />
@@ -220,7 +220,7 @@ const Home = () => {
               </p>
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 text-[hsl(4,82%,42%)] font-semibold text-base hover:gap-3 transition-all duration-200"
+                className="inline-flex items-center gap-2 text-[hsl(190,65%,35%)] font-semibold text-base hover:gap-3 transition-all duration-200"
               >
                 Learn Our Story
                 <ArrowRight className="w-4 h-4" />
@@ -250,7 +250,7 @@ const Home = () => {
                   className="flex gap-4 p-5 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200"
                 >
                   <div className="flex-shrink-0 mt-0.5">
-                    <CheckCircle className="w-5 h-5 text-[hsl(4,82%,42%)]" />
+                    <CheckCircle className="w-5 h-5 text-[hsl(190,65%,35%)]" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 text-lg mb-1">{item.title}</p>
@@ -298,7 +298,7 @@ const Home = () => {
               <ul className="space-y-3">
                 {marketPoints.map((pt, i) => (
                   <li key={i} className="flex items-start gap-3 text-base text-gray-700">
-                    <span className="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[hsl(4,82%,42%)]" />
+                    <span className="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[hsl(190,65%,35%)]" />
                     {pt}
                   </li>
                 ))}
@@ -306,7 +306,7 @@ const Home = () => {
               <div className="mt-8">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors duration-150"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] text-white font-semibold text-base rounded-md transition-colors duration-150"
                 >
                   Partner With Us
                   <ArrowRight className="w-4 h-4" />
@@ -375,7 +375,7 @@ const Home = () => {
       {/* 
           CTA BANNER
        */}
-      <section className="py-20 bg-[#1a1a2e]">
+      <section className="py-20 bg-[#0B1B21]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -397,7 +397,7 @@ const Home = () => {
               <Link
                 to="/contact"
                 id="cta-contact-btn"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] text-white font-semibold text-base rounded-md transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 Contact Our Team

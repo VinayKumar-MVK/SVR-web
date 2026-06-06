@@ -24,7 +24,7 @@ interface Product {
 
 //  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <section className="bg-[#1a1a2e] py-14">
+  <section className="bg-[#0B1B21] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
@@ -48,7 +48,7 @@ const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) =>
 const CategoryHeading = ({ id, label, count }: { id: string; label: string; count: number }) => (
   <div id={id} className="scroll-mt-24 flex items-end justify-between mb-8 pb-4 border-b border-gray-200">
     <div>
-      <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-1">
+      <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-1">
         Product Category
       </p>
       <h2 className="text-2xl font-bold text-gray-900">{label}</h2>
@@ -89,7 +89,7 @@ const ProductCard = ({
 
     {/* Content */}
     <div className="p-5">
-      <h3 className="font-semibold text-gray-900 text-lg mb-2 group-hover:text-[hsl(4,82%,42%)] transition-colors">
+      <h3 className="font-semibold text-gray-900 text-lg mb-2 group-hover:text-[hsl(190,65%,35%)] transition-colors">
         {product.title}
       </h3>
       <p className="text-gray-500 text-base leading-relaxed mb-4 line-clamp-2">
@@ -101,14 +101,14 @@ const ProductCard = ({
         <ul className="mb-4 space-y-1">
           {product.features.map((f, i) => (
             <li key={i} className="flex items-center gap-2 text-[12px] text-gray-500">
-              <span className="w-1 h-1 rounded-full bg-[hsl(4,82%,42%)] flex-shrink-0" />
+              <span className="w-1 h-1 rounded-full bg-[hsl(190,65%,35%)] flex-shrink-0" />
               {f}
             </li>
           ))}
         </ul>
       )}
 
-      <div className="flex items-center gap-1.5 text-[hsl(4,82%,42%)] text-base font-semibold group-hover:gap-2.5 transition-all duration-150">
+      <div className="flex items-center gap-1.5 text-[hsl(190,65%,35%)] text-base font-semibold group-hover:gap-2.5 transition-all duration-150">
         View Details
         <ArrowRight className="w-3.5 h-3.5" />
       </div>
@@ -264,19 +264,19 @@ const Products = () => {
               viewport={{ once: true }}
               className="p-10 lg:p-14 flex flex-col justify-center"
             >
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">
                 Featured Project
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                 50 Acre Poultry Farm<br />
-                <span className="text-[hsl(4,82%,42%)]">at Chinthpally</span>
+                <span className="text-[hsl(190,65%,35%)]">at Chinthpally</span>
               </h2>
               <p className="text-gray-500 text-base leading-relaxed mb-6">
                 A landmark project — entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
-              <div className="flex items-center gap-3 py-3 px-4 bg-red-50 rounded-lg w-fit">
-                <span className="text-[hsl(4,82%,42%)] font-bold text-lg">50</span>
+              <div className="flex items-center gap-3 py-3 px-4 bg-[#1F8093]/10 rounded-lg w-fit">
+                <span className="text-[hsl(190,65%,35%)] font-bold text-lg">50</span>
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-wider text-gray-900">Acres</p>
                   <p className="text-[11px] text-gray-500">Entirely executed by SVR</p>
@@ -314,19 +314,19 @@ const Products = () => {
               viewport={{ once: true }}
               className="p-10 lg:p-14 flex flex-col justify-center"
             >
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">
                 Featured Project
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                 50 Acre Poultry Farm<br />
-                <span className="text-[hsl(4,82%,42%)]">at Chinthpally</span>
+                <span className="text-[hsl(190,65%,35%)]">at Chinthpally</span>
               </h2>
               <p className="text-gray-500 text-base leading-relaxed mb-6">
                 A landmark project — entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
-              <div className="flex items-center gap-3 py-3 px-4 bg-red-50 rounded-lg w-fit">
-                <span className="text-[hsl(4,82%,42%)] font-bold text-lg">50</span>
+              <div className="flex items-center gap-3 py-3 px-4 bg-[#1F8093]/10 rounded-lg w-fit">
+                <span className="text-[hsl(190,65%,35%)] font-bold text-lg">50</span>
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-wider text-gray-900">Acres</p>
                   <p className="text-[11px] text-gray-500">Entirely executed by SVR</p>
@@ -367,7 +367,7 @@ const Products = () => {
                     window.scrollTo({ top: y, behavior: 'smooth' });
                   }
                 }}
-                className="flex-shrink-0 px-5 py-4 text-xl font-bold text-center text-gray-900 hover:text-gray-900 hover:bg-gray-50 border-b-2 border-transparent hover:border-[hsl(4,82%,42%)] transition-all duration-150"
+                className="flex-shrink-0 px-5 py-4 text-xl font-bold text-center text-gray-900 hover:text-gray-900 hover:bg-gray-50 border-b-2 border-transparent hover:border-[hsl(190,65%,35%)] transition-all duration-150"
               >
                 {tab.label}
               </button>

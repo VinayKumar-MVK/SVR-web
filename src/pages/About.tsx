@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(4,82%,42%)] mb-3">
+  <p className="text-base font-bold uppercase tracking-[0.2em] text-[hsl(190,65%,35%)] mb-3">
     {children}
   </p>
 );
 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <section className="bg-[#1a1a2e] py-14">
+  <section className="bg-[#0B1B21] py-14">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
@@ -137,8 +137,8 @@ const About = () => {
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="flex gap-5 p-6 border border-gray-100 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all duration-200"
                 >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-md bg-red-50 flex items-center justify-center">
-                    <p.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-md bg-[#1F8093]/10 flex items-center justify-center">
+                    <p.icon className="w-5 h-5 text-[hsl(190,65%,35%)]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-lg mb-2">{p.title}</h3>
@@ -163,8 +163,8 @@ const About = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <div className="w-12 h-12 rounded-lg bg-red-50 flex items-center justify-center mx-auto mb-4">
-                  <s.icon className="w-6 h-6 text-[hsl(4,82%,42%)]" />
+                <div className="w-12 h-12 rounded-lg bg-[#1F8093]/10 flex items-center justify-center mx-auto mb-4">
+                  <s.icon className="w-6 h-6 text-[hsl(190,65%,35%)]" />
                 </div>
                 <p className="text-3xl font-black text-gray-900 mb-1">{s.value}</p>
                 <p className="text-base uppercase tracking-[0.12em] text-gray-500 font-medium">{s.label}</p>
@@ -231,8 +231,8 @@ const About = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="bg-white p-7 rounded-lg border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
               >
-                <div className="w-10 h-10 rounded-md bg-red-50 flex items-center justify-center mb-5">
-                  <v.icon className="w-5 h-5 text-[hsl(4,82%,42%)]" />
+                <div className="w-10 h-10 rounded-md bg-[#1F8093]/10 flex items-center justify-center mb-5">
+                  <v.icon className="w-5 h-5 text-[hsl(190,65%,35%)]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 text-lg mb-3">{v.title}</h3>
                 <p className="text-gray-500 text-base leading-relaxed">{v.description}</p>
@@ -300,7 +300,7 @@ const About = () => {
 
 
       {/*  CTA  */}
-      <section className="py-20 bg-[#1a1a2e]">
+      <section className="py-20 bg-[#0B1B21]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <p className="text-[hsl(38,92%,60%)] text-base font-bold uppercase tracking-[0.2em] mb-4">Work With Us</p>
           <h2 className="text-3xl font-black text-white mb-5">Ready to Modernize Your Farm?</h2>
@@ -310,7 +310,7 @@ const About = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(4,82%,42%)] hover:bg-[hsl(4,82%,36%)] text-white font-semibold text-base rounded-md transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] text-white font-semibold text-base rounded-md transition-colors"
             >
               Get in Touch
             </Link>

@@ -66,7 +66,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 className="h-[2px] w-full bg-gray-200 rounded-full overflow-hidden"
               >
                 <motion.div 
-                  className="h-full bg-[hsl(4,82%,42%)] rounded-full"
+                  className="h-full bg-[hsl(190,65%,35%)] rounded-full"
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
                   transition={{ ease: "linear", duration: 0.1 }}
