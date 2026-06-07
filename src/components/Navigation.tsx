@@ -182,7 +182,7 @@ const Navigation = () => {
                 {navItems.map((item) => (
                   <div
                     key={item.name}
-                    className="relative flex items-center h-full"
+                    className={`${item.dropdownType === 'mega' ? '' : 'relative '}flex items-center h-full`}
                     onMouseEnter={item.hasDropdown ? () => handleMouseEnter(item.name) : undefined}
                     onMouseLeave={item.hasDropdown ? handleMouseLeave : undefined}
                   >
@@ -214,8 +214,8 @@ const Navigation = () => {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden flex gap-8 p-8"
-                          style={{ minWidth: '1000px' }}
+                          className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-x-auto flex gap-6 lg:gap-8 p-6 lg:p-8 max-w-[95vw] custom-scrollbar"
+                          style={{ width: 'max-content', minWidth: 'min(1000px, 95vw)' }}
                         >
                           {megaMenuData.map((column, colIdx) => (
                             <div key={colIdx} className="flex-1 flex flex-col gap-8">
