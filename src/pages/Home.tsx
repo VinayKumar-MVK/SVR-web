@@ -1,4 +1,4 @@
-﻿import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ArrowRight, CheckCircle, Phone, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TextCarousel from '@/components/TextCarousel';
@@ -115,7 +115,7 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pb-20">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-8 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ const Home = () => {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-8 h-[2px] bg-[hsl(190,65%,35%)]" />
               <span className="text-white/80 text-base font-semibold uppercase tracking-[0.2em]">
-                Since 1984 · Hyderabad, India
+                Since 1984 � Hyderabad, India
               </span>
             </div>
 
@@ -136,7 +136,7 @@ const Home = () => {
             </h1>
 
             <p className="text-white/75 text-base sm:text-lg leading-relaxed mb-9 max-w-lg">
-              India's most trusted poultry equipment manufacturer — Delivering Cage systems, Automated
+              India's most trusted poultry equipment manufacturer � Delivering Cage systems, Automated
               feeding and Feed plants to farms across 20+ countries.
             </p>
 
@@ -180,7 +180,7 @@ const Home = () => {
           STATS STRIP
        */}
       <section ref={statsRef} className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-200">
             {stats.map((s) => (
               <Stat key={s.label} {...s} active={statsInView} />
@@ -193,7 +193,7 @@ const Home = () => {
           ABOUT STRIP
        */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Text */}
             <motion.div
@@ -209,7 +209,7 @@ const Home = () => {
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6 text-lg">
                 Established in 1984 as Sri Venkata Ramana Engineering Works, SVR has grown
-                into India's leading manufacturer of fully automated poultry equipment —
+                into India's leading manufacturer of fully automated poultry equipment �
                 from cage systems and feeders to complete feed milling plants up to
                 200 tons/day capacity.
               </p>
@@ -267,7 +267,7 @@ const Home = () => {
           MARKET PRESENCE
        */}
       <section ref={marketRef} className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
             {/* Video map */}
@@ -333,7 +333,7 @@ const Home = () => {
           CLIENTS
        */}
       <section ref={clientRef} className="py-20 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={clientInView ? { opacity: 1, y: 0 } : {}}
@@ -376,7 +376,7 @@ const Home = () => {
           CTA BANNER
        */}
       <section className="py-20 bg-[#0B1B21]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

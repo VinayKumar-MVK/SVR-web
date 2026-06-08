@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Youtube } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
@@ -25,7 +25,7 @@ interface Product {
 //  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#0B1B21] py-14">
-    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
@@ -255,7 +255,7 @@ const Products = () => {
 
       {/*  Project Showcase  */}
       <section className="py-14 bg-gray-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="rounded-xl overflow-hidden border border-gray-200 bg-white grid grid-cols-1 lg:grid-cols-2 shadow-sm">
             {/* Text */}
             <motion.div
@@ -272,7 +272,7 @@ const Products = () => {
                 <span className="text-[hsl(190,65%,35%)]">at Chinthpally</span>
               </h2>
               <p className="text-gray-500 text-base leading-relaxed mb-6">
-                A landmark project — entirely designed, supplied, and installed by
+                A landmark project � entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
               <div className="flex items-center gap-3 py-3 px-4 bg-[#1F8093]/10 rounded-lg w-fit">
@@ -305,7 +305,7 @@ const Products = () => {
 
     
      <section className="py-14 bg-gray-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="rounded-xl overflow-hidden border border-gray-200 bg-white grid grid-cols-1 lg:grid-cols-2 shadow-sm">
             {/* Text */}
             <motion.div
@@ -322,7 +322,7 @@ const Products = () => {
                 <span className="text-[hsl(190,65%,35%)]">at Chinthpally</span>
               </h2>
               <p className="text-gray-500 text-base leading-relaxed mb-6">
-                A landmark project — entirely designed, supplied, and installed by
+                A landmark project � entirely designed, supplied, and installed by
                 SVR Poultry Equipments. A testament to our full turnkey capability.
               </p>
               <div className="flex items-center gap-3 py-3 px-4 bg-[#1F8093]/10 rounded-lg w-fit">
@@ -355,7 +355,7 @@ const Products = () => {
 
       {/*  Quick-nav tabs  */}
       <section className="sticky top-[72px] z-40 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="flex gap-0 overflow-x-auto">
             {tabs.map((tab) => (
               <button
@@ -378,7 +378,7 @@ const Products = () => {
 
       {/*  Product Categories  */}
       <section className="py-14">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-20">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8 space-y-20">
 
           {/* Cages */}
           <div>
@@ -425,7 +425,7 @@ const Products = () => {
 
       {/*  Clients strip  */}
       <section className="py-16 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <p className="text-center text-base font-bold uppercase tracking-[0.2em] text-gray-400 mb-10">
             Trusted by Industry Leaders
           </p>
