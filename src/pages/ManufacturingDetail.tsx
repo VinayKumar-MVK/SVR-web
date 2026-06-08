@@ -115,7 +115,7 @@ const ManufacturingDetail = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
       {/* Back Button */}
       <div className="pt-6 pb-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <Button
             onClick={() => navigate('/products')}
             variant="outline"
@@ -129,7 +129,7 @@ const ManufacturingDetail = () => {
 
       {/* Hero Section with Two Column Layout */}
       <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Left Column - Title and Description */}
             <motion.div
@@ -231,7 +231,7 @@ const ManufacturingDetail = () => {
 
       {/* Key Features & Advantages */}
       <section className="py-16 bg-gradient-to-br from-primary/5 to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Key Features */}
             <motion.div

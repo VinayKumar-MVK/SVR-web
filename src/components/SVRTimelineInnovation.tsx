@@ -1,17 +1,17 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
 //  Timeline data 
 const events = [
   { year: 1984, title: 'Founded', subtitle: 'Sri Venkata Ramana Engineering Works', description: 'Started as a general engineering firm in Hyderabad, building the foundational expertise that would define four decades of excellence.', phase: 'Origins' },
-  { year: 1990, title: 'First Steps in Poultry', subtitle: 'Entering the Industry', description: 'Manufactured our first poultry-specific equipment — small-scale feeders and drinkers — marking a decisive pivot into agri-equipment.', phase: 'Origins' },
+  { year: 1990, title: 'First Steps in Poultry', subtitle: 'Entering the Industry', description: 'Manufactured our first poultry-specific equipment � small-scale feeders and drinkers � marking a decisive pivot into agri-equipment.', phase: 'Origins' },
   { year: 1995, title: 'Manufacturing Scale-Up', subtitle: 'Expanded Capabilities', description: 'Introduced semi-automated feeding systems and significantly expanded fabrication capacity to meet growing demand.', phase: 'Origins' },
-  { year: 2000, title: 'SVR Poultry Emerged', subtitle: 'New Identity, New Focus', description: 'Incorporated as SVR Poultry Equipment Manufacturing — a dedicated brand focused entirely on poultry automation solutions.', phase: 'Growth' },
+  { year: 2000, title: 'SVR Poultry Emerged', subtitle: 'New Identity, New Focus', description: 'Incorporated as SVR Poultry Equipment Manufacturing � a dedicated brand focused entirely on poultry automation solutions.', phase: 'Growth' },
   { year: 2005, title: 'Full Automation', subtitle: 'Industry Transformation', description: 'Launched fully automated feeding and watering systems that transformed how poultry farms across India operate.', phase: 'Growth' },
   { year: 2010, title: 'Auger Systems', subtitle: 'Innovation in Feed Tech', description: 'Pioneered auger-based feeding systems for broiler and layer farms, setting new efficiency benchmarks for the industry.', phase: 'Growth' },
   { year: 2015, title: 'Official Incorporation', subtitle: 'January 24th', description: 'SVR Poultry Equipments officially incorporated, establishing a formal corporate structure to support rapid expansion.', phase: 'Leadership' },
   { year: 2020, title: 'Full Product Portfolio', subtitle: 'End-to-End Solutions', description: 'Completed our product ecosystem: Auto Feeders, Auger Systems, Bulk Feeders, Silos, and complete Feed Mill Plants.', phase: 'Leadership' },
-  { year: 2025, title: 'Pan-India & Global', subtitle: '500+ Clients, 20+ Countries', description: 'Serving 500+ clients across India and exporting to Africa, the Middle East, and South Asia — a true global manufacturer.', phase: 'Leadership' },
+  { year: 2025, title: 'Pan-India & Global', subtitle: '500+ Clients, 20+ Countries', description: 'Serving 500+ clients across India and exporting to Africa, the Middle East, and South Asia � a true global manufacturer.', phase: 'Leadership' },
 ];
 
 const phaseColors: Record<string, string> = {
@@ -137,9 +137,9 @@ const SVRTimelineInnovation = () => {
 
   return (
     <section className="py-10 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
         
-        {/* ── Section header ── */}
+        {/* -- Section header -- */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -154,11 +154,11 @@ const SVRTimelineInnovation = () => {
             Four Decades of<br className="hidden sm:block" /> Engineering Excellence
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
-            From a small engineering workshop in 1984 to a global poultry equipment manufacturer — this is our story.
+            From a small engineering workshop in 1984 to a global poultry equipment manufacturer � this is our story.
           </p>
         </motion.div>
 
-        {/* ── Horizontal Timeline ── */}
+        {/* -- Horizontal Timeline -- */}
         <div className="relative w-full mt-10">
           {/* Scrollable Container */}
           <div 
@@ -188,7 +188,7 @@ const SVRTimelineInnovation = () => {
           </div>
         </div>
 
-        {/* ── Bottom milestone strip ── */}
+        {/* -- Bottom milestone strip -- */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

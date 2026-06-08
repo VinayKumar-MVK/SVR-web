@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 //  Shared Page Banner 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#0B1B21] py-14">
-    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
@@ -128,7 +128,7 @@ const Contact = () => {
   const quickContact = [
     { icon: Phone, label: 'Call Us', value: '+91 88866 45122', href: 'tel:+918886645122' },
     { icon: Mail,  label: 'Email Us', value: 'svrpoultryequipments@gmail.com', href: 'mailto:svrpoultryequipments@gmail.com' },
-    { icon: Clock, label: 'Business Hours', value: 'Mon – Sat: 9 AM – 6 PM', href: null },
+    { icon: Clock, label: 'Business Hours', value: 'Mon � Sat: 9 AM � 6 PM', href: null },
   ];
 
   return (
@@ -142,7 +142,7 @@ const Contact = () => {
 
       {/*  Quick contact strip  */}
       <section className="bg-gray-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
             {quickContact.map((item) => (
               <div key={item.label} className="flex items-center gap-4 py-5 px-4">
@@ -167,10 +167,10 @@ const Contact = () => {
 
       {/*  Form + Map row  */}
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-            {/* ── Contact Form ── */}
+            {/* -- Contact Form -- */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -265,13 +265,13 @@ const Contact = () => {
                     disabled={isSubmitting}
                     className="w-full py-3 bg-[hsl(190,65%,35%)] hover:bg-[hsl(190,65%,30%)] disabled:opacity-60 text-white font-semibold text-base rounded-md transition-colors duration-150 shadow-sm"
                   >
-                    {isSubmitting ? 'Sending…' : 'Send Message'}
+                    {isSubmitting ? 'Sending�' : 'Send Message'}
                   </button>
                 </form>
               )}
             </motion.div>
 
-            {/* ── Info panel ── */}
+            {/* -- Info panel -- */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -304,7 +304,7 @@ const Contact = () => {
                   { icon: MapPin, title: 'Address', text: 'Turkayamjal Municipality, Hyderabad, Telangana 501510, India' },
                   { icon: Phone,  title: 'Phone',   text: '+91 88866 45122', href: 'tel:+918886645122' },
                   { icon: Mail,   title: 'Email',   text: 'svrpoultryequipments@gmail.com', href: 'mailto:svrpoultryequipments@gmail.com' },
-                  { icon: Clock,  title: 'Hours',   text: 'Monday – Saturday: 9:00 AM – 6:00 PM' },
+                  { icon: Clock,  title: 'Hours',   text: 'Monday � Saturday: 9:00 AM � 6:00 PM' },
                 ].map((d) => (
                   <div key={d.title} className="flex gap-3.5 p-4 border border-gray-100 rounded-lg">
                     <div className="flex-shrink-0 w-8 h-8 rounded-md bg-[#1F8093]/10 flex items-center justify-center mt-0.5">
@@ -330,7 +330,7 @@ const Contact = () => {
 
       {/*  Locations Section  */}
       <section className="py-16 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           {/* Header */}
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -442,7 +442,7 @@ const Contact = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-4">
-              <span className="text-xl">🚧</span>
+              <span className="text-xl">??</span>
             </div>
             <h3 className="font-bold text-gray-900 text-lg mb-2">Coming Soon</h3>
             <p className="text-gray-500 text-base mb-6 leading-relaxed">

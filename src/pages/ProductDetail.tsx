@@ -518,7 +518,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-primary/5">
       {/* Back Button */}
       <div className="pt-6 pb-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <Button
             onClick={() => navigate('/products')}
             variant="outline"
@@ -532,7 +532,7 @@ const ProductDetail = () => {
 
       {/* Hero Section */}
       <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -620,7 +620,7 @@ const ProductDetail = () => {
 
       {/* Video and Product Description Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Video Section */}
             <motion.div
@@ -690,7 +690,7 @@ const ProductDetail = () => {
 
       {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -730,7 +730,7 @@ const ProductDetail = () => {
 
       {/* Usage, Applications, and Specifications */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Usage */}
             <motion.div

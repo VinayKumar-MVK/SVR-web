@@ -1,4 +1,4 @@
-﻿import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Award, Users, Package, Headphones, Building, Target, Heart, Lightbulb, Sprout, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
@@ -11,7 +11,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 
 const PageBanner = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <section className="bg-[#0B1B21] py-14">
-    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
       <div className="flex items-center gap-2 text-white/40 text-base mb-4">
         <Link to="/" className="hover:text-white/70 transition-colors">Home</Link>
         <span>/</span>
@@ -46,7 +46,7 @@ const About = () => {
   const values = [
     { icon: Award,     title: 'Quality First',    description: 'We never compromise on the quality of our products and services.' },
     { icon: Lightbulb, title: 'Innovation',        description: 'Constantly evolving with the latest technology and farming practices.' },
-    { icon: Heart,     title: 'Customer Focus',    description: 'Your success is our success — customers are at the heart of everything.' },
+    { icon: Heart,     title: 'Customer Focus',    description: 'Your success is our success � customers are at the heart of everything.' },
     { icon: Sprout,    title: 'Sustainability',    description: 'Committed to environmentally responsible farming solutions.' },
   ];
 
@@ -88,7 +88,7 @@ const About = () => {
 
       {/*  Company Story  */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -114,7 +114,7 @@ const About = () => {
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
                 With 150+ direct and indirect employees, we have extensive product range
-                aligned with the latest technology — from Auto Feeding Machines and Auger
+                aligned with the latest technology � from Auto Feeding Machines and Auger
                 Systems to Feed Storage Bins, Silos, Auto Batching and complete Feed Plants.
                 We serve clients all over India and export to Angola, Ghana, Oman, and beyond.
               </p>
@@ -153,7 +153,7 @@ const About = () => {
 
       {/*  Stats Row  */}
       <section ref={statsRef} className="py-16 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (
               <motion.div
@@ -176,7 +176,7 @@ const About = () => {
 
       {/*  Premium Equipment  */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="mb-12">
             <SectionLabel>Our Facility</SectionLabel>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Premium Manufacturing Equipment</h2>
@@ -215,7 +215,7 @@ const About = () => {
 
       {/*  Core Values  */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <SectionLabel>What Drives Us</SectionLabel>
             <h2 className="text-3xl font-bold text-gray-900">Our Core Values</h2>
@@ -244,7 +244,7 @@ const About = () => {
 
       {/*  Leadership  */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <SectionLabel>Leadership</SectionLabel>
             <h2 className="text-3xl font-bold text-gray-900">Meet Our Founders</h2>
@@ -272,7 +272,7 @@ const About = () => {
 
  {/*  Leadership  */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <SectionLabel>Leadership</SectionLabel>
             <h2 className="text-3xl font-bold text-gray-900">Meet Our Next Generation</h2>
@@ -301,7 +301,7 @@ const About = () => {
 
       {/*  CTA  */}
       <section className="py-20 bg-[#0B1B21]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8 text-center">
           <p className="text-[hsl(38,92%,60%)] text-base font-bold uppercase tracking-[0.2em] mb-4">Work With Us</p>
           <h2 className="text-3xl font-black text-white mb-5">Ready to Modernize Your Farm?</h2>
           <p className="text-white/60 text-lg max-w-lg mx-auto mb-9">

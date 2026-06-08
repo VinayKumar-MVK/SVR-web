@@ -78,7 +78,7 @@ const YouTubeShowcase = () => {
 
   return (
     <section className="py-20 bg-white border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         {/* Header */}
         <motion.div

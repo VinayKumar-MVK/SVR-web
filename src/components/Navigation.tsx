@@ -142,7 +142,7 @@ const Navigation = () => {
     <>
       {/* Top info bar */}
       <div className="hidden md:block bg-[#0B1B21] text-white/70 text-base py-2">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8 flex justify-between items-center">
           <span>📍 Turkayamjal, Hyderabad, Telangana 501510</span>
           <div className="flex items-center gap-6">
             <span>📞 +91 88866 45122</span>
@@ -156,7 +156,7 @@ const Navigation = () => {
         className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${scrolled ? 'shadow-md border-b border-gray-200' : 'border-b border-gray-200'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-[72px]">
             {/* Logo + wordmark */}
             <Link to="/" className="flex items-end gap-3 flex-shrink-0 pb-1.5">
